@@ -4,3 +4,7 @@ v 0.0.1 2/12/2024
     in specific as they're difficult to implement, will probably come back to it once i've got more experience
 
     want to actually implement threading
+v 0.0.2 2/13/2024
+    started fleshing out mouseFunctions.py created 4 functions: 
+    moveMouse, moveMouseToArea, addVariance, durationVariance
+    these still require testing
