@@ -13,7 +13,6 @@ def moveMouseToArea(x:int, y:int, duration=1, addAreaVariance = False, areaVaria
 
     moveMouse(xVaried, yVaried, duration)
 
-
 def moveMouse(x:int, y:int, duration=1):
       
     tweeningList = [
@@ -50,6 +49,7 @@ def addVariance(x:int, y:int, varianceAmount:int):
     return xVaried, yVaried
 
 def durationVariance(x, y, duration):
+
      
     currentX, currentY = pyautogui.position()
 
@@ -84,3 +84,21 @@ def durationVariance(x, y, duration):
          return 0.05
     else:
         return calcedDuration
+    
+def findImageSimple(imageTofind:str, desiredConfidence = .999):
+    
+    # example call findImageSimple('img/test.png', .9)
+
+    ss = pyautogui.screenshot(region=(0,0, 892, 892))
+
+    imageLocation = pyautogui.locateOnScreen(imageTofind, region=(0,0, 892,892), confidence=desiredConfidence)
+    #imageLocationCenter = pyautogui.center(imageLocation)
+    x , y = pyautogui.center(imageLocation)
+    # x, y = imageLocationCenter
+
+    print("FROM MOUSE FUNCTIONS, found center of image:",x, y)
+
+    return x , y
+
+# def readTextFromImage():
+     
