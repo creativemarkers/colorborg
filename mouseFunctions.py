@@ -1,6 +1,6 @@
 import pyautogui
 import cv2
-# from time import sleep
+import time
 import random
 
 from pyautogui import ImageNotFoundException
@@ -14,11 +14,18 @@ class Mouse:
         pyautogui.FAILSAFE = True
 
     #def moveMouseToArea(x:int, y:int, duration=1, addAreaVariance = False, areaVariance:int = 0):
-    def moveMouseToArea(self, x:int, y:int, duration=1, areaVariance:int = 0):
+    def moveMouseToArea(self, x:int, y:int, duration=1, areaVariance:int = 0, click:bool=False):
+        xVaried = x
 
-        xVaried, yVaried = self.addVariance(x, y, areaVariance)
+        yVaried =  y
+
+        if areaVariance > 0:
+            xVaried, yVaried = self.addVariance(x, y, areaVariance)
 
         self.moveMouse(xVaried, yVaried, duration)
+
+        if click == True:
+            self.mouseClick(xVaried,yVaried)               
 
     def moveMouse(self, x:int, y:int, duration=1):
         
@@ -60,25 +67,6 @@ class Mouse:
         
         currentX, currentY = pyautogui.position()
 
-        # if x >= currentX and y >= currentY:
-        #     distanceX = x - currentX
-        #     distanceY = y - currentY
-        #     totalDistance = (distanceX + distanceY) / 2
-        # elif x <= currentX and y <= currentY:
-        #     distanceX = currentX - x
-        #     distanceY = currentY - y
-        #     totalDistance = (distanceX + distanceY) / 2
-        # elif x >= currentX and y <= currentY:
-        #     distanceX = x - currentX
-        #     distanceY = currentY - y
-        #     totalDistance = (distanceX + distanceY) / 2
-        # elif x <= currentX and y >= currentY:
-        #     distanceX = currentX - x
-        #     distanceY = y - currentY
-        #     totalDistance = (distanceX + distanceY) / 2
-
-        #can just use the abs() function
-
         distanceX = abs(x - currentX)
         distanceY = abs(y - currentY)
 
@@ -110,5 +98,8 @@ class Mouse:
         except ImageNotFoundException:
             return False, print("MOUSEFUNCTIONS:FINDIMAGESIMPLE: Image not Found")
 
-    # def readTextFromImage():
-     
+    def mouseClick(self, x:int, y:int, but:str = 'left'):
+        dur = random.uniform(0.01,0.1)
+        pyautogui.click(x,y,duration=dur,button=but)
+        clep = random.uniform(0.1,0.4)
+        time.sleep(clep)

@@ -18,7 +18,7 @@ def main():
     # # pyautogui.FAILSAFE = True
     game.getGame("Runelite", 900,900)
 
-    # #calls gui obj to get input for what scripts to run
+    #calls gui obj to get input for what scripts to run
     # gui.getDesiredScript()
 
     # #calls script getter

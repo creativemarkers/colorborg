@@ -6,6 +6,7 @@ from mouseFunctions import Mouse
 class Inventory:
 
     inventory = [0] * 28
+    inventEmptyColors = [(62,53,41) for _ in range(28)]
     mouse = None
     inventFull = None
 
@@ -13,7 +14,7 @@ class Inventory:
         self.mouse = Mouse()
 
     def isInventOpen(self):
-        print("INVENTFUNCTIONS: ISINVENTOPEN: checking if invent is open")
+        print("INVENTFUNCTIONS: ISINVENTOPEN: checking if invent is open:", pyautogui.pixelMatchesColor(765, 825, (113,38,29)))
         return pyautogui.pixelMatchesColor(765, 825, (113,38,29))
 
     def openInvent(self): 
@@ -27,8 +28,8 @@ class Inventory:
     def checkItemInInventSlot(self, x,y,color:tuple):
         return pyautogui.pixelMatchesColor(x,y,color) 
 
-    def checkInventorySlotForSpecificItem(self,originX:int,originY:int,color:tuple):
-        #STILL NEEDS TESTING!!
+    def checkInventorySlotForSpecificItem(self,originX:int,originY:int,color:tuple,):
+        #NOT USED AT THE MOMEMNT
 
         #need to get coordinates of first items color and pixel
         x = originX
@@ -40,37 +41,113 @@ class Inventory:
         for i in range(len(self.inventory)):
 
             if self.checkItemInInventSlot(x,y,color) == True:
-                print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: pixel color matched, setting invent slot to 1")
+                #print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: pixel color matched, setting invent slot to 1")
                 self.inventory[i] = 1
             else:
-                print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: pixel color did not match, setting invent slot to 0")
+                #print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: pixel color did not match, setting invent slot to 0")
                 self.inventory[i] = 0
 
             counter += 1
             x += 42
 
             if counter >= 4:
-                print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: counter hit 4, resetting counter, x, and increasing y")
+                #print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: counter hit 4, resetting counter, x, and increasing y")
                 counter = 0
                 #sets y for next row
                 y += 36
                 #sets x back to first column
                 x = originX
 
-        
+        print(sum(self.inventory))
 
-    def isInventFull(self,x:int,y:int,color:tuple,slotsToFull:int):
+    def isInventFull(self, slotsToFull:int,x:int=0,y:int=0,color:tuple=(0,0,0)):
 
         while self.isInventOpen() == False:
             print("INVENTFUNCTIONS:INVENTFULLSTATUS: opening invent")
             self.openInvent()
 
-        self.checkInventorySlotForSpecificItem(x,y,color)
+        self.checkIfInventSlotsEmpty()
 
         if sum(self.inventory) >= slotsToFull:
             self.inventFull = True
         else:
             self.inventFull = False
+
+    def powerDropInventory(self, doNotDrop:int=0):
+        #doNotDrop is the number of slots to not drop starting from the first
+        originX = 726
+        x = 726
+        y = 575
+        shiftPressed = False
+        counter = 0
+
+        for i in range(len(self.inventory)):
+
+            if i >= doNotDrop:
+                if shiftPressed != True:
+                    pyautogui.keyDown('shift')
+                    shiftPressed = True
+                dur = random.uniform(0.1, 0.3)
+                self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10,click=True)
+
+            counter += 1
+            x += 42
+
+            if counter >= 4:
+                #print("INVENTFUNCTIONS:POWERDROPINVENTORY: counter hit 4, resetting counter, x, and increasing y")
+                counter = 0
+                #sets y for next row
+                y += 36
+                #sets x back to first column
+                x = originX
+
+        pyautogui.keyUp('shift')
+        shiftPressed=True
+
+    def checkIfInventSlotsEmpty(self):
+
+        originX = 726
+        originY = 575
+        x = originX
+        y = originY
+        counter = 0
+
+        for i in range(28):
+            if pyautogui.pixel(x,y) == (62,53,41):
+                #print("Invent slot %s is empty" %i)
+                self.inventory[i] = 0
+            else:
+                #print("Invent slot %s is not empty" %i)
+                self.inventory[i] = 1
+
+            counter += 1
+            x += 42
+
+            if counter >= 4:
+                #print("INVENTFUNCTION:CHECKIFINVENTSLOTSEMPTY: counter hit 4, resetting counter, x, and increasing y")
+                counter = 0
+                #sets y for next row
+                y += 36
+                #sets x back to first column
+                x = originX
+        print(sum(self.inventory))
+
+
+
+        
+
+            
+
+                
+
+
+
+
+
+
+
+
+        
 
         
 
