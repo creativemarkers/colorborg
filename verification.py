@@ -30,16 +30,20 @@ class Verifyer:
             print(cWords)
             print(vWords)
             
-            if len(cWords) < len(vWords):
+            # if len(cWords) < len(vWords):
+            #     return False
+            try:
+                for i in range(len(vWords)):
+
+                    if i <=  len(cWords) and cWords[i] == vWords[i]:
+                        print("A word matched")
+                        return True
+            except IndexError:
+                print("VERIFICATION:VERIFYTEXT: Index Error, returning False")
                 return False
-
-            for i in range(len(vWords)):
-
-                if cWords[i] == vWords[i]:
-                    print("a word matched")
-                    matches += 1
         
-            if matches >= (len(vWords)/2):
-                return True
+            # if matches >= 1:
+            #     print("Words matched:", matches)
+            #     return True
             
             return False

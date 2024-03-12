@@ -85,9 +85,9 @@ class Mouse:
         try:
             # example call findImageSimple('img/test.png', .9)
 
-            ss = pyautogui.screenshot(region=(0,0, 892, 892))
+            #ss = pyautogui.screenshot(region=(0,0, 892, 892))
 
-            imageLocation = pyautogui.locateOnScreen(imageTofind, region=(0,0, 892,892), confidence=desiredConfidence)
+            imageLocation = pyautogui.locateOnScreen(imageTofind, region=(0,0, 687,725), confidence=desiredConfidence)
             #imageLocationCenter = pyautogui.center(imageLocation)
             x , y = pyautogui.center(imageLocation)
             # x, y = imageLocationCenter
@@ -96,10 +96,10 @@ class Mouse:
 
             return x , y
         except ImageNotFoundException:
-            return False, print("MOUSEFUNCTIONS:FINDIMAGESIMPLE: Image not Found")
+            raise ImageNotFoundException
 
     def mouseClick(self, x:int, y:int, but:str = 'left'):
         dur = random.uniform(0.01,0.1)
         pyautogui.click(x,y,duration=dur,button=but)
-        clep = random.uniform(0.1,0.4)
+        clep = random.uniform(0.05,0.1)
         time.sleep(clep)

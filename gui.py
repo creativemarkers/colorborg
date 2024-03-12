@@ -1,3 +1,5 @@
+import time
+
 from tkinter import *
 from tkinter import ttk
 
@@ -5,8 +7,14 @@ from tkinter import ttk
 class Gui:
 
     scriptSelected = None
+    startTime = None
+    elapsedTime = None
+    labelTime = None
+    botName = None
+    root = None
 
     def __init__(self):
+        self.startTime = time.time()
         pass
 
     def getDesiredScript(self, scripts:list = [None,"Fisher", "WoodCutter", "Miner"]):
@@ -43,6 +51,21 @@ class Gui:
 
         root.mainloop()
 
+    def displayBotInfo(self,botName:str):
+
+        def updateTime():
+            self.elapsedTime = round(time.time() - self.startTime)    
+            self.labelTime.config(text=f"Script has been running for: {self.elapsedTime} seconds")
+            self.root.after(1000, updateTime)
+
+        self.root = Tk()
+        self.root.title(botName)
+        #sets the location of the gui
+        self.root.geometry("+890+10")
+        self.labelTime = ttk.Label(self.root,text="Script has been running for: 0 seconds")
+        self.labelTime.pack()
+        updateTime()
+        #root.mainloop()
 
 
 

@@ -1,6 +1,8 @@
 
 import subprocess
 import logging
+import sys
+from pyautogui import FailSafeException
 from gui import Gui
 from basicfunctions import Window
 from fisher import Fisher
@@ -16,15 +18,19 @@ logging.basicConfig(filename='errors.log', level=logging.DEBUG, format='%(asctim
 
 def main():
     # # pyautogui.FAILSAFE = True
-    game.getGame("Runelite", 900,900)
+    try:
+        game.getGame("Runelite", 900,900)
 
-    #calls gui obj to get input for what scripts to run
-    # gui.getDesiredScript()
+        #calls gui obj to get input for what scripts to run
+        # gui.getDesiredScript()
 
-    # #calls script getter
-    # scriptGetter(gui.scriptSelected)
+        # #calls script getter
+        # scriptGetter(gui.scriptSelected)
 
-    fisher = Fisher()
+        fisher = Fisher()
+    except FailSafeException:
+        sys.exit()
+
 
 
 

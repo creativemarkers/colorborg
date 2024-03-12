@@ -70,8 +70,10 @@ class Inventory:
 
         if sum(self.inventory) >= slotsToFull:
             self.inventFull = True
+            return True
         else:
             self.inventFull = False
+            return False
 
     def powerDropInventory(self, doNotDrop:int=0):
         #doNotDrop is the number of slots to not drop starting from the first
@@ -87,7 +89,7 @@ class Inventory:
                 if shiftPressed != True:
                     pyautogui.keyDown('shift')
                     shiftPressed = True
-                dur = random.uniform(0.1, 0.3)
+                dur = random.uniform(0.1, 0.2)
                 self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10,click=True)
 
             counter += 1
