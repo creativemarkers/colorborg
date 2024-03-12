@@ -124,7 +124,6 @@ class Fisher:
             #second loop simply trys until max attempts reached
             while attempt < maxAttempts:
                 try:
-
                     x , y = self.mouse.findImageSimple(fishSpotImageLocation, desiredConfidence = conf)
 
                     return x, y

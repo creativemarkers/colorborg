@@ -27,6 +27,7 @@ def main():
         '''
         #checks if logged in
         #attempts to log in if not
+        #check if trying to login to members world if not member
         #calls gui to get more info about scripts to run
         '''
         pseudo code ends
