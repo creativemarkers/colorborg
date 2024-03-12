@@ -19,7 +19,22 @@ logging.basicConfig(filename='errors.log', level=logging.DEBUG, format='%(asctim
 def main():
     # # pyautogui.FAILSAFE = True
     try:
+
         game.getGame("Runelite", 900,900)
+
+        '''
+        pseudo code starts
+        '''
+        #checks if logged in
+        #attempts to log in if not
+        #calls gui to get more info about scripts to run
+        '''
+        pseudo code ends
+        '''
+
+        """
+        code below disabled for testing
+        """
 
         #calls gui obj to get input for what scripts to run
         # gui.getDesiredScript()
@@ -27,7 +42,13 @@ def main():
         # #calls script getter
         # scriptGetter(gui.scriptSelected)
 
+        """
+        code below disabled for testing
+        """
+
         fisher = Fisher()
+
+    #end script gracefully since we have two threads now
     except FailSafeException:
         print("PyAutoGUI fail-safe triggered from mouse moving to a corner of the screen. To disable this fail-safe, set pyautogui.FAILSAFE to False. DISABLING FAIL-SAFE IS NOT RECOMMENDED.")
         sys.exit()
