@@ -1,3 +1,5 @@
+# Fern's Ultimate Colorbot
+
 # Instructions
 
 1) install tesseract OCR to path if not done manually?
@@ -9,6 +11,7 @@
 # Road Map
 
 these will be in no particular order
+
 0) fully stable fisher
 1) Website for clients to log in and download the bot
 2) fleshed out database to auth my users and check licenses (sql, apache, azure hosted)
