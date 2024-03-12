@@ -37,19 +37,14 @@ class Fisher:
         # self.gui.getDesiredScript(self.FISHTYPE)
         # self.selectedSubScript = self.gui.scriptSelected
        
-    
+        #creates thread for the bot and starts it, still need to pass the right arg
         self.botThread = threading.Thread(target = self.createBot, args=("shrimp",))
         self.botThread.start()
+        #creates display gui, then creates thread and starts it
         self.infoGUI.displayBotInfo("Shrimp PowerFisher")
         self.infoGuiThread = threading.Thread(target = self.infoGUI.root.mainloop())
         self.infoGuiThread.start()
         
-        
-
-        
-        
-        # self.shrimp()
-
     def createThreads(self):
         pass
 

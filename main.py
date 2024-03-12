@@ -29,6 +29,7 @@ def main():
 
         fisher = Fisher()
     except FailSafeException:
+        print("PyAutoGUI fail-safe triggered from mouse moving to a corner of the screen. To disable this fail-safe, set pyautogui.FAILSAFE to False. DISABLING FAIL-SAFE IS NOT RECOMMENDED.")
         sys.exit()
 
 
