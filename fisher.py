@@ -14,28 +14,18 @@ from pyautogui import ImageNotFoundException
 class Fisher:
 
     #variables and objects required for the script to run
-    #initialize gui mostly for parameter setting
     gui = Gui()
-    #initialize infoGui
     infoGUI = Gui()
-    #variable for infoGui thread
     infoGuiThread = None
-    #variable for botThread
     botThread = None
-    #creates an inventory object to call necessary functions
     invent = Inventory()
-    #dead variable
     selectedSubScript = None
-    #dead variable
     fishSpotImg = None
-    #creates Mouse instance
     mouse = Mouse()
-    #creates verifyer instance
     verifyer = Verifyer()
-    #creates Camera instance, currently not being used but have plans too()
     cam = Camera()
-    #dead variable
     currentlyFishing = False
+    startTime = gui.startTime
     
     #array of fish currently supported (not really more for gui testing atm)
     FISHTYPE = [None,"shrimp","trout and salmon","lobster", "swordfish"]
@@ -107,6 +97,10 @@ class Fisher:
                 pyautogui.click(potenialFishingSpotX,potenialFishingSpotY,duration=0.1,button='left')
                 #sleep to make sure game is caught up
                 time.sleep(10)
+        
+        #checks if camera should turn, the number below, to calculate chance = 1/n, n being the chanceToTurn variable
+        chanceToTurn = 1000
+        self.cam.humanCameraBehavior(chanceToTurn)
 
     def findFishingSpot(self, fishSpotImageLocation):
         #finds fishing spots and verifies it

@@ -1,6 +1,13 @@
 # Fern's Ultimate Colorbot
 
+
 # Instructions
+    1. Open runelite and have your login details saved
+    2. make sure at desired botting location
+    3. make sure the necessary runelite plugins are turned on (run plugin checker,doesn't exsist yet)
+    4. Run main.py from command line
+
+# Install Instructions
 
 1) install tesseract OCR to path if not done manually?
     could add a verification step on exe?
