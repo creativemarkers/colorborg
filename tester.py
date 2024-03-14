@@ -1,60 +1,29 @@
-import pyautogui
-import pygetwindow
 import time
 
-inventory = [0] * 28
-mouse = None
-inventFull = None
+
+# def format_time(seconds):
+
+#     seconds = int(seconds)
+#     # Calculate hours, minutes, and seconds
+#     hours = seconds // 3600
+#     seconds %= 3600
+#     minutes = seconds // 60
+#     seconds %= 60
+#     # Format the time as HH:MM:SS
+#     formatted_time = "{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds)
+#     return formatted_time
+
+# currentTime = time.time()
+
+# print(format_time(currentTime))
 
 
-def getGame(gameWindowName:str, bottomX, bottomY):
-    #finds game window moves to top left and resize to requested value
-    #need to add try except
-    game_window = pygetwindow.getWindowsWithTitle(gameWindowName)[0]
-    game_window.restore()
-    game_window.resizeTo(bottomX,bottomY)
-    game_window.moveTo(0,0)
-    game_window.activate()
+current_time = time.time()
 
-    
+# Convert the current time to a local time struct
+local_time = time.localtime(current_time)
 
-def main():
+# Format the local time as a string
+time_string = time.strftime("%H:%M:%S", current_time)
 
-    getGame("Runelite", 900,900)
-
-    originX = 726
-    originY = 575
-    x = originX
-    y = originY
-    counter = 0
-    inventSlotsNotEmpty = 0
-
-    time.sleep(1)
-
-    
-    #don't need an array to count
-    for i in range(len(inventory)):
-
-        print("RGB X:", x, "Y:",y,"Color:", pyautogui.pixel(x,y))
-
-        if pyautogui.pixel(x,y) != (62,53,41):
-            inventSlotsNotEmpty += 1
-
-        counter += 1
-        x += 42
-
-        if counter >= 4:
-            #print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: counter hit 4, resetting counter, x, and increasing y")
-            counter = 0
-            #sets y for next row
-            y += 36
-            #sets x back to first column
-            x = originX
-
-    print(inventSlotsNotEmpty)
-
-    
-
-if __name__ == "__main__":
-    main()
-    
+print("Current time:", time_string)

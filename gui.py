@@ -54,8 +54,10 @@ class Gui:
     def displayBotInfo(self,botName:str):
 
         def updateTime():
-            self.elapsedTime = round(time.time() - self.startTime)    
-            self.labelTime.config(text=f"Script has been running for: {self.elapsedTime} seconds")
+            #updates for label will need to be put in here
+            self.elapsedTime = round(time.time() - self.startTime)
+            formattedTime = self.formatTime()  
+            self.labelTime.config(text=f"Script has been running for: {formattedTime}")
             self.root.after(1000, updateTime)
 
         self.root = Tk()
@@ -66,6 +68,19 @@ class Gui:
         self.labelTime.pack()
         updateTime()
         #root.mainloop()
+
+    def formatTime(self, seconds = None):
+
+        if seconds == None:
+            seconds = self.elapsedTime
+
+        seconds = int(seconds)
+
+        hours, remainder = divmod(seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+
+        formattedTime = "{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds)
+        return formattedTime
 
 
 
