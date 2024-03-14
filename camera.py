@@ -53,7 +53,7 @@ class Camera:
     def humanCameraBehavior(self, desiredRange):
         #desired range is used to determine the weighting of the chance for the camera to turn for example, 10, will have a 10% chance for camera to turn
         
-        print("CAMERA:HUMANCAMERABEHAVIOR:checking if camera should turn")
+        #print("CAMERA:HUMANCAMERABEHAVIOR:checking if camera should turn")
 
         if self.lastFakeTurnCount >= desiredRange:
             print("CAMERA:HUMANCAMERABEHAVIOR: counter higher than desired range, camera turning...")

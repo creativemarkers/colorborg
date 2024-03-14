@@ -2,6 +2,7 @@
 import time
 import pyautogui
 import threading
+import random
 from gui import Gui
 from inventFunctions import Inventory
 from mouseFunctions import Mouse
@@ -83,7 +84,8 @@ class Fisher:
 
             #moves mouse to to poential fishing spot, to verify with the text that pops up when hovering
             #over the fishing spot
-            self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,1,5)
+            durForFishSpot = random.uniform(0.5,1.0)
+            self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,durForFishSpot,5)
 
             #grabs pop up text
             textToCheck = self.verifyer.getText(8,32,120,20)
