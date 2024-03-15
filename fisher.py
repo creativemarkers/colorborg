@@ -27,14 +27,15 @@ class Fisher:
     cam = Camera()
     currentlyFishing = False
     startTime = gui.startTime
-    
+    running = True
+
     #array of fish currently supported (not really more for gui testing atm)
     FISHTYPE = [None,"shrimp","trout and salmon","lobster", "swordfish"]
 
     def __init__(self):
         #calls main when initialized
         self.main()
-
+        self.running = True
 
     def main(self):
 
@@ -44,14 +45,18 @@ class Fisher:
         # gui for script selection
         # self.gui.getDesiredScript(self.FISHTYPE)
         # self.selectedSubScript = self.gui.scriptSelected
-       
+
         #creates thread for the bot and starts it, still need to pass the right arg
         self.botThread = threading.Thread(target = self.createBot, args=("shrimp",))
         self.botThread.start()
+
         #creates display gui, then creates thread and starts it
         self.infoGUI.displayBotInfo("Shrimp PowerFisher")
         self.infoGuiThread = threading.Thread(target = self.infoGUI.root.mainloop())
         self.infoGuiThread.start()
+       
+
+
         
     def createThreads(self):
         #dead function created for brainstorming might use later to abstract code a bit more
@@ -61,6 +66,13 @@ class Fisher:
         #creates bot instances, needed for threading
         if fishType == "shrimp":
             shrimper = ShrimpFisher()
+
+    def verifyRunning(self):
+
+        if self.infoGUI.isRunning == False:
+            print("GUI Closed, exiting")
+            self.running = False
+            exit()
         
     def fish(self, fishSpotImageLocation):
         #main function that handles fishing
@@ -78,7 +90,8 @@ class Fisher:
 
         #enters loop after checking if inventory is full and if it's not currently fishing
         while self.invent.isInventFull(28) == False and self.verifyFishing() == False:
-            
+
+            self.infoGUI.scriptStatus = "Looking for fishing spot"
             #finds a potential fishing spot and gets it's coordinates
             potenialFishingSpotX, potenialFishingSpotY = self.findFishingSpot(fishSpotImageLocation)
 
@@ -90,15 +103,18 @@ class Fisher:
             #grabs pop up text
             textToCheck = self.verifyer.getText(8,32,120,20)
 
+            self.infoGUI.scriptStatus = "Verifying fishing spot"
             #checks if the text matches the string
             if self.verifyer.verifyText(textToCheck,"Net Fishing Spot") == True:
 
                 #sleep to make sure game is caught up
                 time.sleep(0.1)
                 #clicks on fishing spot
+                self.infoGUI.scriptStatus = "Moving to fishing spot"
                 pyautogui.click(potenialFishingSpotX,potenialFishingSpotY,duration=0.1,button='left')
+                
                 #sleep to make sure game is caught up
-                time.sleep(10)
+                time.sleep(5)
         
         #checks if camera should turn, the number below, to calculate chance = 1/n, n being the chanceToTurn variable
         chanceToTurn = 1000
@@ -165,13 +181,16 @@ class ShrimpFisher(Fisher):
         self.shrimp()
 
     def shrimp(self):
+        time.sleep(0.5)
         #function responsible for fishing shrimp
         if self.powerFish == True:
             #semi dead conditional, here as pseudo code, will be useful when banking is implemented
             
-            while True:
+            #while True:
+            while self.running == True:
+            #while self.infoGUI.isRunning == True:
             #horrible conditional but necessary for testing will more then likely need to changed to a quit command
-                
+
                 '''
                 pseudo code starts
                 '''
@@ -182,20 +201,21 @@ class ShrimpFisher(Fisher):
                 '''
                 pseudo code ends
                 '''
-
+                self.verifyRunning()
                 #gets current inventory status
                 self.invent.isInventFull(28)
                 
                 while not self.invent.inventFull:
                 #loop runs until inventory full
-                    
+                    self.verifyRunning()
                     #calls fish function in parent class
                     self.fish(self.shrimpSpotImg)
-                    
+                    self.infoGUI.scriptStatus = "Fishing"
                     #this sleep might not be necessary anymore, as fish is now handling it
                     time.sleep(0.6)
 
                 #calls invent obj to power drop the whole inventory minus the first slot (contains fishing net)
+                self.infoGUI.scriptStatus = "Dropping inventory"
                 self.invent.powerDropInventory(doNotDrop=1)
         
         else:

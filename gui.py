@@ -1,4 +1,5 @@
 import time
+import threading
 
 from tkinter import *
 from tkinter import ttk
@@ -10,11 +11,15 @@ class Gui:
     startTime = None
     elapsedTime = None
     labelTime = None
+    labelStatus = None
     botName = None
     root = None
+    isRunning = False
+    scriptStatus = "Testing"
 
     def __init__(self):
         self.startTime = time.time()
+        self.isRunning = True
         pass
 
     def getDesiredScript(self, scripts:list = [None,"Fisher", "WoodCutter", "Miner"]):
@@ -53,21 +58,41 @@ class Gui:
 
     def displayBotInfo(self,botName:str):
 
+        def updateStatus():
+            self.labelStatus.config(text=f"Status: {self.scriptStatus}")
+
         def updateTime():
-            #updates for label will need to be put in here
+
+            #updates for label will need to be put in heres
             self.elapsedTime = round(time.time() - self.startTime)
             formattedTime = self.formatTime()  
-            self.labelTime.config(text=f"Script has been running for: {formattedTime}")
+            self.labelTime.config(text=f"Running for: {formattedTime}")
+            updateStatus()
             self.root.after(1000, updateTime)
+
+        def onClosing():
+            
+            self.isRunning = False
+            self.root.destroy()
 
         self.root = Tk()
         self.root.title(botName)
         #sets the location of the gui
         self.root.geometry("+890+10")
-        self.labelTime = ttk.Label(self.root,text="Script has been running for: 0 seconds")
+        self.labelTime = ttk.Label(self.root,text="Running for: ")
         self.labelTime.pack()
+        self.labelStatus = ttk.Label(self.root, text="Status:")
+        self.labelStatus.pack()
+        self.isRunning = True
+
+
         updateTime()
+        self.root.protocol("WM_DELETE_WINDOW", onClosing)
         #root.mainloop()
+
+    
+        
+
 
     def formatTime(self, seconds = None):
 
