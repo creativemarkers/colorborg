@@ -97,9 +97,27 @@ class Mouse:
             return x , y
         except ImageNotFoundException:
             raise ImageNotFoundException
+        
+    def findColors(self, colorToFind:tuple, regionWidth, regionHeight):
+        #currently just looking at pixels left to right
+        try:
+            colorLocation = pyautogui.locateOnScreen(colorToFind, region=(0,0, regionWidth, regionHeight))
+            x,y = pyautogui.center(colorLocation)
+
+            return x, y
+        except ImageNotFoundException:
+            raise ImageNotFoundException
 
     def mouseClick(self, x:int, y:int, but:str = 'left'):
         dur = random.uniform(0.01,0.1)
         pyautogui.click(x,y,duration=dur,button=but)
         clep = random.uniform(0.05,0.1)
         time.sleep(clep)
+
+    def pickUpItem(self, itemName, color):
+        #will rely on runelite plugin
+        #randomly rightclick,
+        pass
+
+    def verifyDrop(self):
+        pass
