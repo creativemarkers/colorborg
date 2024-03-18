@@ -65,7 +65,7 @@ class Slayer:
         runningColor = (206,168,1)
         x, y = 742, 164
 
-        if pyautogui.pixelMatchesColor(x,y(runningColor)) == False:
+        if pyautogui.pixelMatchesColor(x, y, runningColor) == False:
             print("SLAYER:RUNNER: Not running")
             runningThreshold = random.randint(50, 80)
             currentRunEnergy = int(self.verifyer.getText(702,163, 16, 11))
@@ -84,17 +84,16 @@ class Slayer:
         playerLocationX = 452
         playerLocationY = 468
 
-        distanceThreshold = 100
+        distanceThreshold = 200
 
         availableDrops = pyautogui.locateAllOnScreen('img/featherText.png',region=(0,0,900,900),confidence=0.6)
 
+        dropsNeaby = []
 
         for drop in availableDrops:
-            dropX,dropY = drop.center
-            absDesitance 
-
-    def checkIfDropsNearby(self, dropImg):
-        pass
+            dropX,dropY = pyautogui.center(drop)
+            absX = abs(playerLocationX - dropX)
+            absY = abs(playerLocationY - dropY) 
 
     def pickUpDrops(self):
         pass
@@ -130,7 +129,7 @@ class chickenSlayer(Slayer):
     #make sure opponent info is on (HP)
     drop0name = "Feather"
     drop0Img = 'img/featherText.png'
-    drop2 = "Bones"
+    
 
     drop0Check = (49,38,53,12)
     left, top, w, h = drop0Check
