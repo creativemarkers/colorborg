@@ -2,7 +2,6 @@ import pyautogui
 import cv2
 import time
 import random
-
 from pyautogui import ImageNotFoundException
 
 
@@ -80,14 +79,14 @@ class Mouse:
         else:
             return calcedDuration
         
-    def findImageSimple(self, imageTofind:str, desiredConfidence = .999):
+    def findImageSimple(self, imageTofind:str, w = 687, h= 725 ,desiredConfidence = .9):
         
         try:
             # example call findImageSimple('img/test.png', .9)
 
             #ss = pyautogui.screenshot(region=(0,0, 892, 892))
 
-            imageLocation = pyautogui.locateOnScreen(imageTofind, region=(0,0, 687,725), confidence=desiredConfidence)
+            imageLocation = pyautogui.locateOnScreen(imageTofind, region=(0,0, w, h), confidence=desiredConfidence)
             #imageLocationCenter = pyautogui.center(imageLocation)
             x , y = pyautogui.center(imageLocation)
             # x, y = imageLocationCenter
@@ -114,10 +113,4 @@ class Mouse:
         clep = random.uniform(0.05,0.1)
         time.sleep(clep)
 
-    def pickUpItem(self, itemName, color):
-        #will rely on runelite plugin
-        #randomly rightclick,
-        pass
 
-    def verifyDrop(self):
-        pass
