@@ -1,10 +1,18 @@
 import pytesseract
+import easyocr
 from PIL import ImageGrab
+import numpy as np
+
+
 
 class Verifyer:
 
+    reader = easyocr.Reader(['en'])
+
     def __init__(self):
         pass
+
+
 
     def getText(self,left,top,width,height):
         #example usage: print(self.verifyer.getText(74,5,30,20)), if on vs code should return "edit"
@@ -15,6 +23,31 @@ class Verifyer:
         cleanText = text.replace('\n','')
 
         return cleanText
+    
+
+    def getTextEnhanced(self,left,top,width,height, threshHold = False, targetColor = (0,0,0)):
+
+        
+        screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
+        # resizedSS = screenshot.resize((width*20,height*20))
+        screenshot_np = np.array(screenshot)
+
+        result = self.reader.readtext(screenshot_np)
+
+        for detection in result:
+            print(detection[1])
+       
+
+
+            
+
+        # resizedSS.save('img/tesseractTestImg.jpg')
+        #enhanced_img.save('img/tesseractTestImg.jpg')
+        # text = pytesseract.image_to_string(res)
+
+        # cleanText = text.replace('\n','')
+
+        return None
     
     def verifyText(self,cleanedText, stringToVerify):
 

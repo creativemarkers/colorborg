@@ -35,8 +35,8 @@ class Slayer:
     def main(self):
         pass
         #startThreads
-
-
+        time.sleep(1)
+        chickenSlayer = ChickenSlayer()
         #get which attack style to prio?
 
         # self.botThread = threading.Thread(target = self.createBot, args=("shrimp",))
@@ -60,19 +60,20 @@ class Slayer:
         #will check runelight plugin hp bar to make sure monster is dead
     
     def runner(self):
-
+        #need a semi refact OCR engines are awful at reading small text like the run energy, will need to do
+        #time based system for handling run, (takes 12 min to full run energy from 0)
         #handles running
         runningColor = (206,168,1)
-        x, y = 742, 164
+        x, y = 738, 160
 
-        if pyautogui.pixelMatchesColor(x, y, runningColor) == False:
+        if pyautogui.pixelMatchesColor(x, y, runningColor) != True:
             print("SLAYER:RUNNER: Not running")
             runningThreshold = random.randint(50, 80)
-            currentRunEnergy = int(self.verifyer.getText(702,163, 16, 11))
-            if currentRunEnergy >= runningThreshold:
-                print("SLAYER:RUNNER: Clicking on run icon")
-                dur = random.uniform(0.3,0.5)
-                self.mouse.moveMouseToArea(735,165, duration=dur, areaVariance=10,click=True)
+            
+            # if currentRunEnergy >= runningThreshold:
+            #     print("SLAYER:RUNNER: Clicking on run icon")
+            #     dur = random.uniform(0.3,0.5)
+            #     self.mouse.moveMouseToArea(735,165, duration=dur, areaVariance=10,click=True)
         else:
             print("SLAYER:RUNNER: Running")
             
@@ -123,7 +124,7 @@ class Slayer:
             return False
         
 
-class chickenSlayer(Slayer):
+class ChickenSlayer(Slayer):
     #makesure feathers are highlighted purple on runelite
     #makesure chickens are fully highlighted on runelite
     #make sure opponent info is on (HP)
@@ -140,23 +141,26 @@ class chickenSlayer(Slayer):
 
 
     def chickenOrchestrator(self):
-        pass
+        
 
         #verify feather
+        currentRunEnergyStr = self.verifyer.getTextEnhanced(692,155, 25, 18)
+        #currentRunEnergyStr = self.verifyer.getTextEnhanced(691,154, 26, 20)
+        print(currentRunEnergyStr)
         
-        while True:
+        # while True:
 
 
-            feathersToPickup = random.randint(1,4) + self.monsterSlain
+        #     feathersToPickup = random.randint(1,4) + self.monsterSlain
             
 
-            self.runner()
+        #     self.runner()
             #choose to only pickup nearby or further drops
-            self.pickUpNearbyDrops(self.drop0name, self.drop0Img, feathersToPickup)
+            #self.pickUpNearbyDrops(self.drop0name, self.drop0Img, feathersToPickup)
 
-            slay between 1-3 chickens
+            # slay between 1-3 chickens
 
-            decide if further feathers should be pickedUp(pretty likely)
+            # decide if further feathers should be pickedUp(pretty likely)
 
 
     

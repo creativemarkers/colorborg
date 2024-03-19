@@ -6,6 +6,7 @@ from pyautogui import FailSafeException
 from gui import Gui
 from basicfunctions import Window
 from fisher import Fisher
+from slayer import Slayer
 
 #initializes gui and game objects to get info for what scripts to run
 gui = Gui()
@@ -43,11 +44,13 @@ def main():
         # #calls script getter
         # scriptGetter(gui.scriptSelected)
 
+        # fisher = Fisher()
         """
         code below disabled for testing
         """
 
-        fisher = Fisher()
+        slayer = Slayer()
+        
 
     #end script gracefully since we have two threads now
     except FailSafeException:
