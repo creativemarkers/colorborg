@@ -30,17 +30,29 @@ import json
 # print("Current time:", time_string)
 
 # Define the base URL of your local API
-base_url = "http://localhost:8081"  # Adjust the port number as needed
+# base_url = "http://localhost:8081"  # Adjust the port number as needed
 
-eventEndpoint = "/events"
+# eventEndpoint = "/events"
 
-response = requests.get(base_url + eventEndpoint)
-# Send a GET request to the root endpoint to check if the API is reachable
-if response.status_code == 200:
+# response = requests.get(base_url + eventEndpoint)
+# # Send a GET request to the root endpoint to check if the API is reachable
+# if response.status_code == 200:
 
-    response_text = response.text
+#     response_text = response.text
 
-    data = json.loads(response_text)
+#     data = json.loads(response_text)
 
-# Print the response status code and content
-print("run energy:", int(data["run energy"]/100))
+# # Print the response status code and content
+# print("run energy:", int(data["run energy"]/100))
+
+from runeliteAPI import RuneLiteApi
+
+api = RuneLiteApi()
+while True:
+
+    npcName, npcHealth = api.getNPCinfo()
+
+    print(f"NPC Name: {npcName}")
+    print(f"NPC Health: {npcHealth}")
+
+    time.sleep(0.2)
