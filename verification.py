@@ -26,7 +26,7 @@ class Verifyer:
     
 
     def getTextEnhanced(self,left,top,width,height, threshHold = False, targetColor = (0,0,0)):
-
+        #can still try resizeing with easyocr as havent done that
         
         screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
         # resizedSS = screenshot.resize((width*20,height*20))

@@ -62,6 +62,7 @@ class Slayer:
     def runner(self):
         #need a semi refact OCR engines are awful at reading small text like the run energy, will need to do
         #time based system for handling run, (takes 12 min to full run energy from 0)
+        #runelite api
         #handles running
         runningColor = (206,168,1)
         x, y = 738, 160
