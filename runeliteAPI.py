@@ -16,11 +16,11 @@ class RuneLiteApi():
 
         response = requests.get(self.baseAPIUrl)
 
-        if response.status_code == 200:
+        # if response.status_code == 200:
 
-            print("API connected")
-        else:
-            print("Unable to connect to runelite API")
+        #     print("API connected")
+        # else:
+        #     print("Unable to connect to runelite API")
 
     def getEventData(self):
 

@@ -8,6 +8,7 @@ from mouseFunctions import Mouse
 from verification import Verifyer
 from camera import Camera
 from pyautogui import ImageNotFoundException
+from runeliteAPI import RuneLiteApi
 
 
 class Slayer:
@@ -26,16 +27,18 @@ class Slayer:
     running = None
     monsterName = None
     monsterSlain = 0
+    api = None
 
     MONSTERHIGHLIGHT = (0,255,255)
 
     def __init__(self):
         self.main()
+        
 
     def main(self):
-        pass
         #startThreads
         time.sleep(1)
+        
         chickenSlayer = ChickenSlayer()
         #get which attack style to prio?
 
@@ -67,14 +70,20 @@ class Slayer:
         runningColor = (206,168,1)
         x, y = 738, 160
 
+        
+
         if pyautogui.pixelMatchesColor(x, y, runningColor) != True:
             print("SLAYER:RUNNER: Not running")
             runningThreshold = random.randint(50, 80)
-            
-            # if currentRunEnergy >= runningThreshold:
-            #     print("SLAYER:RUNNER: Clicking on run icon")
-            #     dur = random.uniform(0.3,0.5)
-            #     self.mouse.moveMouseToArea(735,165, duration=dur, areaVariance=10,click=True)
+
+            currentRunEnergy = self.api.getRunEnergy()
+
+            print(currentRunEnergy)
+
+            if currentRunEnergy >= runningThreshold:
+                print("SLAYER:RUNNER: Clicking on run icon")
+                dur = random.uniform(0.3,0.5)
+                self.mouse.moveMouseToArea(735,165, duration=dur, areaVariance=10,click=True)
         else:
             print("SLAYER:RUNNER: Running")
             
@@ -97,8 +106,15 @@ class Slayer:
             absX = abs(playerLocationX - dropX)
             absY = abs(playerLocationY - dropY) 
 
-    def pickUpDrops(self):
-        pass
+    def pickUpDrop(self,dropName, dropImg, textVerificationPos):
+        #need it to sample a random region of the screen the topright to bottom left makes it so obvious a bot
+        #attempts to find drop, verifys if drop, clicks if it is.
+        x, y = self.findDrops(dropImg)
+        x, y = self.mouse.moveMouseToArea(x, y, duration=(random.uniform(0.2,0.4)), areaVariance=3)
+        dropBool = self.verifyDrop(dropName, textVerificationPos)
+    
+        if dropBool == True:
+            self.mouse.mouseClick(x,y)
 
     def findDrops(self,dropImgLocation, conf:float = 0.6, multiple:bool = False):
         if multiple == False:
@@ -115,9 +131,10 @@ class Slayer:
                 return print("multiple drops not found")
 
     def verifyDrop(self, dropName, checkingPos):
+        #verifyer good enough for now need to add some checking
         left, top, w, h = checkingPos
         text = self.verifyer.getText(left, top, w, h)
-        print("Text captured to verify if Drop: %s" %text)
+        print("Text captured to verify if Drop: %s" % text)
 
         if text == dropName:
             return True
@@ -131,6 +148,7 @@ class ChickenSlayer(Slayer):
     #make sure opponent info is on (HP)
     drop0name = "Feather"
     drop0Img = 'img/featherText.png'
+    textVerificationPos = (41, 32, 58, 17)
     
 
     drop0Check = (49,38,53,12)
@@ -144,25 +162,18 @@ class ChickenSlayer(Slayer):
     def chickenOrchestrator(self):
         
 
-        #verify feather
-        currentRunEnergyStr = self.verifyer.getTextEnhanced(692,155, 25, 18)
-        #currentRunEnergyStr = self.verifyer.getTextEnhanced(691,154, 26, 20)
-        print(currentRunEnergyStr)
+        #verify feathER
         
-        # while True:
+        while True:
 
 
-        #     feathersToPickup = random.randint(1,4) + self.monsterSlain
+            feathersToPickup = random.randint(1,4) + self.monsterSlain
             
 
-        #     self.runner()
-            #choose to only pickup nearby or further drops
-            #self.pickUpNearbyDrops(self.drop0name, self.drop0Img, feathersToPickup)
-
-            # slay between 1-3 chickens
-
-            # decide if further feathers should be pickedUp(pretty likely)
-
+            #self.runner()
+            self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos)
+            time.sleep(0.5)
+            #
 
     
 

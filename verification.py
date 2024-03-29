@@ -7,7 +7,7 @@ import numpy as np
 
 class Verifyer:
 
-    reader = easyocr.Reader(['en'])
+    # reader = easyocr.Reader(['en'])
 
     def __init__(self):
         pass
@@ -25,29 +25,29 @@ class Verifyer:
         return cleanText
     
 
-    def getTextEnhanced(self,left,top,width,height, threshHold = False, targetColor = (0,0,0)):
-        #can still try resizeing with easyocr as havent done that
+    # def getTextEnhanced(self,left,top,width,height, threshHold = False, targetColor = (0,0,0)):
+    #     #can still try resizeing with easyocr as havent done that
         
-        screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
-        # resizedSS = screenshot.resize((width*20,height*20))
-        screenshot_np = np.array(screenshot)
+    #     screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
+    #     # resizedSS = screenshot.resize((width*20,height*20))
+    #     screenshot_np = np.array(screenshot)
 
-        result = self.reader.readtext(screenshot_np)
+    #     result = self.reader.readtext(screenshot_np)
 
-        for detection in result:
-            print(detection[1])
+    #     for detection in result:
+    #         print(detection[1])
        
 
 
             
 
-        # resizedSS.save('img/tesseractTestImg.jpg')
-        #enhanced_img.save('img/tesseractTestImg.jpg')
-        # text = pytesseract.image_to_string(res)
+    #     # resizedSS.save('img/tesseractTestImg.jpg')
+    #     #enhanced_img.save('img/tesseractTestImg.jpg')
+    #     # text = pytesseract.image_to_string(res)
 
-        # cleanText = text.replace('\n','')
+    #     # cleanText = text.replace('\n','')
 
-        return None
+    #     return None
     
     def verifyText(self,cleanedText, stringToVerify):
 

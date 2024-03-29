@@ -24,7 +24,10 @@ class Mouse:
         self.moveMouse(xVaried, yVaried, duration)
 
         if click == True:
-            self.mouseClick(xVaried,yVaried)               
+            self.mouseClick(xVaried,yVaried)
+
+        if areaVariance > 0:
+            return xVaried, yVaried               
 
     def moveMouse(self, x:int, y:int, duration=1):
         
