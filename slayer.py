@@ -27,7 +27,7 @@ class Slayer:
     running = None
     monsterName = None
     monsterSlain = 0
-    api = None
+    api = RuneLiteApi()
 
     MONSTERHIGHLIGHT = (0,255,255)
 
@@ -36,9 +36,9 @@ class Slayer:
         
 
     def main(self):
+        
         #startThreads
         time.sleep(1)
-        
         chickenSlayer = ChickenSlayer()
         #get which attack style to prio?
 
@@ -56,12 +56,58 @@ class Slayer:
         pass
 
 
-    def slay(self, monsterName, monsterHp, monsterHighlightColor):
-        pass
-
+    def slay(self, monsterName:str, monsterHighlightColor:tuple) -> None:
         #make sure your monster is highlighted
-        #will check runelight plugin hp bar to make sure monster is dead
+        #while api npcname null
+
+        monsterKilled = False
+        
+        while self.getFightingStatus() == False or monsterKilled == False:
+            x,y = self.findMonster(monsterHighlightColor)
+            if self.veriyMonster(monsterName) == True:
+                self.mouse.mouseClick(x,y)
+                time.sleep(2)
+                npcName, npcHealth = self.api.getNPCinfo()
+                while npcHealth > 0:
+                    time.sleep(0.5)
+                    npcName, npcHealth = self.api.getNPCinfo()
+                monsterKilled = True
+            else:
+                print("SLAYER:SLAY:MONSTER NOT FOUND")
     
+    def getFightingStatus(self) -> bool:
+        
+        npcName, npcHealth = self.api.getNPCinfo()
+
+        if npcName != "null" or npcHealth > 0:
+            return True
+        else:
+            return False
+
+
+    def veriyMonster(self, monsterName:str) -> bool:
+        #assumes mouse is over chicken already
+        text = self.verifyer.getText(10, 33, 105, 12)
+        verifyingText = "Attack " + monsterName
+        print (verifyingText)
+        if self.verifyer.verifyText(text, verifyingText) == True:
+            return True
+        else:
+            return False
+
+    
+    def findMonster(self,monsterHighlightColor:tuple) -> int:
+        #finds monster, and moves mouse to get ready for verification
+        region = (0,0,688,726)
+        matchingPixels = self.mouse.findColorFast(monsterHighlightColor, region)
+        y,x = matchingPixels[0]
+        randDur = random.uniform(0.2,0.4)
+        randArea = random.randint(1,4)
+        x,y = self.mouse.moveMouseToArea(x,y,randDur, randArea)
+        return x,y
+        
+
+
     def runner(self):
         #need a semi refact OCR engines are awful at reading small text like the run energy, will need to do
         #time based system for handling run, (takes 12 min to full run energy from 0)
@@ -166,13 +212,15 @@ class ChickenSlayer(Slayer):
         
         while True:
 
-
-            feathersToPickup = random.randint(1,4) + self.monsterSlain
+            #feathersToPickup = random.randint(1,4) + self.monsterSlain
             
 
             #self.runner()
-            self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos)
-            time.sleep(0.5)
+            # self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos)
+            # time.sleep(0.5)
+            while True:
+                self.slay(self.monsterName, self.MONSTERHIGHLIGHT)
+
             #
 
     

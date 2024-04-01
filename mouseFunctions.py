@@ -3,6 +3,7 @@ import cv2
 import time
 import random
 from pyautogui import ImageNotFoundException
+import numpy
 
 
 pyautogui.MINIMUM_DURATION = 0.05
@@ -15,14 +16,13 @@ class Mouse:
     #def moveMouseToArea(x:int, y:int, duration=1, addAreaVariance = False, areaVariance:int = 0):
     def moveMouseToArea(self, x:int, y:int, duration=1, areaVariance:int = 0, click:bool=False):
         xVaried = x
-
         yVaried =  y
 
         if areaVariance > 0:
             xVaried, yVaried = self.addVariance(x, y, areaVariance)
 
         self.moveMouse(xVaried, yVaried, duration)
-
+    
         if click == True:
             self.mouseClick(xVaried,yVaried)
 
@@ -100,17 +100,20 @@ class Mouse:
         except ImageNotFoundException:
             raise ImageNotFoundException
         
-    def findColors(self, colorToFind:tuple, regionWidth, regionHeight):
+    def findColorFast(self, colorToFind:tuple, desiredRegion:tuple):
+        #note the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
         #currently just looking at pixels left to right
-        try:
-            colorLocation = pyautogui.locateOnScreen(colorToFind, region=(0,0, regionWidth, regionHeight))
-            x,y = pyautogui.center(colorLocation)
+        im = pyautogui.screenshot(region=desiredRegion)
+        imArr = numpy.array(im)
+        # colorToFind = numpy.array(colorToFind)
+        matchingPixels = numpy.argwhere(numpy.all(imArr == colorToFind, axis=-1))
+        return matchingPixels
 
-            return x, y
-        except ImageNotFoundException:
-            raise ImageNotFoundException
+
+
 
     def mouseClick(self, x:int, y:int, but:str = 'left'):
+        print("CLICKING")
         dur = random.uniform(0.01,0.1)
         pyautogui.click(x,y,duration=dur,button=but)
         clep = random.uniform(0.05,0.1)
