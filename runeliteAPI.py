@@ -61,8 +61,7 @@ class RuneLiteApi():
         quantity = self.getItemQuantityInInventory(itemPos)
 
         return itemPos, quantity
-        
-
+    
     def getRunEnergy(self):
         self.getEventData()
         self.runEnergy = self.eventsDict["run energy"]/100
@@ -74,6 +73,13 @@ class RuneLiteApi():
         npcHealth = self.eventsDict["npc health "]/10
         return npcName, npcHealth
     
+    def getCurrentWorldPosition(self):
+        self.getEventData()
+        worldArray = self.eventsDict["worldPoint"]
+        x = worldArray["x"]
+        y = worldArray["y"]
+        return x, y
+
     
 
 if __name__ == "__main__":
@@ -89,7 +95,7 @@ if __name__ == "__main__":
 
     # print(type(api.getItemQuantityInInventory(1)))
     while True:
-        api.getEventData()
-        print(api.eventsDict)
+        x, y = api.getCurrentWorldPosition()
+        print(x, y)
         time.sleep(0.5)
 

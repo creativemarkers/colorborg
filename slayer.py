@@ -28,13 +28,14 @@ class Slayer:
     monsterName = None
     monsterSlain = 0
     api = RuneLiteApi()
+    item1InvPosition = None
+    item1Quant = None
 
     MONSTERHIGHLIGHT = (0,255,255)
 
     def __init__(self):
         self.main()
         
-
     def main(self):
         
         #startThreads
@@ -54,7 +55,6 @@ class Slayer:
     def slayerOrchestrator(self):
         #move camera fairly often
         pass
-
 
     def slay(self, monsterName:str, monsterHighlightColor:tuple) -> None:
         #make sure your monster is highlighted
@@ -84,7 +84,6 @@ class Slayer:
         else:
             return False
 
-
     def veriyMonster(self, monsterName:str) -> bool:
         #assumes mouse is over chicken already
         text = self.verifyer.getText(10, 33, 105, 12)
@@ -95,9 +94,9 @@ class Slayer:
         else:
             return False
 
-    
     def findMonster(self,monsterHighlightColor:tuple) -> int:
         #finds monster, and moves mouse to get ready for verification
+        #nature of npc it's possible adding variance to the mouse can set it out of bounds need to account for this.
         region = (0,0,688,726)
         matchingPixels = self.mouse.findColorsFast(monsterHighlightColor, region)
         y,x = matchingPixels[0]
@@ -105,9 +104,7 @@ class Slayer:
         randArea = random.randint(1,4)
         x,y = self.mouse.moveMouseToArea(x,y,randDur, randArea)
         return x,y
-        
-
-
+    
     def runner(self):
         #need a semi refact OCR engines are awful at reading small text like the run energy, will need to do
         #time based system for handling run, (takes 12 min to full run energy from 0)
@@ -115,8 +112,6 @@ class Slayer:
         #handles running
         runningColor = (206,168,1)
         x, y = 738, 160
-
-        
 
         if pyautogui.pixelMatchesColor(x, y, runningColor) != True:
             print("SLAYER:RUNNER: Not running")
@@ -133,9 +128,6 @@ class Slayer:
         else:
             print("SLAYER:RUNNER: Running")
             
-        
-
-    
     def pickUpNearbyDrops(self, dropImg, dropName, amountToPickUp):
 
         playerLocationX = 452
@@ -152,7 +144,7 @@ class Slayer:
             absX = abs(playerLocationX - dropX)
             absY = abs(playerLocationY - dropY) 
 
-    def pickUpDrop(self,dropName, dropImg, textVerificationPos):
+    def pickUpDrop(self,dropName, dropImg, textVerificationPos, itemId):
         #need it to sample a random region of the screen the topright to bottom left makes it so obvious a bot
         #attempts to find drop, verifys if drop, clicks if it is.
         try:
@@ -171,10 +163,13 @@ class Slayer:
 
         while attempts < maxAttempts:
             if dropBool == True:
+                currentWorldPos = self.api.getCurrentWorldPosition()
                 self.mouse.mouseClick(x,y)
                 #this sleep needs to be replaced with a method that checks if the feather was picked up
-                time.sleep(2)
-                return True
+                if self.verifyDropPickedUp(currentWorldPos, itemId) == True:
+                    return True
+                else:
+                    attempts += 1
             else:
                 if x == lastX and y == lastY:
                     attempts += 1
@@ -190,12 +185,33 @@ class Slayer:
             #this sleep needs to be replaced with a method that checks if the feather was picked up
             time.sleep(2)
 
-                
-            
-    def verifyDropPickedUp(self):
-        #if position hasn't moved in 1 second (0.6), check if drop has been picked up
-        
+    def verifyDropPickedUp(self,posBeforeClick, itemId):
+        if self.item1InvPosition == None:
+            self.item1InvPosition, self.item1Quant = self.api.getItemQuantityComplete(itemId)
 
+        time.sleep(0.6)
+        currentPos = self.api.getCurrentWorldPosition()
+        if currentPos != posBeforeClick:
+            moving = True
+        else:
+            moving = False
+        currentItem1Quant = self.item1Quant
+        while moving == True or currentItem1Quant > self.item1Quant:
+            print("SLAYER:VERIFYDROPPICKEDUPl: CHECKING IF MOVING")
+            lastPos = currentPos
+            time.sleep(0.6)
+            currentPos = self.api.getCurrentWorldPosition()
+            if currentPos == lastPos:
+                moving == False 
+            
+            currentItem1Quant = self.api.getItemQuantityInInventory(self.item1InvPosition)
+
+        if currentItem1Quant > self.item1Quant:
+            self.item1Quant = currentItem1Quant
+            return True
+        else:
+            return False
+            
     def findDrops(self,dropImgLocation, conf:float = 0.6, multiple:bool = False):
         if multiple == False:
             try:
@@ -221,7 +237,6 @@ class Slayer:
         else:
             return False
         
-
 class ChickenSlayer(Slayer):
     #makesure feathers are highlighted purple on runelite
     #makesure chickens are fully highlighted on runelite
@@ -229,7 +244,7 @@ class ChickenSlayer(Slayer):
     drop0name = "Feather"
     drop0Img = 'img/featherText.png'
     textVerificationPos = (41, 32, 58, 17)
-    
+    chickenBoundingTile = (3177, 3296)
 
     drop0Check = (49,38,53,12)
     left, top, w, h = drop0Check
@@ -237,6 +252,8 @@ class ChickenSlayer(Slayer):
     feathersInInventory = None
     featherRuneLiteID = 314
     feathersPickedUp = 0
+    feathersInventoryLocation = None
+
 
     def __init__(self):
         self.monsterName = "Chicken"
@@ -245,24 +262,15 @@ class ChickenSlayer(Slayer):
 
     def chickenOrchestrator(self):
         
-
-        #verify feathER
-        
         while True:
             
             self.runner()
             firstPickupAttempts = random.randint(1,4)
             for _ in range(firstPickupAttempts):
-                if self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos) == None:
+                if self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos, self.featherRuneLiteID) == None:
                     break
             self.slay(self.monsterName, self.MONSTERHIGHLIGHT)
-            self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos)
-
-    
-
-
-
-
+            self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos, self.featherRuneLiteID,)
 
         #confirm if in range of homing tile
         #openinventtocheck hmfeathers
