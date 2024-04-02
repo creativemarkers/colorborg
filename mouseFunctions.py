@@ -100,8 +100,8 @@ class Mouse:
         except ImageNotFoundException:
             raise ImageNotFoundException
         
-    def findColorFast(self, colorToFind:tuple, desiredRegion:tuple):
-        #note the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
+    def findColorsFast(self, colorToFind:tuple, desiredRegion:tuple):
+        #note!!! the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
         #currently just looking at pixels left to right
         im = pyautogui.screenshot(region=desiredRegion)
         imArr = numpy.array(im)

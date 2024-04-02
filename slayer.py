@@ -99,7 +99,7 @@ class Slayer:
     def findMonster(self,monsterHighlightColor:tuple) -> int:
         #finds monster, and moves mouse to get ready for verification
         region = (0,0,688,726)
-        matchingPixels = self.mouse.findColorFast(monsterHighlightColor, region)
+        matchingPixels = self.mouse.findColorsFast(monsterHighlightColor, region)
         y,x = matchingPixels[0]
         randDur = random.uniform(0.2,0.4)
         randArea = random.randint(1,4)
@@ -155,12 +155,46 @@ class Slayer:
     def pickUpDrop(self,dropName, dropImg, textVerificationPos):
         #need it to sample a random region of the screen the topright to bottom left makes it so obvious a bot
         #attempts to find drop, verifys if drop, clicks if it is.
-        x, y = self.findDrops(dropImg)
-        x, y = self.mouse.moveMouseToArea(x, y, duration=(random.uniform(0.2,0.4)), areaVariance=3)
-        dropBool = self.verifyDrop(dropName, textVerificationPos)
-    
-        if dropBool == True:
+        try:
+            x, y = self.findDrops(dropImg)
+        except TypeError:
+            print("SLAYER:PICKUPDROP:No drop found.")
+            return None
+        x, y = self.mouse.moveMouseToArea(x, y, duration=(random.uniform(0.2,0.4)), areaVariance=1)
+        dropBool = self.verifyDropName(dropName, textVerificationPos)
+        maxAttempts = 6
+        attempts = 0
+        lastX = 0
+        lastY = 0
+        ocrFail = 0
+        ocrFailThreshold = 3
+
+        while attempts < maxAttempts:
+            if dropBool == True:
+                self.mouse.mouseClick(x,y)
+                #this sleep needs to be replaced with a method that checks if the feather was picked up
+                time.sleep(2)
+                return True
+            else:
+                if x == lastX and y == lastY:
+                    attempts += 1
+                    ocrFail += 1
+                else:
+                    ocrFail = 0
+                    lastX = x
+                    lastY = y
+                    attempts += 1
+
+        if ocrFail >= ocrFailThreshold:
             self.mouse.mouseClick(x,y)
+            #this sleep needs to be replaced with a method that checks if the feather was picked up
+            time.sleep(2)
+
+                
+            
+    def verifyDropPickedUp(self):
+        #if position hasn't moved in 1 second (0.6), check if drop has been picked up
+        
 
     def findDrops(self,dropImgLocation, conf:float = 0.6, multiple:bool = False):
         if multiple == False:
@@ -176,12 +210,12 @@ class Slayer:
             except ImageNotFoundException:
                 return print("multiple drops not found")
 
-    def verifyDrop(self, dropName, checkingPos):
+    def verifyDropName(self, dropName, checkingPos):
         #verifyer good enough for now need to add some checking
         left, top, w, h = checkingPos
         text = self.verifyer.getText(left, top, w, h)
         print("Text captured to verify if Drop: %s" % text)
-
+    
         if text == dropName:
             return True
         else:
@@ -200,6 +234,10 @@ class ChickenSlayer(Slayer):
     drop0Check = (49,38,53,12)
     left, top, w, h = drop0Check
 
+    feathersInInventory = None
+    featherRuneLiteID = 314
+    feathersPickedUp = 0
+
     def __init__(self):
         self.monsterName = "Chicken"
         self.chickenOrchestrator()
@@ -211,17 +249,14 @@ class ChickenSlayer(Slayer):
         #verify feathER
         
         while True:
-
-            #feathersToPickup = random.randint(1,4) + self.monsterSlain
             
-
-            #self.runner()
-            # self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos)
-            # time.sleep(0.5)
-            while True:
-                self.slay(self.monsterName, self.MONSTERHIGHLIGHT)
-
-            #
+            self.runner()
+            firstPickupAttempts = random.randint(1,4)
+            for _ in range(firstPickupAttempts):
+                if self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos) == None:
+                    break
+            self.slay(self.monsterName, self.MONSTERHIGHLIGHT)
+            self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos)
 
     
 
