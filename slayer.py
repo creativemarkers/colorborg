@@ -129,7 +129,7 @@ class Slayer:
             print("SLAYER:RUNNER: Running")
             
     def pickUpNearbyDrops(self, dropImg, dropName, amountToPickUp):
-
+        
         playerLocationX = 452
         playerLocationY = 468
 
@@ -197,7 +197,8 @@ class Slayer:
             moving = False
         currentItem1Quant = self.item1Quant
         while moving == True or currentItem1Quant > self.item1Quant:
-            print("SLAYER:VERIFYDROPPICKEDUPl: CHECKING IF MOVING")
+            #keeps getting stuck in this loop need to add a time out function
+            print("SLAYER:VERIFYDROPPICKEDUP: CHECKING IF MOVING")
             lastPos = currentPos
             time.sleep(0.6)
             currentPos = self.api.getCurrentWorldPosition()
