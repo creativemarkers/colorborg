@@ -7,6 +7,7 @@
 
     #pickup bugs
         1.clicking on feathers is dumb without verifcation and it's doing it too much
+        use 0,20,0 for feather finding!!! its the stem of the feather and excellent 
 
 # things i need to add 
     # slayer script
@@ -21,3 +22,4 @@
             - made a method for random camera direction using weights which can be changed on function call
         2. created a new method to find colors randomly
         3. collected data for bug fixes
+

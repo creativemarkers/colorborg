@@ -66,7 +66,7 @@ class Slayer:
             x,y = self.findMonster(monsterHighlightColor)
             if self.veriyMonster(monsterName) == True:
                 self.mouse.mouseClick(x,y)
-                time.sleep(2)
+                time.sleep(3)
                 npcName, npcHealth = self.api.getNPCinfo()
                 while npcHealth > 0:
                     time.sleep(0.5)
@@ -209,33 +209,6 @@ class Slayer:
         else:
             return False
 
-    # def verifyDropPickedUp(self,posBeforeClick, itemId):
-        # if self.item1InvPosition == None:
-        #     self.item1InvPosition, self.item1Quant = self.api.getItemQuantityComplete(itemId)
-
-        # time.sleep(0.6)
-        # currentPos = self.api.getCurrentWorldPosition()
-        # if currentPos != posBeforeClick:
-        #     moving = True
-        # else:
-        #     moving = False
-        # currentItem1Quant = self.item1Quant
-        # while moving == True or currentItem1Quant > self.item1Quant:
-        #     #keeps getting stuck in this loop need to add a time out function
-        #     print("SLAYER:VERIFYDROPPICKEDUP: CHECKING IF MOVING")
-        #     lastPos = currentPos
-        #     time.sleep(0.6)
-        #     currentPos = self.api.getCurrentWorldPosition()
-        #     if currentPos == lastPos:
-        #         moving == False 
-            
-        #     currentItem1Quant = self.api.getItemQuantityInInventory(self.item1InvPosition)
-
-        # if currentItem1Quant > self.item1Quant:
-        #     self.item1Quant = currentItem1Quant
-        #     return True
-        # else:
-        #     return False
             
     def findDrops(self,dropImgLocation, conf:float = 0.6, multiple:bool = False):
         if multiple == False:
