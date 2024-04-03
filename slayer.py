@@ -98,11 +98,15 @@ class Slayer:
         #finds monster, and moves mouse to get ready for verification
         #nature of npc it's possible adding variance to the mouse can set it out of bounds need to account for this.
         region = (0,0,688,726)
-        matchingPixels = self.mouse.findColorsFast(monsterHighlightColor, region)
+        matchingPixels = self.mouse.findColorsRandomly(monsterHighlightColor, region)
+        # matchingPixels = self.mouse.findColorsFast(monsterHighlightColor, region)
+        
         y,x = matchingPixels[0]
+        print(x, y)
         randDur = random.uniform(0.2,0.4)
         randArea = random.randint(1,4)
-        x,y = self.mouse.moveMouseToArea(x,y,randDur, randArea)
+        #removing random area for now
+        x,y = self.mouse.moveMouseToArea(x,y,randDur)
         return x,y
     
     def runner(self):
@@ -147,6 +151,10 @@ class Slayer:
     def pickUpDrop(self,dropName, dropImg, textVerificationPos, itemId):
         #need it to sample a random region of the screen the topright to bottom left makes it so obvious a bot
         #attempts to find drop, verifys if drop, clicks if it is.
+
+        if self.item1InvPosition == None:
+            self.item1InvPosition, self.item1Quant = self.api.getItemQuantityComplete(itemId)
+
         try:
             x, y = self.findDrops(dropImg)
         except TypeError:
@@ -163,13 +171,19 @@ class Slayer:
 
         while attempts < maxAttempts:
             if dropBool == True:
-                currentWorldPos = self.api.getCurrentWorldPosition()
+                # currentWorldPos = self.api.getCurrentWorldPosition()
+                print("SLAYER:PICKUPDROP: Attempting to Click on drop")
                 self.mouse.mouseClick(x,y)
                 #this sleep needs to be replaced with a method that checks if the feather was picked up
-                if self.verifyDropPickedUp(currentWorldPos, itemId) == True:
-                    return True
-                else:
-                    attempts += 1
+                time.sleep(0.6)
+                for _ in range(5):
+                    if self.dropPickedUp(self) == True:
+                        return True
+                    else:
+                        attempts += 1
+                        time.sleep(0.6)
+                    
+
             else:
                 if x == lastX and y == lastY:
                     attempts += 1
@@ -185,33 +199,43 @@ class Slayer:
             #this sleep needs to be replaced with a method that checks if the feather was picked up
             time.sleep(2)
 
-    def verifyDropPickedUp(self,posBeforeClick, itemId):
-        if self.item1InvPosition == None:
-            self.item1InvPosition, self.item1Quant = self.api.getItemQuantityComplete(itemId)
+    def dropPickedUp(self, itemId):
 
-        time.sleep(0.6)
-        currentPos = self.api.getCurrentWorldPosition()
-        if currentPos != posBeforeClick:
-            moving = True
-        else:
-            moving = False
-        currentItem1Quant = self.item1Quant
-        while moving == True or currentItem1Quant > self.item1Quant:
-            #keeps getting stuck in this loop need to add a time out function
-            print("SLAYER:VERIFYDROPPICKEDUP: CHECKING IF MOVING")
-            lastPos = currentPos
-            time.sleep(0.6)
-            currentPos = self.api.getCurrentWorldPosition()
-            if currentPos == lastPos:
-                moving == False 
-            
-            currentItem1Quant = self.api.getItemQuantityInInventory(self.item1InvPosition)
+        currentItem1Quanty = self.api.getItemQuantityInInventory(self.item1InvPosition)
 
-        if currentItem1Quant > self.item1Quant:
-            self.item1Quant = currentItem1Quant
+        if currentItem1Quanty > self.item1Quant:
+            self.item1Quant = currentItem1Quanty
             return True
         else:
             return False
+
+    # def verifyDropPickedUp(self,posBeforeClick, itemId):
+        # if self.item1InvPosition == None:
+        #     self.item1InvPosition, self.item1Quant = self.api.getItemQuantityComplete(itemId)
+
+        # time.sleep(0.6)
+        # currentPos = self.api.getCurrentWorldPosition()
+        # if currentPos != posBeforeClick:
+        #     moving = True
+        # else:
+        #     moving = False
+        # currentItem1Quant = self.item1Quant
+        # while moving == True or currentItem1Quant > self.item1Quant:
+        #     #keeps getting stuck in this loop need to add a time out function
+        #     print("SLAYER:VERIFYDROPPICKEDUP: CHECKING IF MOVING")
+        #     lastPos = currentPos
+        #     time.sleep(0.6)
+        #     currentPos = self.api.getCurrentWorldPosition()
+        #     if currentPos == lastPos:
+        #         moving == False 
+            
+        #     currentItem1Quant = self.api.getItemQuantityInInventory(self.item1InvPosition)
+
+        # if currentItem1Quant > self.item1Quant:
+        #     self.item1Quant = currentItem1Quant
+        #     return True
+        # else:
+        #     return False
             
     def findDrops(self,dropImgLocation, conf:float = 0.6, multiple:bool = False):
         if multiple == False:
@@ -266,7 +290,7 @@ class ChickenSlayer(Slayer):
         while True:
             
             self.runner()
-            firstPickupAttempts = random.randint(1,4)
+            firstPickupAttempts = random.randint(1,10)
             for _ in range(firstPickupAttempts):
                 if self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos, self.featherRuneLiteID) == None:
                     break

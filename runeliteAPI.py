@@ -78,7 +78,7 @@ class RuneLiteApi():
         worldArray = self.eventsDict["worldPoint"]
         x = worldArray["x"]
         y = worldArray["y"]
-        return x, y
+        return (x, y)
 
     
 

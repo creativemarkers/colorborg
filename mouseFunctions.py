@@ -26,8 +26,8 @@ class Mouse:
         if click == True:
             self.mouseClick(xVaried,yVaried)
 
-        if areaVariance > 0:
-            return xVaried, yVaried               
+        return xVaried, yVaried  
+                         
 
     def moveMouse(self, x:int, y:int, duration=1):
         
@@ -102,15 +102,39 @@ class Mouse:
         
     def findColorsFast(self, colorToFind:tuple, desiredRegion:tuple):
         #note!!! the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
-        #currently just looking at pixels left to right
+        #this method searches pixels left to right, bad for human likeness and overall behavior
+
         im = pyautogui.screenshot(region=desiredRegion)
+
+        #converts images to a numpyArray
         imArr = numpy.array(im)
-        # colorToFind = numpy.array(colorToFind)
+
+        #returns all matching pixel awful for speed
         matchingPixels = numpy.argwhere(numpy.all(imArr == colorToFind, axis=-1))
+
         return matchingPixels
+    
+    def findColorsRandomly(self, colorToFind:tuple, desiredRegion:tuple):
+        #note!!! the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
 
+        im = pyautogui.screenshot(region=desiredRegion)
 
+        #converts images to a numpyArray
+        imArr = numpy.array(im)
 
+        #does what it says on the tin, randomly generates row col and numbers to search the pixels randomly
+        height, width, _ = imArr.shape
+        randomRow = numpy.random.randint(0, height, size = (height, width))
+        randomCol = numpy.random.randint(0, width, size=(height, width))
+
+        #breaks once it finds one missing pixel(can be a bit too fast)
+        matchingPixel = []
+        for row, col in zip(randomRow.flat, randomCol.flat):
+            if numpy.all(imArr[row,col]==numpy.array(colorToFind)):
+                matchingPixel.append((row,col))
+                break
+
+        return matchingPixel
 
     def mouseClick(self, x:int, y:int, but:str = 'left'):
         print("CLICKING")
@@ -119,4 +143,82 @@ class Mouse:
         clep = random.uniform(0.05,0.1)
         time.sleep(clep)
 
+    def rotateCameraWithMouse(self, direction, duration=0.4):
+        #directions correspond to how the mouse moves not the camera necessarily
+        #this method could produce index errors be mindful
 
+        currentX, currentY =  pyautogui.position()
+
+        directionsSimpleDict = {
+            "up": -1,
+            "down": 1,
+            "left": -1,
+            "right": 1
+        }
+
+        distance = 100 * (duration *  10) 
+        print("MOUSEFUNCTIONS:ROTATECAMERAWITHMOUSE: Rotating Camera...")
+        if direction == "up" or  direction == "down":
+            distanceTraveling = currentY + (distance * directionsSimpleDict[direction]) 
+            pyautogui.dragTo(currentX, distanceTraveling, duration, button="middle")
+        elif direction == "left" or direction == "right":
+            distanceTraveling = currentX + (distance * directionsSimpleDict[direction]) 
+            pyautogui.dragTo(distanceTraveling, currentY, duration, button="middle")
+        elif direction == "upLeft":
+            distanceX = -50 * (duration * 10)
+            distanceY = -50 * (duration * 10)
+            disTravelX = currentX + distanceX
+            disTravelY = currentY + distanceY
+            pyautogui.dragTo(disTravelX, disTravelY, duration, button="middle")
+        elif direction == "upRight":
+            distanceX = 50 * (duration * 10)
+            distanceY = -50 * (duration * 10)
+            disTravelX = currentX + distanceX
+            disTravelY = currentY + distanceY
+            pyautogui.dragTo(disTravelX, disTravelY, duration, button="middle")
+        elif direction == "downLeft":
+            distanceX = -50 * (duration * 10)
+            distanceY = 50 * (duration * 10)
+            disTravelX = currentX + distanceX
+            disTravelY = currentY + distanceY
+            pyautogui.dragTo(disTravelX, disTravelY, duration, button="middle")
+        elif direction == "downRight":
+            distanceX = 50 * (duration * 10)
+            distanceY = 50 * (duration * 10)
+            disTravelX = currentX + distanceX
+            disTravelY = currentY + distanceY
+            pyautogui.dragTo(disTravelX, disTravelY, duration, button="middle")
+
+    def rotateCameraInRandomDirection(self, weightedDirection = None, weightAmount = 4 , dur = 0.4):
+        #base total weight is eight careful on adding more weight to desired amount
+        directionWeights = {
+            "up":1,
+            "down":1,
+            "left":1,
+            "right":1,
+            "upLeft":1,
+            "upRight":1,
+            "downLeft":1,
+            "downRight":1,
+        }
+        
+        if weightedDirection != None:
+            directionWeights[weightedDirection] = weightAmount
+        
+        weightsSum = sum(directionWeights.values())
+
+        roll = random.randint(1, weightsSum)
+        for item, weight in directionWeights.items():
+            if roll <= weight:
+                winningRoll = item
+                break
+            roll -= weight
+
+        self.rotateCameraWithMouse(winningRoll, duration=dur)
+
+if __name__ == "__main__":
+    mouse = Mouse()
+    tits =(0,0,0)
+    desiredArea = (0,0,900,900)
+
+    mouse.findColorsRandomly(tits, desiredArea)
