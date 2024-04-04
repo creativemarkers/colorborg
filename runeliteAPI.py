@@ -95,7 +95,10 @@ if __name__ == "__main__":
 
     # print(type(api.getItemQuantityInInventory(1)))
     while True:
-        x, y = api.getCurrentWorldPosition()
-        print(x, y)
-        time.sleep(0.5)
+        npcName, whoCares = api.getNPCinfo()
+        print(api.eventsDict["latest msg"])
 
+        print(npcName)
+        time.sleep(0.6)
+        
+       

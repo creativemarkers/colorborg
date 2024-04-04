@@ -52,19 +52,25 @@ class Slayer:
     
         #check if running(in game)
 
-    def slayerOrchestrator(self):
-        #move camera fairly often
-        pass
-
     def slay(self, monsterName:str, monsterHighlightColor:tuple) -> None:
         #make sure your monster is highlighted
         #while api npcname null
 
         monsterKilled = False
-        
+        monsterFindAttempt = 0
+        maxMonsterFindAttempt = 3
+
         while self.getFightingStatus() == False or monsterKilled == False:
+
+            if monsterFindAttempt > maxMonsterFindAttempt:
+                rDur = random.uniform(0.52, 0.83)
+                self.mouse.rotateCameraInRandomDirection(weightedDirection="downRight", dur=rDur)
+                monsterFindAttempt -= 2
+
             x,y = self.findMonster(monsterHighlightColor)
+
             if self.veriyMonster(monsterName) == True:
+                monsterFindAttempt = 0
                 self.mouse.mouseClick(x,y)
                 time.sleep(3)
                 npcName, npcHealth = self.api.getNPCinfo()
@@ -73,7 +79,10 @@ class Slayer:
                     npcName, npcHealth = self.api.getNPCinfo()
                 monsterKilled = True
             else:
+                monsterFindAttempt += 1
                 print("SLAYER:SLAY:MONSTER NOT FOUND")
+
+        return None
     
     def getFightingStatus(self) -> bool:
         
@@ -88,7 +97,6 @@ class Slayer:
         #assumes mouse is over chicken already
         text = self.verifyer.getText(10, 33, 105, 12)
         verifyingText = "Attack " + monsterName
-        print (verifyingText)
         if self.verifyer.verifyText(text, verifyingText) == True:
             return True
         else:
@@ -97,17 +105,20 @@ class Slayer:
     def findMonster(self,monsterHighlightColor:tuple) -> int:
         #finds monster, and moves mouse to get ready for verification
         #nature of npc it's possible adding variance to the mouse can set it out of bounds need to account for this.
-        region = (0,0,688,726)
-        matchingPixels = self.mouse.findColorsRandomly(monsterHighlightColor, region)
-        # matchingPixels = self.mouse.findColorsFast(monsterHighlightColor, region)
-        
-        y,x = matchingPixels[0]
-        print(x, y)
-        randDur = random.uniform(0.2,0.4)
-        randArea = random.randint(1,4)
-        #removing random area for now
-        x,y = self.mouse.moveMouseToArea(x,y,randDur)
-        return x,y
+        try:
+            region = (0,0,688,726)
+            matchingPixels = self.mouse.findColorsRandomly(monsterHighlightColor, region)
+            # matchingPixels = self.mouse.findColorsFast(monsterHighlightColor, region)
+            
+            y,x = matchingPixels[0]
+            # print(x, y)
+            randDur = random.uniform(0.2,0.4)
+            randArea = random.randint(1,4)
+            #removing random area for now
+            x,y = self.mouse.moveMouseToArea(x,y,randDur)
+            return x,y
+        except IndexError:
+            raise IndexError
     
     def runner(self):
         #need a semi refact OCR engines are awful at reading small text like the run energy, will need to do
@@ -151,39 +162,46 @@ class Slayer:
     def pickUpDrop(self,dropName, dropImg, textVerificationPos, itemId):
         #need it to sample a random region of the screen the topright to bottom left makes it so obvious a bot
         #attempts to find drop, verifys if drop, clicks if it is.
-
+        print("SLAYER:PICKUPDROP: Starting pick up drop method ...")
         if self.item1InvPosition == None:
             self.item1InvPosition, self.item1Quant = self.api.getItemQuantityComplete(itemId)
 
-        try:
-            x, y = self.findDrops(dropImg)
-        except TypeError:
-            print("SLAYER:PICKUPDROP:No drop found.")
-            return None
-        x, y = self.mouse.moveMouseToArea(x, y, duration=(random.uniform(0.2,0.4)), areaVariance=1)
-        dropBool = self.verifyDropName(dropName, textVerificationPos)
+        # try:
+        #     x, y = self.findDrops(dropImg)
+        # except TypeError:
+        #     print("SLAYER:PICKUPDROP:No drop found.")
+        #     return None
+        # x, y = self.mouse.moveMouseToArea(x, y, duration=(random.uniform(0.2,0.4)), areaVariance=1)
+        # dropBool = self.verifyDropName(dropName, textVerificationPos)
+        # print(dropBool)
         maxAttempts = 6
         attempts = 0
         lastX = 0
         lastY = 0
         ocrFail = 0
-        ocrFailThreshold = 3
+        ocrFailThreshold = 5
 
         while attempts < maxAttempts:
+
+            try:
+                x, y = self.findDrops(dropImg)
+            except TypeError:
+                print("SLAYER:PICKUPDROP:No drop found.")
+                return None
+            
+            x, y = self.mouse.moveMouseToArea(x, y, duration=(random.uniform(0.2,0.4)), areaVariance=1)
+            dropBool = self.verifyDropName(dropName, textVerificationPos)
+
             if dropBool == True:
                 # currentWorldPos = self.api.getCurrentWorldPosition()
                 print("SLAYER:PICKUPDROP: Attempting to Click on drop")
                 self.mouse.mouseClick(x,y)
                 #this sleep needs to be replaced with a method that checks if the feather was picked up
-                time.sleep(0.6)
-                for _ in range(5):
-                    if self.dropPickedUp(self) == True:
-                        return True
-                    else:
-                        attempts += 1
-                        time.sleep(0.6)
-                    
-
+                result = self.waitForDropPickup()
+                if result == True:
+                    return True
+                else:
+                    attempts += 1
             else:
                 if x == lastX and y == lastY:
                     attempts += 1
@@ -195,11 +213,15 @@ class Slayer:
                     attempts += 1
 
         if ocrFail >= ocrFailThreshold:
+            print("SLAYER:PICKUPDROP: Triggered OCR Fail.. Clicking")
             self.mouse.mouseClick(x,y)
+            ocrFail = 0
             #this sleep needs to be replaced with a method that checks if the feather was picked up
-            time.sleep(2)
+            self.waitForDropPickup()
 
-    def dropPickedUp(self, itemId):
+
+    
+    def dropPickedUp(self):
 
         currentItem1Quanty = self.api.getItemQuantityInInventory(self.item1InvPosition)
 
@@ -209,6 +231,16 @@ class Slayer:
         else:
             return False
 
+    def waitForDropPickup(self):
+        attempts = 0
+        time.sleep(0.6)
+        for _ in range(5):
+                if self.dropPickedUp() == True:
+                    return True
+                else:
+                    attempts += 1
+                    time.sleep(0.6)
+        return attempts
             
     def findDrops(self,dropImgLocation, conf:float = 0.6, multiple:bool = False):
         if multiple == False:
@@ -223,7 +255,7 @@ class Slayer:
                 return dropAvailableDrops
             except ImageNotFoundException:
                 return print("multiple drops not found")
-
+            
     def verifyDropName(self, dropName, checkingPos):
         #verifyer good enough for now need to add some checking
         left, top, w, h = checkingPos
@@ -231,10 +263,12 @@ class Slayer:
         print("Text captured to verify if Drop: %s" % text)
     
         if text == dropName:
+            print("SLAYER:VERIFYDROPNAME: Text Verifyed Returning True")
             return True
         else:
+            print("SLAYER:VERIFYDROPNAME: Text Not Verifyed Returning False")
             return False
-        
+     
 class ChickenSlayer(Slayer):
     #makesure feathers are highlighted purple on runelite
     #makesure chickens are fully highlighted on runelite
@@ -263,7 +297,7 @@ class ChickenSlayer(Slayer):
         while True:
             
             self.runner()
-            firstPickupAttempts = random.randint(1,10)
+            firstPickupAttempts = random.randint(1,5)
             for _ in range(firstPickupAttempts):
                 if self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos, self.featherRuneLiteID) == None:
                     break
