@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+from verification import Verifyer
 
 class RuneLiteApi():
     #uses "MORG HTTP API plugin on the plugin hub"
@@ -94,11 +95,16 @@ if __name__ == "__main__":
 
 
     # print(type(api.getItemQuantityInInventory(1)))
-    while True:
-        npcName, whoCares = api.getNPCinfo()
-        print(api.eventsDict["latest msg"])
 
-        print(npcName)
+    verifyer = Verifyer()
+    while True:
+        worldPos = api.getCurrentWorldPosition()
+        result = verifyer.verifyInArea(api, (3177, 3296), 11)
+        print(result)
+        
+        # print(api.eventsDict["latest msg"])
+
+        print(worldPos)
         time.sleep(0.6)
         
        

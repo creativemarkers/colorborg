@@ -80,3 +80,23 @@ class Verifyer:
             #     return True
             
             return False
+        
+    def verifyInArea(self, api:object, boundingTile:tuple, MaxRange:int)-> bool:
+        currentWorldPos = api.getCurrentWorldPosition()
+
+        desiredX, desiredY =  boundingTile
+
+        currentX,currentY = currentWorldPos
+
+        distX = abs(currentX-desiredX)
+        distY = abs(currentY-desiredY)
+        print(f"distX: {distX}")
+        print(f"distY: {distY}")
+
+        if distX > MaxRange:
+            return False
+        elif distY > MaxRange:
+            return False
+        else:
+            return True
+            

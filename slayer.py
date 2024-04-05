@@ -268,15 +268,25 @@ class Slayer:
         else:
             print("SLAYER:VERIFYDROPNAME: Text Not Verifyed Returning False")
             return False
+        
+    def inArea(self,boundingTile, maxRange):
+
+        if self.verifyer.verifyInArea(self.api,boundingTile=boundingTile,MaxRange=maxRange):
+            return True
+        else:
+            return False
+        
      
 class ChickenSlayer(Slayer):
     #makesure feathers are highlighted purple on runelite
     #makesure chickens are fully highlighted on runelite
     #make sure opponent info is on (HP)
+    from universalMethods import Uni
     drop0name = "Feather"
     drop0Img = 'img/featherText.png'
     textVerificationPos = (41, 32, 58, 17)
     chickenBoundingTile = (3177, 3296)
+    boundingRange = 11
 
     drop0Check = (49,38,53,12)
     left, top, w, h = drop0Check
@@ -285,7 +295,7 @@ class ChickenSlayer(Slayer):
     featherRuneLiteID = 314
     feathersPickedUp = 0
     feathersInventoryLocation = None
-
+    uni = Uni()
 
     def __init__(self):
         self.monsterName = "Chicken"
@@ -293,16 +303,25 @@ class ChickenSlayer(Slayer):
 
 
     def chickenOrchestrator(self):
-        
+
         while True:
             
-            self.runner()
-            firstPickupAttempts = random.randint(1,5)
-            for _ in range(firstPickupAttempts):
-                if self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos, self.featherRuneLiteID) == None:
-                    break
-            self.slay(self.monsterName, self.MONSTERHIGHLIGHT)
-            self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos, self.featherRuneLiteID,)
+            while self.inArea():
+                #while within bounds
+                self.runner()
+                firstPickupAttempts = random.randint(1,5)
+                for _ in range(firstPickupAttempts):
+                    if self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos, self.featherRuneLiteID) == None:
+                        #this break is making the droppickup logic only pickup once or no times at all
+                        break
+                self.slay(self.monsterName, self.MONSTERHIGHLIGHT)
+                self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos, self.featherRuneLiteID,)
+
+            self.uni.returnToBoundingArea(self.api, self.chickenBoundingTile, self.boundingRange)
+            
+
+        
+
 
         #confirm if in range of homing tile
         #openinventtocheck hmfeathers
