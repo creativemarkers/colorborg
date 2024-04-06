@@ -10,6 +10,8 @@
 
         1. clicking on chickens other players are fighting
         2. monster verification needs more work (image to text)
+        3. trying to click on chickens out of reach 
+
 
 
     #pickup bugs
@@ -17,6 +19,10 @@
         use 0,20,0 for feather finding!!! its the stem of the feather and excellent 
         ^this did not work as expected
         but i did clean up the picking up code, so it picks up feathers more consistently know
+        2. find ticket but other entity over it fucking up the verification (adding a right click to try picking up would help)
+
+    #overall issues
+        when walking, the current wait times aren't enough, need to be almost doubled, could create a universal function to handle this
 
 # things i need to add 
     # slayer script

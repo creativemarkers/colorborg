@@ -306,7 +306,7 @@ class ChickenSlayer(Slayer):
 
         while True:
             
-            while self.inArea():
+            while self.inArea(self.chickenBoundingTile, self.boundingRange):
                 #while within bounds
                 self.runner()
                 firstPickupAttempts = random.randint(1,5)
