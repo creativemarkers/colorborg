@@ -291,6 +291,7 @@ class ChickenSlayer(Slayer):
     drop0Check = (49,38,53,12)
     left, top, w, h = drop0Check
 
+    feathersAtStart = None
     feathersInInventory = None
     featherRuneLiteID = 314
     feathersPickedUp = 0
@@ -300,8 +301,24 @@ class ChickenSlayer(Slayer):
     def __init__(self):
         self.monsterName = "Chicken"
         self.chickenOrchestrator()
+        self.updateFeatherCount()
 
+    def updateFeatherCount(self):
+        if self.item1InvPosition == None:
+            self.item1InvPosition, self.item1Quant = self.api.getItemQuantityComplete(self.featherRuneLiteID)
+        else:
+            self.item1Quant = self.api.getItemQuantityInInventory(self.item1InvPosition)
 
+        if self.feathersAtStart == None:
+            self.feathersAtStart = self.item1Quant
+            self.feathersInInventory = self.item1Quant
+        else:
+            self.feathersInInventory = self.item1Quant
+
+        self.feathersPickedUp = self.feathersInInventory - self.feathersAtStart
+
+        print(f"SLAYER:UPDATEFEATHERCOUNT: Feathers picked up: {self.feathersPickedUp}")
+        
     def chickenOrchestrator(self):
 
         while True:
@@ -316,6 +333,7 @@ class ChickenSlayer(Slayer):
                         break
                 self.slay(self.monsterName, self.MONSTERHIGHLIGHT)
                 self.pickUpDrop(self.drop0name, self.drop0Img, self.textVerificationPos, self.featherRuneLiteID,)
+                self.updateFeatherCount()
 
             self.uni.returnToBoundingArea(self.api, self.chickenBoundingTile, self.boundingRange)
             

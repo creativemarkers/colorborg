@@ -28636,3 +28636,672 @@
 2024-04-06 13:21:23,806 - DEBUG - Starting new HTTP connection (1): localhost:8081
 2024-04-06 13:21:23,807 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
 2024-04-06 13:21:23,807 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:34,921 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:34,922 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:34,923 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:34,942 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:34,947 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:35:34,947 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:34,948 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:34,967 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:35:34,967 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:34,967 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:34,987 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:35:34,987 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:35,078 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:35,079 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:35,080 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:35,548 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:35,549 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:35,550 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:36,176 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:36,177 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:36,177 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:36,853 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:36,854 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:36,854 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:37,469 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:37,470 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:37,470 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:39,084 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:39,085 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:39,085 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:42,884 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:42,885 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:42,885 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:42,886 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:42,886 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:42,887 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:42,955 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:42,956 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:42,957 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:43,039 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:43,040 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:43,041 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:43,686 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:43,687 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:43,687 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:44,167 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:44,168 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:44,169 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:44,642 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:44,643 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:44,643 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:45,122 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:45,123 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:45,123 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:49,680 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:49,681 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:49,681 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:49,682 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:49,682 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:49,682 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:49,750 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:49,751 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:49,752 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:49,849 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:49,850 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:49,851 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:50,415 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:50,416 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:50,417 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:51,032 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:51,033 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:51,033 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:54,920 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:54,921 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:54,922 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:54,922 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:54,923 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:54,923 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:55,578 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:55,579 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:55,580 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:56,193 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:56,195 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:56,195 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:35:56,899 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:35:56,900 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:35:56,901 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:00,776 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:00,777 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:00,778 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:01,278 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:01,280 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:01,280 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:01,781 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:01,781 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:01,782 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:02,283 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:02,284 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:02,285 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:02,786 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:02,787 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:02,787 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:03,288 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:03,289 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:03,290 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:03,791 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:03,792 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:03,793 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:04,294 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:04,295 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:04,296 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:04,296 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:04,297 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:04,297 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:06,939 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:06,948 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:36:06,948 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:07,549 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:07,567 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:36:07,567 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:08,168 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:08,188 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:36:08,188 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:08,189 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:08,190 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:08,190 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:08,277 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:08,278 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:08,278 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:08,917 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:08,918 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:08,918 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:12,618 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:12,619 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:12,619 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:12,619 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:12,620 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:12,620 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:13,307 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:13,308 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:13,309 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:13,767 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:13,767 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:13,768 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:14,223 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:14,224 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:14,225 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:14,950 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:14,951 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:14,951 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:16,443 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:16,444 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:16,445 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:20,244 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:20,244 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:20,245 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:20,246 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:20,246 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:20,246 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:20,799 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:20,800 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:20,801 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:21,391 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:21,392 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:21,392 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:25,060 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:25,061 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:25,061 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:25,562 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:25,563 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:25,563 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:26,065 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:26,066 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:26,066 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:26,567 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:26,568 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:26,568 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:27,070 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:27,071 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:27,071 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:27,072 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:27,072 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:27,072 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:30,608 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:30,610 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:30,610 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:30,624 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:30,624 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:30,624 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:35,231 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:35,232 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:35,233 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:35,733 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:35,734 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:35,735 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:39,790 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:39,791 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:39,792 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:39,792 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:39,793 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:39,793 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:43,456 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:43,457 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:43,458 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:43,958 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:43,959 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:43,959 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:44,460 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:44,462 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:44,463 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:44,963 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:44,964 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:44,964 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:44,965 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:44,965 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:44,966 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:48,508 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:48,509 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:48,509 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:48,522 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:48,522 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:48,522 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:51,991 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:51,992 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:51,992 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:55,800 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:55,800 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:55,802 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:55,802 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:55,803 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:36:55,803 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:58,857 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:58,867 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:36:58,867 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:36:59,469 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:36:59,487 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:36:59,487 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:37:00,088 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:37:00,107 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:37:00,107 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:37:00,708 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:37:00,727 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:37:00,727 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:37:01,328 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:37:01,346 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:37:01,346 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:37:01,347 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:37:01,348 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:37:01,348 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:37:01,366 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:37:01,367 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:37:01,367 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:22,815 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:22,816 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:22,818 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:22,837 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:22,838 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:22,838 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:22,839 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:22,847 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:22,847 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:22,847 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:22,867 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:22,867 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:22,867 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:22,887 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:22,887 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:24,955 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:24,967 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:24,967 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:25,568 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:25,586 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:25,586 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:28,860 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:28,861 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:28,861 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:29,513 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:29,515 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:29,516 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:33,268 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:33,269 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:33,270 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:33,270 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:33,271 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:33,271 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:36,515 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:36,526 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:36,526 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:36,526 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:36,527 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:36,528 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:36,533 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:36,533 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:36,533 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:39,752 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:39,754 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:39,754 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:43,792 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:43,793 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:43,793 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:44,295 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:44,296 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:44,296 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:44,797 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:44,798 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:44,798 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:44,799 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:44,799 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:44,799 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:46,254 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:46,268 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:46,268 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:46,869 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:46,887 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:46,887 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:47,488 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:47,507 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:47,507 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:48,108 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:48,128 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:48,128 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:48,728 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:48,747 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:48,747 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:52,161 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:52,167 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:38:52,167 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:52,168 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:52,168 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:52,169 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:52,180 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:52,180 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:52,180 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:55,484 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:55,485 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:55,486 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:55,957 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:55,958 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:55,958 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:56,522 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:56,523 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:56,523 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:57,006 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:57,007 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:57,007 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:38:57,490 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:38:57,491 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:38:57,492 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:02,405 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:02,406 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:02,406 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:02,407 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:02,407 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:02,407 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:04,134 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:04,146 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:04,146 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:04,747 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:04,767 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:04,767 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:05,367 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:05,386 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:05,386 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:05,987 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:06,006 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:06,006 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:06,607 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:06,628 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:06,628 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:09,227 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:09,248 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:09,248 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:09,249 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:09,249 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:09,250 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:09,260 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:09,261 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:09,261 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:13,513 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:13,526 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:13,526 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:14,127 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:14,147 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:14,147 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:15,380 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:15,388 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:15,388 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:15,990 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:16,006 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:16,006 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:16,007 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:16,007 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:16,008 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:19,671 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:19,672 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:19,673 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:20,175 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:20,175 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:20,176 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:20,677 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:20,678 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:20,678 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:21,179 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:21,180 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:21,181 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:21,682 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:21,683 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:21,683 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:22,184 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:22,184 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:22,185 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:22,686 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:22,687 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:22,688 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:23,189 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:23,189 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:23,190 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:23,691 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:23,691 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:23,692 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:24,193 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:24,193 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:24,195 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:24,696 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:24,697 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:24,697 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:25,198 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:25,199 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:25,199 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:25,700 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:25,701 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:25,701 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:25,702 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:25,702 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:25,703 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:25,763 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:25,767 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:25,767 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:25,768 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:25,768 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:25,769 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:25,845 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:25,846 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:25,846 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:26,331 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:26,331 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:26,332 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:26,777 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:26,778 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:26,778 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:30,482 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:30,483 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:30,483 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:30,484 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:30,484 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:30,485 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:34,161 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:34,162 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:34,162 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:34,163 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:34,163 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:34,163 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:38,000 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:38,001 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:38,002 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:38,503 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:38,503 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:38,504 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:39,005 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:39,006 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:39,006 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:39,507 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:39,508 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:39,508 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:40,010 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:40,011 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:40,011 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:40,513 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:40,514 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:40,514 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:41,015 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:41,015 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:41,016 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:41,016 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:41,017 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:41,017 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:42,954 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:42,965 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:42,965 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:43,566 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:43,588 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:43,588 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:43,589 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:43,607 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:43,607 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:43,608 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:43,608 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:43,609 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:45,015 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:45,028 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:45,028 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:45,629 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:45,647 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:45,647 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:46,248 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:46,267 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:46,267 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:47,793 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:47,807 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:47,807 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:48,408 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:48,426 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:39:48,426 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:48,501 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:48,501 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:48,502 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:52,258 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:52,259 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:52,260 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:52,260 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:52,260 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:52,260 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:55,921 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:55,922 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:55,923 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:55,923 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:55,924 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:55,924 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:59,764 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:59,765 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:59,765 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:39:59,766 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:39:59,766 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:39:59,766 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:03,503 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:03,503 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:03,505 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:03,505 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:03,506 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:03,506 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:07,260 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:07,261 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:07,262 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:07,262 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:07,263 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:07,263 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:07,755 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:07,756 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:07,757 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:08,270 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:08,271 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:08,271 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:11,838 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:11,839 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:11,840 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:11,840 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:11,841 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:11,841 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:12,421 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:12,422 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:12,422 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:12,944 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:12,945 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:12,946 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:13,463 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:13,464 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:13,464 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:17,065 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:17,066 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:17,066 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:17,568 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:17,569 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:17,570 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:17,571 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:17,571 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:17,571 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:17,641 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:17,646 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:40:17,646 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:17,646 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:17,647 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:17,647 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:17,725 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:17,726 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:17,726 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:21,526 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:21,527 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:21,528 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:22,028 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:22,029 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:22,029 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:22,030 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:22,030 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:22,031 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:23,371 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:23,387 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:40:23,387 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:23,988 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:24,008 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:40:24,008 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:24,609 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:24,627 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:40:24,627 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:24,628 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:24,648 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:40:24,648 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:24,649 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:24,649 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:24,650 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:26,811 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:26,827 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:40:26,827 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:27,429 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:27,447 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:40:27,447 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:27,448 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:27,448 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:27,449 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:28,138 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:28,139 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:28,139 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:28,580 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:28,581 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:28,582 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:32,168 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:32,170 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:32,171 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:32,672 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:32,673 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:32,673 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:33,175 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:33,176 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:33,177 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:33,678 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:33,679 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:33,679 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:33,680 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:33,680 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:33,681 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:33,767 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:33,787 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:40:33,787 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:33,788 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:33,788 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:33,789 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:33,894 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:33,895 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:33,895 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:37,706 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:37,707 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:37,708 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:38,210 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:38,211 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:38,212 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:38,712 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:38,713 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:38,713 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:38,713 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:38,715 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:38,715 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:38,781 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:38,787 - DEBUG - http://localhost:8081 "GET /inv HTTP/1.1" 200 None
+2024-04-06 13:40:38,787 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:38,788 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:38,788 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:38,789 - DEBUG - Encoding detection: ascii is most likely the one.
+2024-04-06 13:40:38,882 - DEBUG - Starting new HTTP connection (1): localhost:8081
+2024-04-06 13:40:38,884 - DEBUG - http://localhost:8081 "GET /events HTTP/1.1" 200 None
+2024-04-06 13:40:38,884 - DEBUG - Encoding detection: ascii is most likely the one.
