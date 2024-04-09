@@ -135,6 +135,17 @@ class Mouse:
                 break
 
         return matchingPixel
+    
+    def findColorsIteratively(self):
+        #uses find colors randomly function
+        #useful for searching near player 
+        pass
+
+    def findImgIteratively(self):
+        #useful for searching near player
+        pass
+
+
 
     def mouseClick(self, x:int, y:int, but:str = 'left'):
         print("CLICKING")

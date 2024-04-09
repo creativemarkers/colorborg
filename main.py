@@ -44,12 +44,14 @@ def main():
         # #calls script getter
         # scriptGetter(gui.scriptSelected)
 
-        # fisher = Fisher()
+        fisher = Fisher()
         """
         code below disabled for testing
         """
 
-        slayer = Slayer()
+        #slayer = Slayer()
+
+
         
 
     #end script gracefully since we have two threads now

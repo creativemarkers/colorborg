@@ -47,13 +47,13 @@ class Fisher:
         # self.selectedSubScript = self.gui.scriptSelected
 
         #creates thread for the bot and starts it, still need to pass the right arg
-        self.botThread = threading.Thread(target = self.createBot, args=("shrimp",))
+        self.botThread = threading.Thread(target = self.createBot, args=("salmon/trout",))
         self.botThread.start()
 
         #creates display gui, then creates thread and starts it
-        self.infoGUI.displayBotInfo("Shrimp PowerFisher")
-        self.infoGuiThread = threading.Thread(target = self.infoGUI.root.mainloop())
-        self.infoGuiThread.start()
+        # self.infoGUI.displayBotInfo("Shrimp PowerFisher")
+        # self.infoGuiThread = threading.Thread(target = self.infoGUI.root.mainloop())
+        # self.infoGuiThread.start()
        
 
 
@@ -66,6 +66,8 @@ class Fisher:
         #creates bot instances, needed for threading
         if fishType == "shrimp":
             shrimper = ShrimpFisher()
+        elif fishType == "salmon/trout":
+            flyFisher = FlyFisher()
 
     def verifyRunning(self):
 
@@ -74,7 +76,7 @@ class Fisher:
             self.running = False
             exit()
         
-    def fish(self, fishSpotImageLocation):
+    def fishWithImg(self, fishSpotImageLocation:str, fishSpotVerificationString:str, stringVerificationRegion:tuple):
         #main function that handles fishing
         #takes img of what the fishspot looks like
 
@@ -87,7 +89,7 @@ class Fisher:
         '''
         pseudo code ends
         '''
-
+        left,top,width,height = stringVerificationRegion
         #enters loop after checking if inventory is full and if it's not currently fishing
         while self.invent.isInventFull(28) == False and self.verifyFishing() == False:
 
@@ -101,11 +103,13 @@ class Fisher:
             self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,durForFishSpot,5)
 
             #grabs pop up text
-            textToCheck = self.verifyer.getText(8,32,120,20)
+            print(stringVerificationRegion)
+
+            textToCheck = self.verifyer.getText(left, top, width, height)
 
             self.infoGUI.scriptStatus = "Verifying fishing spot"
             #checks if the text matches the string
-            if self.verifyer.verifyText(textToCheck,"Net Fishing Spot") == True:
+            if self.verifyer.verifyText(textToCheck, fishSpotVerificationString) == True:
 
                 #sleep to make sure game is caught up
                 time.sleep(0.1)
@@ -148,8 +152,9 @@ class Fisher:
             attempt = 0
             turnAttempt += 1
             
-    
     def verifyFishing(self):
+
+    
         #verifies if currently fishing
 
         #calls verifyer object to retrieve text on top right of runelite plugin to determine if fishing
@@ -164,7 +169,21 @@ class Fisher:
             return True
         else:
             return False
+
+    def fishWithColor(self, fishIconColor):
+        pass
+
+    def findFishingSpotWithColor(self,fishIconColor:list, screenShotRegion:tuple):
+
+        for color in fishIconColor:
+            try:
+                y,x = self.mouse.findColorsRandomly(color, screenShotRegion)
+                return x, y
+            except ImageNotFoundException:
+                print("FISHER:FINDFISHINGSPOTWITHCOLOR: color not found trying other color")
         
+
+
 class ShrimpFisher(Fisher):
 
     #variables required for the shrimp script
@@ -174,6 +193,8 @@ class ShrimpFisher(Fisher):
     slotsToFill = 27
     shrimpSpotImg = "img/shrimpFishingIcon.png"
     powerFish = True
+    fishingSpotVerificationString = "Net Fishing Spot"
+    verificationStringRegion = (8,32,120,20)
 
     def __init__(self,powerfishing=True):
         
@@ -209,7 +230,7 @@ class ShrimpFisher(Fisher):
                 #loop runs until inventory full
                     self.verifyRunning()
                     #calls fish function in parent class
-                    self.fish(self.shrimpSpotImg)
+                    self.fishWithImg(self.shrimpSpotImg, self.fishingSpotVerificationString, self.verificationStringRegion)
                     self.infoGUI.scriptStatus = "Fishing"
                     #this sleep might not be necessary anymore, as fish is now handling it
                     time.sleep(0.6)
@@ -220,3 +241,42 @@ class ShrimpFisher(Fisher):
         
         else:
             print("powerFishing set to False")
+
+class FlyFisher(Fisher):
+
+    flyFishingSpotImg = "img/salmonFishingIcon.png"
+    salmonColors = [(202,126,112),(174,95,81)]
+    colorSearchRegion = (0, 0, 687, 726)
+    flyfishingSpotVerificationString = "Lure Rod Fishing Spot"
+    stringVerificationRegion = (8, 31, 152, 17)
+
+    def __init__(self, powerFishingSwitch:bool = True):
+        self.powerFish = powerFishingSwitch
+        print("in here")
+        self.flyFisher()
+
+    def flyFisher(self):
+        #orchestrates fishing functions
+        """
+        confirm fishing equipment is in inventory
+        confirm in fishing spot
+            okay can run
+                run checker
+                check inventory space
+                    if invent full
+                        bank or drop
+                            if bank 
+                                break out of inner loop and start banking
+                            elif drop
+                                quick drop invent
+                    find fishing spot
+                    verify fishing spot
+                    click on fishing spot
+                    wait to stop fishing
+                    go to run checker
+        """
+
+        while True:
+            # x, y = self.findFishingSpotWithColor(self.salmonColors, self.colorSearchRegion)
+            # print(x, y)
+            self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion)

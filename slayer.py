@@ -125,8 +125,8 @@ class Slayer:
         #time based system for handling run, (takes 12 min to full run energy from 0)
         #runelite api
         #handles running
-        runningColor = (206,168,1)
-        x, y = 738, 160
+        runningColor = (236,218,103)
+        x, y = 730, 163
 
         if pyautogui.pixelMatchesColor(x, y, runningColor) != True:
             print("SLAYER:RUNNER: Not running")
@@ -159,7 +159,7 @@ class Slayer:
             absX = abs(playerLocationX - dropX)
             absY = abs(playerLocationY - dropY) 
 
-    def pickUpDrop(self,dropName, dropImg, textVerificationPos, itemId):
+    def pickUpDrop(self,dropName:str, dropImg:str, textVerificationPos:tuple, itemId:int):
         #need it to sample a random region of the screen the topright to bottom left makes it so obvious a bot
         #attempts to find drop, verifys if drop, clicks if it is.
         print("SLAYER:PICKUPDROP: Starting pick up drop method ...")
@@ -221,7 +221,7 @@ class Slayer:
 
 
     
-    def dropPickedUp(self):
+    def dropPickedUp(self) -> bool:
 
         currentItem1Quanty = self.api.getItemQuantityInInventory(self.item1InvPosition)
 
@@ -242,7 +242,7 @@ class Slayer:
                     time.sleep(0.6)
         return attempts
             
-    def findDrops(self,dropImgLocation, conf:float = 0.6, multiple:bool = False):
+    def findDrops(self,dropImgLocation, conf:float = 0.6, multiple:bool = False) -> int:
         if multiple == False:
             try:
                 x, y = self.mouse.findImageSimple(dropImgLocation,900,900,desiredConfidence = conf)
@@ -256,7 +256,7 @@ class Slayer:
             except ImageNotFoundException:
                 return print("multiple drops not found")
             
-    def verifyDropName(self, dropName, checkingPos):
+    def verifyDropName(self, dropName:str, checkingPos:tuple) -> bool:
         #verifyer good enough for now need to add some checking
         left, top, w, h = checkingPos
         text = self.verifyer.getText(left, top, w, h)
@@ -269,7 +269,7 @@ class Slayer:
             print("SLAYER:VERIFYDROPNAME: Text Not Verifyed Returning False")
             return False
         
-    def inArea(self,boundingTile, maxRange):
+    def inArea(self,boundingTile:tuple, maxRange:int) -> bool:
 
         if self.verifyer.verifyInArea(self.api,boundingTile=boundingTile,MaxRange=maxRange):
             return True
@@ -303,7 +303,7 @@ class ChickenSlayer(Slayer):
         self.chickenOrchestrator()
         self.updateFeatherCount()
 
-    def updateFeatherCount(self):
+    def updateFeatherCount(self)->str:
         if self.item1InvPosition == None:
             self.item1InvPosition, self.item1Quant = self.api.getItemQuantityComplete(self.featherRuneLiteID)
         else:
@@ -317,7 +317,7 @@ class ChickenSlayer(Slayer):
 
         self.feathersPickedUp = self.feathersInInventory - self.feathersAtStart
 
-        print(f"SLAYER:UPDATEFEATHERCOUNT: Feathers picked up: {self.feathersPickedUp}")
+        return print(f"SLAYER:UPDATEFEATHERCOUNT: Feathers picked up: {self.feathersPickedUp}")
         
     def chickenOrchestrator(self):
 
@@ -336,13 +336,3 @@ class ChickenSlayer(Slayer):
                 self.updateFeatherCount()
 
             self.uni.returnToBoundingArea(self.api, self.chickenBoundingTile, self.boundingRange)
-            
-
-        
-
-
-        #confirm if in range of homing tile
-        #openinventtocheck hmfeathers
-        #find feather
-        #pick up feathers if in range
-
