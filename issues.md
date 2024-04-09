@@ -1,9 +1,9 @@
 # slayer issues/bugs
 
     #things i want to make sure to add before i put this script on hold
-        1. fix runner, if run energy is low and running it doesn't verify properly (just switch pixels and maybe color)
+        ~~1. fix runner, if run energy is low and running it doesn't verify properly (just switch pixels and maybe color)
         2. home base returner
-        3. spits feather count out
+        3. spits feather count out~~
 
 
     # fighting bugs
