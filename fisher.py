@@ -257,8 +257,10 @@ class FlyFisher(Fisher):
 
     def getSpot(self):
         pass
-
-    def salmonBanker(self):
+    
+    def salmonFromBank(self):
+        pass
+    def salmonToBank(self):
         pass
     
     def imgWalker(self, running=False):
