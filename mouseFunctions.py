@@ -4,6 +4,7 @@ import time
 import random
 from pyautogui import ImageNotFoundException
 import numpy
+import os
 
 
 pyautogui.MINIMUM_DURATION = 0.05
@@ -145,8 +146,6 @@ class Mouse:
         #useful for searching near player
         pass
 
-
-
     def mouseClick(self, x:int, y:int, but:str = 'left'):
         print("CLICKING")
         dur = random.uniform(0.01,0.1)
@@ -201,6 +200,9 @@ class Mouse:
             pyautogui.dragTo(disTravelX, disTravelY, duration, button="middle")
 
     def rotateCameraInRandomDirection(self, weightedDirection = None, weightAmount = 4 , dur = 0.4):
+
+
+    
         #base total weight is eight careful on adding more weight to desired amount
         directionWeights = {
             "up":1,
@@ -227,9 +229,24 @@ class Mouse:
 
         self.rotateCameraWithMouse(winningRoll, duration=dur)
 
-if __name__ == "__main__":
-    mouse = Mouse()
-    tits =(0,0,0)
-    desiredArea = (0,0,900,900)
+    def mapAreaFinderAndClicker(self,img, conf:float = 0.75 , running:bool=False):
+        #finds img using pyautogui and clicks on area
+        w = 886
+        h = 191
+        attempts = 0
+        maxAttempts = 4
+        while attempts < maxAttempts:
+            try:
+                x, y = self.findImageSimple(img, w, h, conf)
+                attempts = maxAttempts
+            except ImageNotFoundException:
+                attempts += 1
+    
+        x, y = self.moveMouseToArea(x,y,duration=random.uniform(0.4,0.7),areaVariance=3)
+        self.mouseClick(x,y)
 
-    mouse.findColorsRandomly(tits, desiredArea)
+
+if __name__ == "__main__":
+
+
+    pass

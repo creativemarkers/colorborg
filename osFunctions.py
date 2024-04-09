@@ -1,4 +1,5 @@
 import pygetwindow
+import os
 
 class Window:
 
@@ -11,5 +12,12 @@ class Window:
         game_window.moveTo(0,0)
         game_window.activate()
 
-        
+def countFiles(folderPath:str):
+
+    fileCount = 0
+    for _,_, files in os.walk(folderPath):
+        fileCount += len(files)
+    return fileCount
+
+    
 

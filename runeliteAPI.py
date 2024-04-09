@@ -99,8 +99,8 @@ if __name__ == "__main__":
     verifyer = Verifyer()
     while True:
         worldPos = api.getCurrentWorldPosition()
-        result = verifyer.verifyInArea(api, (3177, 3296), 11)
-        print(result)
+        #result = verifyer.verifyInArea(api, (3177, 3296), 11)
+        #print(result)
         
         # print(api.eventsDict["latest msg"])
 

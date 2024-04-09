@@ -24,6 +24,14 @@ class Verifyer:
 
         return cleanText
     
+    def getTextEasyOCR(self,left,top,width,height):
+        screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
+        reader = easyocr.Reader(['en'])
+        screenshot.save("screenshot.png")
+        result = reader.readtext("screenshot.png")
+        return result
+    
+
 
     # def getTextEnhanced(self,left,top,width,height, threshHold = False, targetColor = (0,0,0)):
     #     #can still try resizeing with easyocr as havent done that

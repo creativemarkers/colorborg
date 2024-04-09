@@ -25,3 +25,13 @@ class Uni:
             except IndexError:
                 pass
         pass
+
+    def findBanker(self,bankerColor):
+        #assumes Banker's in camera
+        pass
+    
+    def verifyBanker():
+        pass
+
+    def bankItems():
+        pass

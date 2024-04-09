@@ -9,6 +9,7 @@ from mouseFunctions import Mouse
 from verification import Verifyer
 from camera import Camera
 from pyautogui import ImageNotFoundException
+from osFunctions import countFiles
 
 
 
@@ -252,8 +253,25 @@ class FlyFisher(Fisher):
 
     def __init__(self, powerFishingSwitch:bool = True):
         self.powerFish = powerFishingSwitch
-        print("in here")
-        self.flyFisher()
+        # self.flyFisher()
+
+    def getSpot(self):
+        pass
+
+    def salmonBanker(self):
+        pass
+    
+    def imgWalker(self, running=False):
+        #current images are going to click on north part of the map assuming camera is pointing north
+        leftSpotImgs = "img/salmonBankRunImgs/leftSpot"
+        imgCount = countFiles(leftSpotImgs)
+        for i in range(imgCount):
+            imgPath = f"img/salmonBankRunImgs/leftSpot/{i+1}.png"
+            self.mouse.mapAreaFinderAndClicker(imgPath)
+            if running == True:
+                time.sleep(8)
+            else:
+                time.sleep(15)
 
     def flyFisher(self):
         #orchestrates fishing functions
@@ -280,3 +298,11 @@ class FlyFisher(Fisher):
             # x, y = self.findFishingSpotWithColor(self.salmonColors, self.colorSearchRegion)
             # print(x, y)
             self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion)
+
+def main():
+    time.sleep(3)
+    ff = FlyFisher()
+    ff.salmonBanker()
+
+if __name__ == "__main__":
+    main()
