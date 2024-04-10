@@ -98,13 +98,17 @@ if __name__ == "__main__":
 
     verifyer = Verifyer()
     while True:
-        worldPos = api.getCurrentWorldPosition()
-        #result = verifyer.verifyInArea(api, (3177, 3296), 11)
-        #print(result)
+        # worldPos = api.getCurrentWorldPosition()
+        # #result = verifyer.verifyInArea(api, (3177, 3296), 11)
+        # #print(result)
         
-        # print(api.eventsDict["latest msg"])
+        # # print(api.eventsDict["latest msg"])
 
-        print(worldPos)
+        # print(worldPos)
+        # time.sleep(0.6)
+
+        result = api.findItemInventory(335)
+        print(result)
         time.sleep(0.6)
         
        

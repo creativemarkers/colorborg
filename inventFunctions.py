@@ -106,6 +106,57 @@ class Inventory:
         pyautogui.keyUp('shift')
         shiftPressed=True
 
+    def traverseThroughInventory(self, inventSlot:int):
+
+        originX = 726
+        x = 726
+        y = 575
+        counter = 0
+
+        for i in range(len(self.inventory)):
+
+            if i == inventSlot:
+                dur = random.uniform(0.1, 0.2)
+                #self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10,click=True)
+                self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10)
+
+            counter += 1
+            x += 42
+
+            if counter >= 4:
+                counter = 0
+                y += 36
+                x = originX
+
+    def bankItem(self, inventSlot:int):
+
+        originX = 726
+        x = 726
+        y = 575
+        counter = 0
+
+        for i in range(len(self.inventory)):
+
+            if i == inventSlot:
+                dur = random.uniform(0.1, 0.2)
+                #self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10,click=True)
+                x,y = self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10)
+                self.mouse.mouseClick(x,y,but='right')
+                y += 85
+                dur = random.uniform(0.1, 0.2)
+                x,y = self.mouse.moveMouseToArea(x,y,dur,areaVariance=2)
+                self.mouse.mouseClick(x,y)
+                print("INVENTFUNCTIONS:bankItem")
+                return None
+
+            counter += 1
+            x += 42
+
+            if counter >= 4:
+                counter = 0
+                y += 36
+                x = originX
+
     def checkIfInventSlotsEmpty(self):
 
         originX = 726

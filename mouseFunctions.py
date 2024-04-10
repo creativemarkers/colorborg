@@ -199,9 +199,6 @@ class Mouse:
             pyautogui.dragTo(disTravelX, disTravelY, duration, button="middle")
 
     def rotateCameraInRandomDirection(self, weightedDirection = None, weightAmount = 4 , dur = 0.4):
-
-
-    
         #base total weight is eight careful on adding more weight to desired amount
         directionWeights = {
             "up":1,

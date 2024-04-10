@@ -10,6 +10,8 @@ from verification import Verifyer
 from camera import Camera
 from pyautogui import ImageNotFoundException
 from osFunctions import countFiles
+from universalMethods import Uni
+from runeliteAPI import RuneLiteApi
 
 
 
@@ -29,6 +31,8 @@ class Fisher:
     currentlyFishing = False
     startTime = gui.startTime
     running = True
+    uni = Uni()
+    api = RuneLiteApi()
 
     #array of fish currently supported (not really more for gui testing atm)
     FISHTYPE = [None,"shrimp","trout and salmon","lobster", "swordfish"]
@@ -261,7 +265,9 @@ class FlyFisher(Fisher):
     def salmonFromBank(self):
         pass
     def salmonToBank(self):
-        pass
+        bankBoothColor=(0,255,255)
+        itemIDs = [331,335]
+        self.uni.boothBanker(bankBoothColor, itemIDs, self.api)
     
     def imgWalker(self, running=False):
         #current images are going to click on north part of the map assuming camera is pointing north
@@ -302,9 +308,9 @@ class FlyFisher(Fisher):
             self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion)
 
 def main():
-    time.sleep(3)
+    time.sleep(2)
     ff = FlyFisher()
-    ff.salmonBanker()
+    ff.salmonToBank()
 
 if __name__ == "__main__":
     main()
