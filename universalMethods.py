@@ -1,7 +1,9 @@
 import random
 import time
+import pyautogui
 from mouseFunctions import Mouse
 from verification import Verifyer
+from pyautogui import ImageNotFoundException
 
 
 class Uni:
@@ -26,9 +28,25 @@ class Uni:
                 pass
         pass
 
-    def findBanker(self,bankerColor):
+    def bankBoother(self, bankerColor):
+        #function that handles banking at a bank booth
+        verificationText = "Bank Bank Booth"
+        while not self.banking():
+            try:
+                self.findBanker(bankerColor)
+            except ImageNotFoundException:
+                pass
+
+    def banking(self)->bool:
+        #returns bool for to check if banking
+        return pyautogui.pixelMatchesColor(550,707,(38,250,43))
+
+
+    def findBanker(self,bankerColor:tuple)->int:
         #assumes Banker's in camera
-        pass
+        matchingPixels = self.mouse.findColorsRandomly(bankerColor)
+        y, x = matchingPixels[0]
+        return y,x
     
     def verifyBanker():
         pass

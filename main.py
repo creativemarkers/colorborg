@@ -4,7 +4,7 @@ import logging
 import sys
 from pyautogui import FailSafeException
 from gui import Gui
-from basicfunctions import Window
+from osFunctions import Window
 from fisher import Fisher
 from slayer import Slayer
 

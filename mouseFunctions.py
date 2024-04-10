@@ -29,7 +29,6 @@ class Mouse:
 
         return xVaried, yVaried  
                          
-
     def moveMouse(self, x:int, y:int, duration=1):
         
         tweeningList = [
@@ -244,7 +243,6 @@ class Mouse:
     
         x, y = self.moveMouseToArea(x,y,duration=random.uniform(0.4,0.7),areaVariance=3)
         self.mouseClick(x,y)
-
 
 if __name__ == "__main__":
 
