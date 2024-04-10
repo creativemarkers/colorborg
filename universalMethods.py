@@ -62,19 +62,44 @@ class Uni:
                     attempts = 5 
                 except ImageNotFoundException:
                     attempts += 1
-            randDur = random.uniform(0.4,0.7)
-            x, y = self.mouse.moveMouseToArea(x,y,duration=randDur,areaVariance=5)
-            if self.verifyBankBooth(verificationText):
-                self.mouse.mouseClick(x,y)
+                randDur = random.uniform(0.4,0.7)
+                x, y = self.mouse.moveMouseToArea(x,y,duration=randDur,areaVariance=5)
+                if self.verifyBankBooth(verificationText):
+                    self.mouse.mouseClick(x,y)
+                    attempts = 5
+                    time.sleep(random.uniform(0.5,1))
+                elif attempts >= 3:
+                    self.mouse.rotateCameraInRandomDirection("down", weightAmount=5)
+                    attempts += 1
+                else:
+                    attempts +=1
 
     def bankItems(self, itemsBanking, api):
+        print("UNIVERSALMETHODS:BANKITEMS: attempting to bank items...")
         itemPos = []
         for itemID in itemsBanking:
             itemPos.append(api.findItemInventory(itemID))
         for item in itemPos:
             self.inv.bankItem(item)
             time.sleep(random.uniform(0.2,0.4))
+        
+    def verifyBanked(self,itemsBanking,api):
+        print("UNIVERSALMETHODS:verifyBanked: attempting to verify items banked")
+        items = []
+        print(items)
+        for itemID in itemsBanking:
+            result = api.findItemInventory(itemID)
+            if result != None:
+                items.append(result)
 
+        if len(items) <= 0:
+            return True
+        else:
+            return False
+    
+    def closeBank(self):
+        self.mouse.moveMouseToArea(567,50,random.uniform(0.3,0.7), areaVariance=8,click=True)
+        
     def boothBanker(self, bankerColor:tuple, itemsToBank:list, api:object):
         #handles banking assumes near bank, takes a list of itemIDs,
         #and the api object
@@ -83,9 +108,15 @@ class Uni:
             self.clickOnBankBooth(bankerColor)
             time.sleep(5)
             self.bankItems(itemsToBank,api)
-            #result = self.validateBanked
-            #need to close bank
-            #could also have an option to just click on map back to what ever location
-    
-            banked = True
+            
+            if self.verifyBanked(itemsToBank, api):
+                print("Setting banked = true")
+                banked = True
+                #could also have an option to 
+                #click on map back to what ever location
+                self.closeBank()
+
+            
+
+            
         
