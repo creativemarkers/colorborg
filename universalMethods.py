@@ -36,7 +36,7 @@ class Uni:
     def findBanker(self,bankerColor:tuple,region:tuple)->int:
         #assumes Banker's in camera
         matchingPixels = self.mouse.findColorsRandomly(bankerColor,region)
-        y, x = matchingPixels[0]
+        y, x = matchingPixels[0] 
         return x, y
     
     def verifyBankBooth(self, verificationString):
@@ -58,16 +58,20 @@ class Uni:
                 if attempts == 4:
                     self.mouse.rotateCameraInRandomDirection("upleft", weightAmount=10)
                 try:
+
                     x, y= self.findBanker(bankerColor,(0,0,527,727))
                     attempts = 5 
                 except ImageNotFoundException:
                     attempts += 1
+                except IndexError:
+                    attempts += 1
+
                 randDur = random.uniform(0.4,0.7)
                 x, y = self.mouse.moveMouseToArea(x,y,duration=randDur,areaVariance=5)
                 if self.verifyBankBooth(verificationText):
                     self.mouse.mouseClick(x,y)
                     attempts = 5
-                    time.sleep(random.uniform(0.5,1))
+                    time.sleep(random.randint(5,8))
                 elif attempts >= 3:
                     self.mouse.rotateCameraInRandomDirection("down", weightAmount=5)
                     attempts += 1
@@ -116,7 +120,8 @@ class Uni:
                 #click on map back to what ever location
                 self.closeBank()
 
-            
+    def clickOnCompass(self):
+        self.mouse.moveMouseToArea(732,52,random.uniform(0.4,0.7),areaVariance=12,click=True)
 
             
         

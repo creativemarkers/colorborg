@@ -60,9 +60,6 @@ class Fisher:
         # self.infoGuiThread = threading.Thread(target = self.infoGUI.root.mainloop())
         # self.infoGuiThread.start()
        
-
-
-        
     def createThreads(self):
         #dead function created for brainstorming might use later to abstract code a bit more
         pass
@@ -158,8 +155,6 @@ class Fisher:
             turnAttempt += 1
             
     def verifyFishing(self):
-
-    
         #verifies if currently fishing
 
         #calls verifyer object to retrieve text on top right of runelite plugin to determine if fishing
@@ -174,21 +169,7 @@ class Fisher:
             return True
         else:
             return False
-
-    def fishWithColor(self, fishIconColor):
-        pass
-
-    def findFishingSpotWithColor(self,fishIconColor:list, screenShotRegion:tuple):
-
-        for color in fishIconColor:
-            try:
-                y,x = self.mouse.findColorsRandomly(color, screenShotRegion)
-                return x, y
-            except ImageNotFoundException:
-                print("FISHER:FINDFISHINGSPOTWITHCOLOR: color not found trying other color")
         
-
-
 class ShrimpFisher(Fisher):
 
     #variables required for the shrimp script
@@ -254,32 +235,49 @@ class FlyFisher(Fisher):
     colorSearchRegion = (0, 0, 687, 726)
     flyfishingSpotVerificationString = "Lure Rod Fishing Spot"
     stringVerificationRegion = (8, 31, 152, 17)
+    f2pLeftFishingBoundingCord = (3103,3424)
+    f2pRightFishingBoundingCord = (3109,3433)
+    f2pLeftSpotBankingImgs = "img/salmonBankRunImgs/leftSpot"
+    f2pRightSpotBankingImgs = "img/salmonBankRunImgs/rightSpot"
+    bankBoothColor=(0,255,255)
+    itemIDs = [331,335]
+    f2pFromBankPathImgs = "img/salmonBankRunImgs/fromBank"
 
     def __init__(self, powerFishingSwitch:bool = True):
         self.powerFish = powerFishingSwitch
         # self.flyFisher()
 
-    def getSpot(self):
-        pass
-    
-    def salmonFromBank(self):
-        pass
-    def salmonToBank(self):
-        bankBoothColor=(0,255,255)
-        itemIDs = [331,335]
-        self.uni.boothBanker(bankBoothColor, itemIDs, self.api)
-    
-    def imgWalker(self, running=False):
+    def f2pFFspotChecker(self)->str:
+        if self.verifyer.verifyInArea(self.api,self.f2pLeftFishingBoundingCord, 2):
+            return "leftSpot"
+        if self.verifyer.verifyInArea(self.api,self.f2pRightFishingBoundingCord, 3):
+            return "rightSpot"
+        
+    def imgWalker(self, imgFolderPath,confidence:float=0.75,running=False):
         #current images are going to click on north part of the map assuming camera is pointing north
-        leftSpotImgs = "img/salmonBankRunImgs/leftSpot"
-        imgCount = countFiles(leftSpotImgs)
+
+        imgCount = countFiles(imgFolderPath)
         for i in range(imgCount):
-            imgPath = f"img/salmonBankRunImgs/leftSpot/{i+1}.png"
-            self.mouse.mapAreaFinderAndClicker(imgPath)
+            imgPath = imgFolderPath + f"/{i+1}.png"
+            self.mouse.mapAreaFinderAndClicker(imgPath,confidence)
             if running == True:
-                time.sleep(8)
+                time.sleep(5)
             else:
-                time.sleep(15)
+                time.sleep(10)
+
+    def ffBanker(self):
+        fishingSpot = self.f2pFFspotChecker()
+
+        self.uni.clickOnCompass()
+        time.sleep(random.uniform(0.6,0.8))
+        if fishingSpot == "leftSpot":
+            self.imgWalker(self.f2pLeftSpotBankingImgs)
+        elif fishingSpot == "rightSpot":
+            #need to get images to right spot
+            self.imgWalker(self.f2pRightSpotBankingImgs, confidence=0.65)
+        self.uni.boothBanker(self.bankBoothColor, self.itemIDs, self.api)
+        self.imgWalker(self.f2pFromBankPathImgs)
+        #return to spot
 
     def flyFisher(self):
         #orchestrates fishing functions
@@ -310,7 +308,7 @@ class FlyFisher(Fisher):
 def main():
     time.sleep(2)
     ff = FlyFisher()
-    ff.salmonToBank()
+    ff.ffBanker()
 
 if __name__ == "__main__":
     main()

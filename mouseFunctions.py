@@ -237,6 +237,9 @@ class Mouse:
                 attempts = maxAttempts
             except ImageNotFoundException:
                 attempts += 1
+                print("MOUSEFUNCTIONS:MAPAREAFINDERANDCLICKER: ImageNotFound Error")
+            
+    
     
         x, y = self.moveMouseToArea(x,y,duration=random.uniform(0.4,0.7),areaVariance=3)
         self.mouseClick(x,y)
