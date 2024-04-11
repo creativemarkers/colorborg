@@ -80,6 +80,13 @@ class RuneLiteApi():
         x = worldArray["x"]
         y = worldArray["y"]
         return (x, y)
+    
+    def getCameraYaw(self):
+        self.getEventData()
+        cameraArray = self.eventsDict["camera"]
+        yaw = cameraArray["yaw"]
+        return yaw
+
 
     
 
@@ -99,16 +106,19 @@ if __name__ == "__main__":
     verifyer = Verifyer()
     while True:
         worldPos = api.getCurrentWorldPosition()
+        yaw = api.getCameraYaw()
         #result = verifyer.verifyInArea(api, (3177, 3296), 11)
         #print(result)
         
         # print(api.eventsDict["latest msg"])
 
-        print(worldPos)
-        time.sleep(0.6)
-
         # result = api.findItemInventory(335)
         # print(result)
-        # time.sleep(0.6)
+
+        print(worldPos)
+        yaw = api.getCameraYaw()
+        print(yaw)
+        time.sleep(0.6)
+
         
        

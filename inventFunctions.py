@@ -60,7 +60,7 @@ class Inventory:
 
         print(sum(self.inventory))
 
-    def isInventFull(self, slotsToFull:int,x:int=0,y:int=0,color:tuple=(0,0,0)):
+    def isInventFull(self, slotsToFull:int):
 
         while self.isInventOpen() == False:
             print("INVENTFUNCTIONS:INVENTFULLSTATUS: opening invent")

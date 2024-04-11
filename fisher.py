@@ -245,7 +245,7 @@ class FlyFisher(Fisher):
 
     def __init__(self, powerFishingSwitch:bool = True):
         self.powerFish = powerFishingSwitch
-        # self.flyFisher()
+        self.flyFisher()
 
     def f2pFFspotChecker(self)->str:
         if self.verifyer.verifyInArea(self.api,self.f2pLeftFishingBoundingCord, 2):
@@ -303,12 +303,15 @@ class FlyFisher(Fisher):
         while True:
             # x, y = self.findFishingSpotWithColor(self.salmonColors, self.colorSearchRegion)
             # print(x, y)
-            self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion)
+            while not self.invent.isInventFull(28):
+                self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion)
+            
+            self.ffBanker()
 
 def main():
     time.sleep(2)
     ff = FlyFisher()
-    ff.ffBanker()
+    
 
 if __name__ == "__main__":
     main()

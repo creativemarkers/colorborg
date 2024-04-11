@@ -5,6 +5,7 @@ from mouseFunctions import Mouse
 from verification import Verifyer
 from pyautogui import ImageNotFoundException
 from inventFunctions import Inventory
+from runeliteAPI import RuneLiteApi
 
 class Uni:
     mouse = Mouse()
@@ -123,5 +124,96 @@ class Uni:
     def clickOnCompass(self):
         self.mouse.moveMouseToArea(732,52,random.uniform(0.4,0.7),areaVariance=12,click=True)
 
-            
+    def directionDecider(self, currPos, desiredPos):
+
+        currentX,currentY = currPos
+        desX, desY = desiredPos
+        dirDisX = desX - currentX
+        dirDisY = desY - currentY
+        distX = abs(desX - currentX)
+        distY = abs(desY - currentY)
+
+        if distY >= distX:
+            if dirDisY >= 0:
+                return "north"
+            else:
+                return "south"
+        else:
+            if dirDisX >= 0:
+                return "east"
+            else:
+                return "west"
+
+    def getCameraFacingDirection(self, currentYaw):
+        #yaw ranges
+        directions = {
+            "northWest" : (128,383),
+            "west" :(384,639),
+            "southWest" : (640, 895),
+            "south" : (896, 1151),
+            "southEast" :(1152,1407),
+            "east" : (1408,1663),
+            "northEast" : (1664,1919)
+        }
+        for dir, (start,end) in directions.items():
+            if start <= currentYaw <= end:
+                return dir
+        return "north"
+    
+    def clickAreaDecider(self,desDir,currentFace):
+
+        dirDict = {
+            "north"     :0,
+            "northWest" :1,
+            "west"      :2,
+            "southWest" :3,
+            "south"     :4,
+            "southEast" :5,
+            "east"      :6,
+            "northEast" :7
+        }
+
+        #compassArray = [0,256,512,768,1024,1280,1536,1796]
+
+        compassDirectionIndex = dirDict[desDir] - dirDict[currentFace]
+ 
+        if compassDirectionIndex <= -2:
+            compassDirectionIndex *= -1
+
+        return compassDirectionIndex
+
+    def cordWalkerMapClicker(self, mapZone):
+        dirMapCords = {
+            "north"     :(810,54),
+            "northWest" :(766,71),
+            "west"      :(748,114),
+            "southWest" :(769,157),
+            "south"     :(810,176),
+            "southEast" :(848,155),
+            "east"      :(871,114),
+            "northEast" :(852,71)
+        }
+
+
+    def coordinateWalker(self,desCoords:tuple,range:int=10):
+
+        api = RuneLiteApi()
+        #if within a certain range click on ground
+        while not self.ver.verifyInArea(api,desCoords,range):
+            #might update the too functions below to only one to minimize api calls
+            curPos = api.getCurrentWorldPosition()
+            curYaw = api.getCameraYaw
+            #suggested dir, suggested Yaw
+            sDir = self.directionDecider(curPos, desCoords)
+            curFacing = self.getCameraFacingDirection(curYaw)
+            mapZone = self.clickAreaDecider(sDir,curFacing)  
+
+
+
+c = Uni()
+# print(c.getCameraFacingDirection(383))
+c.clickAreaDecider("south","west")
+c.clickAreaDecider("northEast","north")
+c.clickAreaDecider("northEast","east")
+c.clickAreaDecider("east","northEast")
         
