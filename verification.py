@@ -70,8 +70,8 @@ class Verifyer:
 
         distX = abs(currentX-desiredX)
         distY = abs(currentY-desiredY)
-        print(f"distX: {distX}")
-        print(f"distY: {distY}")
+        # print(f"distX: {distX}")
+        # print(f"distY: {distY}")
 
         if distX > MaxRange:
             return False

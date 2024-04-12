@@ -172,17 +172,15 @@ class Uni:
             "east"      :6,
             "northEast" :7
         }
-
-        #compassArray = [0,256,512,768,1024,1280,1536,1796]
-
+        
+        compassArray = ["north","northWest","west","southWest","south","southEast","east","northEast"]
         compassDirectionIndex = dirDict[desDir] - dirDict[currentFace]
- 
-        if compassDirectionIndex <= -2:
-            compassDirectionIndex *= -1
+        
+        if compassDirectionIndex <= -1:
+            compassDirectionIndex += 8
 
-        return compassDirectionIndex
-
-    def cordWalkerMapClicker(self, mapZone):
+        print(compassDirectionIndex)
+        print("clicking on map area:",compassArray[compassDirectionIndex])
         dirMapCords = {
             "north"     :(810,54),
             "northWest" :(766,71),
@@ -194,26 +192,38 @@ class Uni:
             "northEast" :(852,71)
         }
 
+        return dirMapCords[compassArray[compassDirectionIndex]]
 
     def coordinateWalker(self,desCoords:tuple,range:int=10):
 
         api = RuneLiteApi()
         #if within a certain range click on ground
         while not self.ver.verifyInArea(api,desCoords,range):
-            #might update the too functions below to only one to minimize api calls
+            #might update the two functions below to only one function to minimize api calls
             curPos = api.getCurrentWorldPosition()
-            curYaw = api.getCameraYaw
+            # print(curPos)
+            curYaw = api.getCameraYaw()
             #suggested dir, suggested Yaw
             sDir = self.directionDecider(curPos, desCoords)
+            print("should walk in this direction:", sDir)
             curFacing = self.getCameraFacingDirection(curYaw)
-            mapZone = self.clickAreaDecider(sDir,curFacing)  
+            print("currently facing", curFacing)
+            x,y = self.clickAreaDecider(sDir,curFacing)
+            x,y = self.mouse.moveMouseToArea(x,y,duration=(random.uniform(0.4,0.7)),areaVariance=14)
+            time.sleep(random.uniform(0.1,0.2))
+            self.mouse.mouseClick(x,y)
+            time.sleep(random.randint(5,8))
 
 
 
 c = Uni()
 # print(c.getCameraFacingDirection(383))
-c.clickAreaDecider("south","west")
-c.clickAreaDecider("northEast","north")
-c.clickAreaDecider("northEast","east")
-c.clickAreaDecider("east","northEast")
+
+# print(c.clickAreaDecider("south","west"))
+# print(c.clickAreaDecider("northEast","north"))
+# print(c.clickAreaDecider("northEast","east"))
+# print(c.clickAreaDecider("east","northEast"))
+# print(c.clickAreaDecider("north","west"))
+
+c.coordinateWalker((3094,3495),5)
         
