@@ -104,11 +104,8 @@ class RuneLiteApi():
 if __name__ == "__main__":
     api = RuneLiteApi()
 
-    # api.getInventoryData()
 
-    # result = api.inventArray
 
-    # for item in result:
     #     print(item)
 
 

@@ -29,6 +29,19 @@ class TestDirectionDecider(unittest.TestCase):
         result = self.uni.directionDecider((4000,3433),(3000,3442))
         self.assertEqual(result,"west")
 
+    def test_EdgeCases(self):
+        with self.assertRaises(ValueError):
+            self.uni.directionDecider((0,0),(0,0))
+        with self.assertRaises(TypeError):
+            self.uni.directionDecider("north","south")
+        with self.assertRaises(TypeError):
+            self.uni.directionDecider("NW","SE")
+        with self.assertRaises(TypeError):
+            self.uni.directionDecider((0,0),(0,1),(0,2))
+            
+class TestGetCameraFacingDirection(unittest.TestCase):
+    pass
+
 
 if __name__ == "__main__":
     unittest.main()

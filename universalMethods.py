@@ -124,8 +124,11 @@ class Uni:
     def clickOnCompass(self):
         self.mouse.moveMouseToArea(732,52,random.uniform(0.4,0.7),areaVariance=12,click=True)
 
-    def directionDecider(self, currPos, desiredPos):
+    def directionDecider(self, currPos: tuple[int,int], desiredPos: tuple[int,int]):
 
+        if currPos == desiredPos:
+            raise ValueError("Current Position is the same as desired Position")
+        
         currentX,currentY = currPos
         desX, desY = desiredPos
         dirDisX = desX - currentX
@@ -173,7 +176,6 @@ class Uni:
                     return "west"
         # print(totalDistance)
         # print(diffBetweenXY)
-
 
     def getCameraFacingDirection(self, currentYaw):
         #yaw ranges
@@ -248,7 +250,6 @@ class Uni:
             self.mouse.mouseClick(x,y)
             time.sleep(random.randint(5,8))
 
-
 if __name__ == "__main__":
     c = Uni()
     # print(c.getCameraFacingDirection(383))
@@ -266,4 +267,6 @@ if __name__ == "__main__":
 
     print(result)
     result=c.directionDecider((3093,3442),(3109,3433))
+    print(result)
+    result=c.directionDecider((0,0),(0,0))
     print(result)
