@@ -133,16 +133,35 @@ class Uni:
         distX = abs(desX - currentX)
         distY = abs(desY - currentY)
 
-        if distY >= distX:
-            if dirDisY >= 0:
-                return "north"
-            else:
-                return "south"
+        if dirDisX >= 0:
+            xStrDir = "east"
         else:
-            if dirDisX >= 0:
-                return "east"
-            else:
-                return "west"
+            xStrDir = "west"
+
+        if dirDisY >= 0:
+            yStrDir = "north"
+        else:
+            yStrDir = "south"
+
+        totalDistance = distX+distY
+        diffBetweenXY = abs(distX-distY)
+        reqForHalf = totalDistance//2
+        print(distX)
+        print(distY)
+
+
+        print(totalDistance)
+        print(diffBetweenXY)
+        # if distY >= distX:
+        #     if dirDisY >= 0:
+        #         return "north"
+        #     else:
+        #         return "south"
+        # else:
+        #     if dirDisX >= 0:
+        #         return "east"
+        #     else:
+        #         return "west"
 
     def getCameraFacingDirection(self, currentYaw):
         #yaw ranges
@@ -228,5 +247,7 @@ if __name__ == "__main__":
     # print(c.clickAreaDecider("east","northEast"))
     # print(c.clickAreaDecider("north","west"))
 
-    c.coordinateWalker((3200,3495),5)
+    # c.coordinateWalker((3200,3495),5)
             
+    c.directionDecider((3109,3433),(3093,3442))
+    c.directionDecider((3093,3442),(3109,3433))
