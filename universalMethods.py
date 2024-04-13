@@ -193,6 +193,9 @@ class Uni:
         }
 
         return dirMapCords[compassArray[compassDirectionIndex]]
+    
+    def moving(self,api):
+        status = api.getMovementStatus()
 
     def coordinateWalker(self,desCoords:tuple,range:int=10):
 
@@ -215,15 +218,15 @@ class Uni:
             time.sleep(random.randint(5,8))
 
 
+if __name__ == "__main__":
+    c = Uni()
+    # print(c.getCameraFacingDirection(383))
 
-c = Uni()
-# print(c.getCameraFacingDirection(383))
+    # print(c.clickAreaDecider("south","west"))
+    # print(c.clickAreaDecider("northEast","north"))
+    # print(c.clickAreaDecider("northEast","east"))
+    # print(c.clickAreaDecider("east","northEast"))
+    # print(c.clickAreaDecider("north","west"))
 
-# print(c.clickAreaDecider("south","west"))
-# print(c.clickAreaDecider("northEast","north"))
-# print(c.clickAreaDecider("northEast","east"))
-# print(c.clickAreaDecider("east","northEast"))
-# print(c.clickAreaDecider("north","west"))
-
-c.coordinateWalker((3094,3495),5)
-        
+    c.coordinateWalker((3200,3495),5)
+            

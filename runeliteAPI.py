@@ -87,6 +87,17 @@ class RuneLiteApi():
         yaw = cameraArray["yaw"]
         return yaw
 
+    def getMovementStatus(self):
+        self.getEventData()
+        aniPose = self.eventsDict["animation pose"]
+
+        print(aniPose)
+        if aniPose == 824:
+            print("running")
+        elif aniPose == 819:
+            print("walking")
+        else:
+            print("idle")
 
     
 
@@ -106,7 +117,7 @@ if __name__ == "__main__":
     verifyer = Verifyer()
     while True:
         worldPos = api.getCurrentWorldPosition()
-        yaw = api.getCameraYaw()
+        # yaw = api.getCameraYaw()
         #result = verifyer.verifyInArea(api, (3177, 3296), 11)
         #print(result)
         
@@ -116,8 +127,9 @@ if __name__ == "__main__":
         # print(result)
 
         print(worldPos)
-        yaw = api.getCameraYaw()
-        print(yaw)
+        # yaw = api.getCameraYaw()
+        # print(yaw)
+        api.getMovementStatus()
         time.sleep(0.6)
 
         

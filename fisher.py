@@ -240,7 +240,7 @@ class FlyFisher(Fisher):
     f2pLeftSpotBankingImgs = "img/salmonBankRunImgs/leftSpot"
     f2pRightSpotBankingImgs = "img/salmonBankRunImgs/rightSpot"
     bankBoothColor=(0,255,255)
-    itemIDs = [331,335]
+    itemsID = [331,335]
     f2pFromBankPathImgs = "img/salmonBankRunImgs/fromBank"
 
     def __init__(self, powerFishingSwitch:bool = True):
@@ -265,7 +265,7 @@ class FlyFisher(Fisher):
             else:
                 time.sleep(10)
 
-    def ffBanker(self):
+    def ffImgBanker(self):
         fishingSpot = self.f2pFFspotChecker()
 
         self.uni.clickOnCompass()
@@ -278,6 +278,11 @@ class FlyFisher(Fisher):
         self.uni.boothBanker(self.bankBoothColor, self.itemIDs, self.api)
         self.imgWalker(self.f2pFromBankPathImgs)
         #return to spot
+
+    def ffCordBanker(self):
+        self.uni.coordinateWalker((3094,3495),5)
+        self.uni.boothBanker(self.bankBoothColor,self.itemsID,self.api)
+        self.uni.coordinateWalker((3101,3431),5)
 
     def flyFisher(self):
         #orchestrates fishing functions
@@ -305,8 +310,8 @@ class FlyFisher(Fisher):
             # print(x, y)
             while not self.invent.isInventFull(28):
                 self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion)
-            
-            self.ffBanker()
+            self.ffCordBanker()
+        
 
 def main():
     time.sleep(2)
