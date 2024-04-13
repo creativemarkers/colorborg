@@ -212,8 +212,8 @@ class Uni:
         if compassDirectionIndex <= -1:
             compassDirectionIndex += 8
 
-        print(compassDirectionIndex)
-        print("clicking on map area:",compassArray[compassDirectionIndex])
+        #print(compassDirectionIndex)
+        #print("clicking on map area:",compassArray[compassDirectionIndex])
         dirMapCords = {
             "north"     :(810,54),
             "northWest" :(766,71),
