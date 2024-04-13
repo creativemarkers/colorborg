@@ -146,22 +146,34 @@ class Uni:
         totalDistance = distX+distY
         diffBetweenXY = abs(distX-distY)
         reqForHalf = totalDistance//2
-        print(distX)
-        print(distY)
+        # print(distX)
+        # print(distY)
+        if diffBetweenXY < reqForHalf:
+            if dirDisY >= 0:
+                leftOrdinalDirection = "north"
+            else:
+                leftOrdinalDirection = "south"
 
+            if dirDisX >= 0:
+                rightOrdinalDirection = "East"
+            else:
+                rightOrdinalDirection = "West"
+    
+            return leftOrdinalDirection + rightOrdinalDirection     
+        else:
+            if distY >= distX:
+                if dirDisY >= 0:
+                    return "north"
+                else:
+                    return "south"
+            else:
+                if dirDisX >= 0:
+                    return "east"
+                else:
+                    return "west"
+        # print(totalDistance)
+        # print(diffBetweenXY)
 
-        print(totalDistance)
-        print(diffBetweenXY)
-        # if distY >= distX:
-        #     if dirDisY >= 0:
-        #         return "north"
-        #     else:
-        #         return "south"
-        # else:
-        #     if dirDisX >= 0:
-        #         return "east"
-        #     else:
-        #         return "west"
 
     def getCameraFacingDirection(self, currentYaw):
         #yaw ranges
@@ -246,8 +258,12 @@ if __name__ == "__main__":
     # print(c.clickAreaDecider("northEast","east"))
     # print(c.clickAreaDecider("east","northEast"))
     # print(c.clickAreaDecider("north","west"))
+    print(c.clickAreaDecider("northWest","north"))
 
     # c.coordinateWalker((3200,3495),5)
             
-    c.directionDecider((3109,3433),(3093,3442))
-    c.directionDecider((3093,3442),(3109,3433))
+    result=c.directionDecider((3109,3433),(3093,3442))
+
+    print(result)
+    result=c.directionDecider((3093,3442),(3109,3433))
+    print(result)
