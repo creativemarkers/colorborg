@@ -138,12 +138,12 @@ class Inventory:
         for i in range(len(self.inventory)):
 
             if i == inventSlot:
-                dur = random.uniform(0.1, 0.2)
+                dur = random.uniform(0.2, 0.3)
                 #self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10,click=True)
                 x,y = self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10)
                 self.mouse.mouseClick(x,y,but='right')
                 y += 85
-                dur = random.uniform(0.1, 0.2)
+                dur = random.uniform(0.3, 0.45)
                 x,y = self.mouse.moveMouseToArea(x,y,dur,areaVariance=2)
                 self.mouse.mouseClick(x,y)
                 print("INVENTFUNCTIONS:bankItem")

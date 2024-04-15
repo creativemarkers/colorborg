@@ -131,14 +131,14 @@ class Fisher:
 
         maxAttempts = 10
         attempt = 0
-        maxTurnAttempt = 3
+        maxTurnAttempt = 4
         turnAttempt = 0
-        conf = 0.9
+        conf = 0.8
 
         #uses two while loops to get coordinates of fishing spots
         #first loop lowers confidence accuracy if
         while turnAttempt < maxTurnAttempt:
-
+            
             #second loop simply trys until max attempts reached
             while attempt < maxAttempts:
                 try:
@@ -148,7 +148,7 @@ class Fisher:
                 except ImageNotFoundException:
                     attempt += 1
                     print("image not found, attempt:", attempt)
-
+            self.mouse.rotateCameraInRandomDirection()
             #resets second loop, and lowers confidence variable
             conf -= 0.1
             attempt = 0
@@ -237,11 +237,23 @@ class FlyFisher(Fisher):
     stringVerificationRegion = (8, 31, 152, 17)
     f2pLeftFishingBoundingCord = (3103,3424)
     f2pRightFishingBoundingCord = (3109,3433)
-    f2pLeftSpotBankingImgs = "img/salmonBankRunImgs/leftSpot"
-    f2pRightSpotBankingImgs = "img/salmonBankRunImgs/rightSpot"
+    f2pToBankCords = [
+        (3097,3442),
+        (3090,3454),
+        (3093,3456),
+        (3098,3473),
+        (3092,3490)
+    ]
+    f2pFromBankCords = [
+        (3102,3481),
+        (3099,3464),
+        (3089,3452),
+        (3099,3437),
+        (3102,3434),
+        (3104,3432)
+    ]
     bankBoothColor=(0,255,255)
     itemsID = [331,335]
-    f2pFromBankPathImgs = "img/salmonBankRunImgs/fromBank"
 
     def __init__(self, powerFishingSwitch:bool = True):
         self.powerFish = powerFishingSwitch
@@ -253,36 +265,10 @@ class FlyFisher(Fisher):
         if self.verifyer.verifyInArea(self.api,self.f2pRightFishingBoundingCord, 3):
             return "rightSpot"
         
-    def imgWalker(self, imgFolderPath,confidence:float=0.75,running=False):
-        #current images are going to click on north part of the map assuming camera is pointing north
-
-        imgCount = countFiles(imgFolderPath)
-        for i in range(imgCount):
-            imgPath = imgFolderPath + f"/{i+1}.png"
-            self.mouse.mapAreaFinderAndClicker(imgPath,confidence)
-            if running == True:
-                time.sleep(5)
-            else:
-                time.sleep(10)
-
-    def ffImgBanker(self):
-        fishingSpot = self.f2pFFspotChecker()
-
-        self.uni.clickOnCompass()
-        time.sleep(random.uniform(0.6,0.8))
-        if fishingSpot == "leftSpot":
-            self.imgWalker(self.f2pLeftSpotBankingImgs)
-        elif fishingSpot == "rightSpot":
-            #need to get images to right spot
-            self.imgWalker(self.f2pRightSpotBankingImgs, confidence=0.65)
-        self.uni.boothBanker(self.bankBoothColor, self.itemIDs, self.api)
-        self.imgWalker(self.f2pFromBankPathImgs)
-        #return to spot
-
     def ffCordBanker(self):
-        self.uni.coordinateWalker((3094,3495),5)
+        self.uni.walkerCordinator(self.f2pToBankCords)
         self.uni.boothBanker(self.bankBoothColor,self.itemsID,self.api)
-        self.uni.coordinateWalker((3101,3431),5)
+        self.uni.walkerCordinator(self.f2pFromBankCords)
 
     def flyFisher(self):
         #orchestrates fishing functions

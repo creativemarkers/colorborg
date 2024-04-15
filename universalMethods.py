@@ -72,7 +72,9 @@ class Uni:
                 if self.verifyBankBooth(verificationText):
                     self.mouse.mouseClick(x,y)
                     attempts = 5
-                    time.sleep(random.randint(5,8))
+                    time.sleep(1)
+                    while not self.checkBanking():
+                        time.sleep(0.6)
                 elif attempts >= 3:
                     self.mouse.rotateCameraInRandomDirection("down", weightAmount=5)
                     attempts += 1
@@ -111,7 +113,7 @@ class Uni:
         banked = False
         while not banked:
             self.clickOnBankBooth(bankerColor)
-            time.sleep(5)
+            time.sleep(random.uniform(0.6,1.2))
             self.bankItems(itemsToBank,api)
             
             if self.verifyBanked(itemsToBank, api):
@@ -151,6 +153,9 @@ class Uni:
         reqForHalf = totalDistance//2
         # print(distX)
         # print(distY)
+        # print(totalDistance)
+        # print(reqForHalf)
+        # print(diffBetweenXY)
         if diffBetweenXY < reqForHalf:
             if dirDisY >= 0:
                 leftOrdinalDirection = "north"
@@ -174,8 +179,6 @@ class Uni:
                     return "east"
                 else:
                     return "west"
-        # print(totalDistance)
-        # print(diffBetweenXY)
 
     def getCameraFacingDirection(self, currentYaw):
         #yaw ranges
@@ -215,7 +218,6 @@ class Uni:
         #print("clicking on map area:",compassArray[compassDirectionIndex])
         return compassArray[compassDirectionIndex]
     
-
     def getMapCanvasCords(self,rangeType:str,direction:str)->tuple:
         if rangeType == "short":
             dirSmlMapCords = {
@@ -256,12 +258,7 @@ class Uni:
             }
             return dirLrgMapCords[direction]
 
-    def moving(self,api):
-            api.getMovementStatus()
-        
-
     def coordinateWalker(self,desCoords:tuple,range:int=3):
-
         api = RuneLiteApi()
         #if within a certain range click on ground
         while not self.ver.verifyInArea(api,desCoords,range):
@@ -290,44 +287,20 @@ class Uni:
             time.sleep(random.uniform(0.1,0.2))
             self.mouse.mouseClick(x,y)
             time.sleep(1)
-    
-            while api.getMovementStatus() != "idle":
-                # print(moveStatus)
-                time.sleep(0.6)
-                # moveStatus = self.moving(api)
-            
-            # while self.moving(api) != "idle":
-            #     time.sleep(0.6)
 
+            while api.getMovementStatus() != "idle":
+                time.sleep(0.6)
+
+    def walkerCordinator(self, cordsList, range=3):
+        #takes a list of cords and feeds them to the coordinate walker
+        for cords in cordsList:
+            self.coordinateWalker(cords,range=range)
 
 if __name__ == "__main__":
     c = Uni()
-    # print(c.getCameraFacingDirection(383))
-
-    # print(c.clickAreaDecider("south","west"))
-    # print(c.clickAreaDecider("northEast","north"))
-    # print(c.clickAreaDecider("northEast","east"))
-    # print(c.clickAreaDecider("east","northEast"))
-    # print(c.clickAreaDecider("north","west"))
-    # print(c.clickAreaDecider("northWest","north"))
-
-    # # c.coordinateWalker((3200,3495),5)
-            
-    # result=c.directionDecider((3109,3433),(3093,3442))
-
-    # print(result)
-    # result=c.directionDecider((3093,3442),(3109,3433))
-    # print(result)
-    # result=c.directionDecider((0,0),(0,0))
-    # print(result)
-
-    # api = RuneLiteApi()
-
-    # ver=Verifyer()
-    # while True:
-    #     result =ver.verifyInArea(api,(3097,3486),MaxRange=3)
-    #     print(result)
-    #     print(ver.totalDistanceFromTarget)
-    #     time.sleep(0.6)
-    c.coordinateWalker((3096,3437))
+    api = RuneLiteApi()
+    bankBoothColor=(0,255,255)
+    itemsID = [331,335]
+    # c.coordinateWalker((3096,3437))
+    c.boothBanker(bankBoothColor,itemsID,api)
 
