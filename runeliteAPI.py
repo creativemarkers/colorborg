@@ -91,13 +91,13 @@ class RuneLiteApi():
         self.getEventData()
         aniPose = self.eventsDict["animation pose"]
 
-        print(aniPose)
+        #print(aniPose)
         if aniPose == 824:
-            print("running")
+            return "running"
         elif aniPose == 819:
-            print("walking")
+            return "walking"
         else:
-            print("idle")
+            return "idle"
 
     
 

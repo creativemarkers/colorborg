@@ -193,7 +193,7 @@ class Uni:
                 return dir
         return "north"
     
-    def clickAreaDecider(self,desDir,currentFace):
+    def clickAreaDecider(self,desDir:str,currentFace:str)->tuple:
 
         dirDict = {
             "north"     :0,
@@ -211,10 +211,40 @@ class Uni:
         
         if compassDirectionIndex <= -1:
             compassDirectionIndex += 8
-
         #print(compassDirectionIndex)
         #print("clicking on map area:",compassArray[compassDirectionIndex])
-        dirMapCords = {
+        return compassArray[compassDirectionIndex]
+    
+
+    def getMapCanvasCords(self,rangeType:str,direction:str)->tuple:
+        if rangeType == "short":
+            dirSmlMapCords = {
+            "north"     :(810,95),
+            "northWest" :(795,99),
+            "west"      :(791,115),
+            "southWest" :(795,129),
+            "south"     :(810,133),
+            "southEast" :(825,129),
+            "east"      :(829,115),
+            "northEast" :(825,99)
+            }
+            return dirSmlMapCords[direction]
+        
+        elif rangeType == "medium":
+            dirMdmMapCords = {
+            "north"     :(810,76),
+            "northWest" :(782,86),
+            "west"      :(772,115),
+            "southWest" :(782,142),
+            "south"     :(810,152),
+            "southEast" :(837,142),
+            "east"      :(847,115),
+            "northEast" :(837,86)
+            }
+            return dirMdmMapCords[direction]
+        
+        else:
+            dirLrgMapCords = {
             "north"     :(810,54),
             "northWest" :(766,71),
             "west"      :(748,114),
@@ -223,14 +253,14 @@ class Uni:
             "southEast" :(848,155),
             "east"      :(871,114),
             "northEast" :(852,71)
-        }
+            }
+            return dirLrgMapCords[direction]
 
-        return dirMapCords[compassArray[compassDirectionIndex]]
-    
     def moving(self,api):
-        status = api.getMovementStatus()
+            api.getMovementStatus()
+        
 
-    def coordinateWalker(self,desCoords:tuple,range:int=10):
+    def coordinateWalker(self,desCoords:tuple,range:int=3):
 
         api = RuneLiteApi()
         #if within a certain range click on ground
@@ -243,12 +273,32 @@ class Uni:
             sDir = self.directionDecider(curPos, desCoords)
             print("should walk in this direction:", sDir)
             curFacing = self.getCameraFacingDirection(curYaw)
-            print("currently facing", curFacing)
-            x,y = self.clickAreaDecider(sDir,curFacing)
-            x,y = self.mouse.moveMouseToArea(x,y,duration=(random.uniform(0.4,0.7)),areaVariance=14)
+            print("currently facing:", curFacing)
+            clickMapDirection = self.clickAreaDecider(sDir,curFacing)
+
+            if self.ver.totalDistanceFromTarget <= 5:
+                x,y = self.getMapCanvasCords("short",clickMapDirection)
+                print("clicking short")
+            elif self.ver.totalDistanceFromTarget <= 8:
+                x,y = self.getMapCanvasCords("medium",clickMapDirection)
+                print("clicking medium")
+            else:
+                x,y = self.getMapCanvasCords("long",clickMapDirection)
+                print("clicking long")
+
+            x,y = self.mouse.moveMouseToArea(x,y,duration=(random.uniform(0.4,0.7)),areaVariance=3)
             time.sleep(random.uniform(0.1,0.2))
             self.mouse.mouseClick(x,y)
-            time.sleep(random.randint(5,8))
+            time.sleep(1)
+    
+            while api.getMovementStatus() != "idle":
+                # print(moveStatus)
+                time.sleep(0.6)
+                # moveStatus = self.moving(api)
+            
+            # while self.moving(api) != "idle":
+            #     time.sleep(0.6)
+
 
 if __name__ == "__main__":
     c = Uni()
@@ -259,14 +309,25 @@ if __name__ == "__main__":
     # print(c.clickAreaDecider("northEast","east"))
     # print(c.clickAreaDecider("east","northEast"))
     # print(c.clickAreaDecider("north","west"))
-    print(c.clickAreaDecider("northWest","north"))
+    # print(c.clickAreaDecider("northWest","north"))
 
-    # c.coordinateWalker((3200,3495),5)
+    # # c.coordinateWalker((3200,3495),5)
             
-    result=c.directionDecider((3109,3433),(3093,3442))
+    # result=c.directionDecider((3109,3433),(3093,3442))
 
-    print(result)
-    result=c.directionDecider((3093,3442),(3109,3433))
-    print(result)
-    result=c.directionDecider((0,0),(0,0))
-    print(result)
+    # print(result)
+    # result=c.directionDecider((3093,3442),(3109,3433))
+    # print(result)
+    # result=c.directionDecider((0,0),(0,0))
+    # print(result)
+
+    # api = RuneLiteApi()
+
+    # ver=Verifyer()
+    # while True:
+    #     result =ver.verifyInArea(api,(3097,3486),MaxRange=3)
+    #     print(result)
+    #     print(ver.totalDistanceFromTarget)
+    #     time.sleep(0.6)
+    c.coordinateWalker((3096,3437))
+

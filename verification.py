@@ -7,6 +7,7 @@ import numpy as np
 
 class Verifyer:
 
+    totalDistanceFromTarget = None
     # reader = easyocr.Reader(['en'])
 
     def __init__(self):
@@ -72,10 +73,15 @@ class Verifyer:
         distY = abs(currentY-desiredY)
         # print(f"distX: {distX}")
         # print(f"distY: {distY}")
+        
+        if distX > 0 and distY > 0:
+            self.totalDistanceFromTarget = (distX+distY)//2
+        else:
+            self.totalDistanceFromTarget = distX + distY
 
-        if distX > MaxRange:
+        if self.totalDistanceFromTarget > MaxRange:
             return False
-        elif distY > MaxRange:
+        elif self.totalDistanceFromTarget > MaxRange:
             return False
         else:
             return True
@@ -100,3 +106,9 @@ class Verifyer:
     #     # cleanText = text.replace('\n','')
 
     #     return None
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()
