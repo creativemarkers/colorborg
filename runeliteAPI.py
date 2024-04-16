@@ -98,6 +98,11 @@ class RuneLiteApi():
             return "walking"
         else:
             return "idle"
+        
+    def getAnimation(self):
+        self.getEventData()
+        animationInt = self.eventsDict["animation"]
+        return animationInt
 
     
 
@@ -123,11 +128,14 @@ if __name__ == "__main__":
         # result = api.findItemInventory(335)
         # print(result)
 
-        print(worldPos)
+        #print(worldPos)
         # yaw = api.getCameraYaw()
         # print(yaw)
-        api.getMovementStatus()
+        #api.getMovementStatus()
+        result = api.getAnimation()
+        print(result)
         time.sleep(0.6)
+
 
         
        

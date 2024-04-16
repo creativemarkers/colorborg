@@ -78,7 +78,7 @@ class Fisher:
             self.running = False
             exit()
         
-    def fishWithImg(self, fishSpotImageLocation:str, fishSpotVerificationString:str, stringVerificationRegion:tuple):
+    def fishWithImg(self, fishSpotImageLocation:str, fishSpotVerificationString:str, stringVerificationRegion:tuple, animationID:int):
         #main function that handles fishing
         #takes img of what the fishspot looks like
 
@@ -93,7 +93,7 @@ class Fisher:
         '''
         left,top,width,height = stringVerificationRegion
         #enters loop after checking if inventory is full and if it's not currently fishing
-        while self.invent.isInventFull(28) == False and self.verifyFishing() == False:
+        while self.invent.isInventFull(28) == False and self.verifyFishing(animationID) == False:
 
             self.infoGUI.scriptStatus = "Looking for fishing spot"
             #finds a potential fishing spot and gets it's coordinates
@@ -105,23 +105,33 @@ class Fisher:
             self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,durForFishSpot,5)
 
             #grabs pop up text
-            print(stringVerificationRegion)
-
+            #print(stringVerificationRegion)
             textToCheck = self.verifyer.getText(left, top, width, height)
-
             self.infoGUI.scriptStatus = "Verifying fishing spot"
-            #checks if the text matches the string
-            if self.verifyer.verifyText(textToCheck, fishSpotVerificationString) == True:
 
-                #sleep to make sure game is caught up
-                time.sleep(0.1)
-                #clicks on fishing spot
-                self.infoGUI.scriptStatus = "Moving to fishing spot"
-                pyautogui.click(potenialFishingSpotX,potenialFishingSpotY,duration=0.1,button='left')
-                
-                #sleep to make sure game is caught up
-                time.sleep(5)
-        
+            #checks if the text matches the string
+            verificationAttempts = 0
+            maxVerifAttempts = 2
+            verified = False
+            while verified == False:
+                if verificationAttempts > maxVerifAttempts:
+                    self.mouse.rotateCameraInRandomDirection("downRight")
+
+                if self.verifyer.verifyText(textToCheck, fishSpotVerificationString) == True:
+                    #sleep to make sure game is caught up
+                    time.sleep(0.1)
+                    self.infoGUI.scriptStatus = "Moving to fishing spot"
+                    pyautogui.click(potenialFishingSpotX,potenialFishingSpotY,duration=0.1,button='left')
+                    startTime = time.time()
+                    while not self.verifyFishing(animationID):
+                        time.sleep(1)
+                        elapsedTime = time.time() - startTime
+                        if elapsedTime >= 10:
+                            break
+                    verified = True
+                else:
+                    verificationAttempts += 1
+            
         #checks if camera should turn, the number below, to calculate chance = 1/n, n being the chanceToTurn variable
         chanceToTurn = 1000
         self.cam.humanCameraBehavior(chanceToTurn)
@@ -154,18 +164,16 @@ class Fisher:
             attempt = 0
             turnAttempt += 1
             
-    def verifyFishing(self):
-        #verifies if currently fishing
-
-        #calls verifyer object to retrieve text on top right of runelite plugin to determine if fishing
-        #not redundacy needed seen tesseract OCR can read this part of the game with ease
-
-        text = self.verifyer.getText(54,55,44,20)
+    def verifyFishing(self, animationID):
         
-        #print for debugging
-        print("Text captured to verify if fishing: %s" %text)
+        # text = self.verifyer.getText(54,55,44,20)
+        
+        # #print for debugging
+        # print("Text captured to verify if fishing: %s" %text)
 
-        if text == "Fishing":
+        result = self.api.getAnimation()
+
+        if result == animationID:
             return True
         else:
             return False
@@ -252,6 +260,8 @@ class FlyFisher(Fisher):
         (3102,3434),
         (3104,3432)
     ]
+
+    ffAnimationID = 623
     bankBoothColor=(0,255,255)
     itemsID = [331,335]
 
@@ -295,7 +305,7 @@ class FlyFisher(Fisher):
             # x, y = self.findFishingSpotWithColor(self.salmonColors, self.colorSearchRegion)
             # print(x, y)
             while not self.invent.isInventFull(28):
-                self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion)
+                self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
             self.ffCordBanker()
         
 
