@@ -35,9 +35,9 @@ class Uni:
         return pyautogui.pixelMatchesColor(550,707,(38,250,43))
 
     def findBanker(self,bankerColor:tuple,region:tuple)->int:
-        #assumes Banker's in camera
+        
         matchingPixels = self.mouse.findColorsRandomly(bankerColor,region)
-        y, x = matchingPixels[0] 
+        y, x = matchingPixels[0]
         return x, y
     
     def verifyBankBooth(self, verificationString):
@@ -57,29 +57,33 @@ class Uni:
             maxAttempts = 4
             while attempts <= maxAttempts:
                 if attempts == 4:
-                    self.mouse.rotateCameraInRandomDirection("upleft", weightAmount=10)
+                    self.mouse.rotateCameraInRandomDirection("downRight", weightAmount=10)
+                    print("rotating camera")
+                    attempts = 0
                 try:
-
-                    x, y= self.findBanker(bankerColor,(0,0,527,727))
-                    attempts = 5 
-                except ImageNotFoundException:
+                    x, y = self.findBanker(bankerColor,(0,0,527,727))
+                    attempts = 5
+                    randDur = random.uniform(0.4,0.7)
+                    x, y = self.mouse.moveMouseToArea(x,y,duration=randDur,areaVariance=5)
+                except UnboundLocalError:
+                    print("No Matching Pixels Found")
                     attempts += 1
                 except IndexError:
                     attempts += 1
-
-                randDur = random.uniform(0.4,0.7)
-                x, y = self.mouse.moveMouseToArea(x,y,duration=randDur,areaVariance=5)
+            
+            veriAttempts = 0
+            while veriAttempts <= maxAttempts:
                 if self.verifyBankBooth(verificationText):
+                    veriAttempts = 5
                     self.mouse.mouseClick(x,y)
-                    attempts = 5
                     time.sleep(1)
                     while not self.checkBanking():
                         time.sleep(0.6)
                 elif attempts >= 3:
                     self.mouse.rotateCameraInRandomDirection("down", weightAmount=5)
-                    attempts += 1
+                    veriAttempts += 1
                 else:
-                    attempts +=1
+                    veriAttempts +=1
 
     def bankItems(self, itemsBanking, api):
         print("UNIVERSALMETHODS:BANKITEMS: attempting to bank items...")

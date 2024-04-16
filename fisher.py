@@ -245,25 +245,35 @@ class FlyFisher(Fisher):
     stringVerificationRegion = (8, 31, 152, 17)
     f2pLeftFishingBoundingCord = (3103,3424)
     f2pRightFishingBoundingCord = (3109,3433)
-    f2pRightSpotToBankCords = [
+    ffAnimationID = 623
+    bankBoothColor=(0,255,255)
+    itemsID = [331,335]
+    rightF2PfishingSpotToBankCords = [
         (3097,3442),
         (3090,3454),
         (3093,3456),
         (3098,3473),
         (3092,3490)
     ]
-    f2pFromBankCords = [
-        (3102,3481),
-        (3099,3464),
-        (3089,3452),
-        (3099,3437),
-        (3102,3434),
-        (3104,3432)
+    leftF2PfishingSpotToBankCords = [
+        (3091,3428),
+        (3091,3445),
+        (3088,3460),
+        (3088,3466),
+        (3100,3481),
+        (3096,3485)
     ]
-
-    ffAnimationID = 623
-    bankBoothColor=(0,255,255)
-    itemsID = [331,335]
+    f2pFromBankCords = [
+        (3094,3486),
+        (3099,3481),
+        (3099,3476),
+        (3088,3458),
+        (3090,3446),
+        (3090,3435),
+        (3095,3435),
+        (3100,3435),
+        (3104,3431)
+    ]
 
     def __init__(self, powerFishingSwitch:bool = True):
         self.powerFish = powerFishingSwitch
@@ -276,7 +286,11 @@ class FlyFisher(Fisher):
             return "rightSpot"
         
     def ffCordBanker(self):
-        self.uni.walkerCordinator(self.f2pToBankCords)
+        spot = self.f2pFFspotChecker()
+        if spot == "leftSpot":
+            self.uni.walkerCordinator(self.leftF2PfishingSpotToBankCords)
+        else:
+            self.uni.walkerCordinator(self.rightF2PfishingSpotToBankCords)
         self.uni.boothBanker(self.bankBoothColor,self.itemsID,self.api)
         self.uni.walkerCordinator(self.f2pFromBankCords)
 
@@ -300,7 +314,6 @@ class FlyFisher(Fisher):
                     wait to stop fishing
                     go to run checker
         """
-
         while True:
             # x, y = self.findFishingSpotWithColor(self.salmonColors, self.colorSearchRegion)
             # print(x, y)

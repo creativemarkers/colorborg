@@ -133,7 +133,6 @@ class Mouse:
             if numpy.all(imArr[row,col]==numpy.array(colorToFind)):
                 matchingPixel.append((row,col))
                 break
-
         return matchingPixel
     
     def findColorsIteratively(self):
@@ -197,6 +196,8 @@ class Mouse:
             disTravelX = currentX + distanceX
             disTravelY = currentY + distanceY
             pyautogui.dragTo(disTravelX, disTravelY, duration, button="middle")
+
+        self.moveMouseToArea(currentX,currentY,duration,areaVariance=10)
 
     def rotateCameraInRandomDirection(self, weightedDirection = None, weightAmount = 4 , dur = 0.4):
         #base total weight is eight careful on adding more weight to desired amount

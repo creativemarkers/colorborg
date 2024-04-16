@@ -128,12 +128,12 @@ if __name__ == "__main__":
         # result = api.findItemInventory(335)
         # print(result)
 
-        #print(worldPos)
+        print(worldPos)
         # yaw = api.getCameraYaw()
         # print(yaw)
         #api.getMovementStatus()
-        result = api.getAnimation()
-        print(result)
+        # result = api.getAnimation()
+        # print(result)
         time.sleep(0.6)
 
 
