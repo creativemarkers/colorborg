@@ -245,7 +245,7 @@ class FlyFisher(Fisher):
     stringVerificationRegion = (8, 31, 152, 17)
     f2pLeftFishingBoundingCord = (3103,3424)
     f2pRightFishingBoundingCord = (3109,3433)
-    f2pToBankCords = [
+    f2pRightSpotToBankCords = [
         (3097,3442),
         (3090,3454),
         (3093,3456),
