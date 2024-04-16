@@ -14,7 +14,6 @@ class Mouse:
     def __init__(self):
         pyautogui.FAILSAFE = True
 
-    #def moveMouseToArea(x:int, y:int, duration=1, addAreaVariance = False, areaVariance:int = 0):
     def moveMouseToArea(self, x:int, y:int, duration=1, areaVariance:int = 0, click:bool=False):
         xVaried = x
         yVaried =  y
@@ -246,6 +245,4 @@ class Mouse:
         self.mouseClick(x,y)
 
 if __name__ == "__main__":
-
-
     pass

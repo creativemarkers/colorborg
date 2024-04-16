@@ -317,8 +317,8 @@ class FlyFisher(Fisher):
         while True:
             # x, y = self.findFishingSpotWithColor(self.salmonColors, self.colorSearchRegion)
             # print(x, y)
-            while not self.invent.isInventFull(28):
-                self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
+            
+            self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
             self.ffCordBanker()
         
 
