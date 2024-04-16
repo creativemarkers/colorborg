@@ -42,7 +42,7 @@ class Uni:
     
     def verifyBankBooth(self, verificationString):
         testString = self.ver.getText(0,0,243,53)
-        print(testString)
+        #print(testString)
         if self.ver.verifyText(testString, verificationString):
             return True
         else:
@@ -57,6 +57,7 @@ class Uni:
             maxAttempts = 4
             while attempts <= maxAttempts:
                 if attempts == 4:
+                    print("UNIVERSALMETHODS:CLICKONBANKERBOOTH: rotating camera can't find bank booth")
                     self.mouse.rotateCameraInRandomDirection("downRight", weightAmount=10)
                     print("rotating camera")
                     attempts = 0
@@ -80,6 +81,7 @@ class Uni:
                     while not self.checkBanking():
                         time.sleep(0.6)
                 elif attempts >= 3:
+                    print("UNIVERSALMETHODS:CLICKONBANKERBOOTH: rotating camera can't verify bank booth")
                     self.mouse.rotateCameraInRandomDirection("down", weightAmount=5)
                     veriAttempts += 1
                 else:
@@ -97,7 +99,7 @@ class Uni:
     def verifyBanked(self,itemsBanking,api):
         print("UNIVERSALMETHODS:verifyBanked: attempting to verify items banked")
         items = []
-        print(items)
+        #print(items)
         for itemID in itemsBanking:
             result = api.findItemInventory(itemID)
             if result != None:
@@ -121,7 +123,7 @@ class Uni:
             self.bankItems(itemsToBank,api)
             
             if self.verifyBanked(itemsToBank, api):
-                print("Setting banked = true")
+                #print("Setting banked = true")
                 banked = True
                 #could also have an option to 
                 #click on map back to what ever location
@@ -290,9 +292,11 @@ class Uni:
             x,y = self.mouse.moveMouseToArea(x,y,duration=(random.uniform(0.4,0.7)),areaVariance=3)
             time.sleep(random.uniform(0.1,0.2))
             self.mouse.mouseClick(x,y)
+            print("sleeping for a second")
             time.sleep(1)
 
             while api.getMovementStatus() != "idle":
+                print("moving..")
                 time.sleep(0.6)
 
     def walkerCordinator(self, cordsList, range=3):

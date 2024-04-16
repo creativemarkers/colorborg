@@ -41,10 +41,10 @@ class Mouse:
         #might not be random enough
         willTween = random.randrange(0,10)
 
-        if willTween >= 5:
+        if willTween >= 6:
             pyautogui.moveTo(x,y, duration, random.choice(tweeningList))
         else:
-            duration /= 2
+            duration /= 1.5
             pyautogui.moveTo(x, y, duration)
 
     def addVariance(self, x:int, y:int, varianceAmount:int):
@@ -239,8 +239,6 @@ class Mouse:
                 attempts += 1
                 print("MOUSEFUNCTIONS:MAPAREAFINDERANDCLICKER: ImageNotFound Error")
             
-    
-    
         x, y = self.moveMouseToArea(x,y,duration=random.uniform(0.4,0.7),areaVariance=3)
         self.mouseClick(x,y)
 

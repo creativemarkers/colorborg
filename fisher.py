@@ -116,8 +116,10 @@ class Fisher:
             while verified == False:
                 if verificationAttempts > maxVerifAttempts:
                     self.mouse.rotateCameraInRandomDirection("downRight")
+                    verificationAttempts = 0
 
                 if self.verifyer.verifyText(textToCheck, fishSpotVerificationString) == True:
+                    verified = True
                     #sleep to make sure game is caught up
                     time.sleep(0.1)
                     self.infoGUI.scriptStatus = "Moving to fishing spot"
@@ -128,7 +130,6 @@ class Fisher:
                         elapsedTime = time.time() - startTime
                         if elapsedTime >= 10:
                             break
-                    verified = True
                 else:
                     verificationAttempts += 1
             
@@ -158,7 +159,9 @@ class Fisher:
                 except ImageNotFoundException:
                     attempt += 1
                     print("image not found, attempt:", attempt)
-            self.mouse.rotateCameraInRandomDirection()
+
+            self.mouse.moveMouseToArea(450,450,duration=random.uniform(0.4,0.7),areaVariance=40)
+            self.mouse.rotateCameraInRandomDirection("downRight",dur=random.uniform(0.4,0.6))
             #resets second loop, and lowers confidence variable
             conf -= 0.1
             attempt = 0
@@ -248,6 +251,7 @@ class FlyFisher(Fisher):
     ffAnimationID = 623
     bankBoothColor=(0,255,255)
     itemsID = [331,335]
+
     rightF2PfishingSpotToBankCords = [
         (3097,3442),
         (3090,3454),
@@ -317,8 +321,8 @@ class FlyFisher(Fisher):
         while True:
             # x, y = self.findFishingSpotWithColor(self.salmonColors, self.colorSearchRegion)
             # print(x, y)
-            
-            self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
+            while not self.invent.isInventFull(28):
+                self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
             self.ffCordBanker()
         
 
