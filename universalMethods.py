@@ -304,6 +304,25 @@ class Uni:
         for cords in cordsList:
             self.coordinateWalker(cords,range=range)
 
+    def runner(self, api:RuneLiteApi):
+        runningColor = (236,218,103)
+        x, y = 730, 163
+
+        if pyautogui.pixelMatchesColor(x, y, runningColor) != True:
+            print("UNIVERSALMETHODS:RUNNER: Not running")
+            runningThreshold = random.randint(50, 80)
+
+            currentRunEnergy = api.getRunEnergy()
+
+            print(currentRunEnergy)
+
+            if currentRunEnergy >= runningThreshold:
+                print("SLAYER:RUNNER: Clicking on run icon")
+                dur = random.uniform(0.3,0.5)
+                self.mouse.moveMouseToArea(735,165, duration=dur, areaVariance=10,click=True)
+        else:
+            print("UNIVERSALMETHODS:RUNNER: Running")
+
 if __name__ == "__main__":
     c = Uni()
     api = RuneLiteApi()

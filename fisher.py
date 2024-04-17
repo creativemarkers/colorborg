@@ -234,7 +234,7 @@ class ShrimpFisher(Fisher):
 
                 #calls invent obj to power drop the whole inventory minus the first slot (contains fishing net)
                 self.infoGUI.scriptStatus = "Dropping inventory"
-                self.invent.powerDropInventory(doNotDrop=1)
+                self.invent.powerDropInventory(doNotDrop=2)
         
         else:
             print("powerFishing set to False")
@@ -321,9 +321,11 @@ class FlyFisher(Fisher):
         while True:
             # x, y = self.findFishingSpotWithColor(self.salmonColors, self.colorSearchRegion)
             # print(x, y)
+            self.uni.runner(self.api)
             while not self.invent.isInventFull(28):
                 self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
-            self.ffCordBanker()
+            self.invent.powerDropInventory(doNotDrop=2)
+            # self.ffCordBanker()
         
 
 def main():
