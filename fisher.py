@@ -52,7 +52,7 @@ class Fisher:
         # self.selectedSubScript = self.gui.scriptSelected
 
         #creates thread for the bot and starts it, still need to pass the right arg
-        self.botThread = threading.Thread(target = self.createBot, args=("salmon/trout",))
+        self.botThread = threading.Thread(target = self.createBot, args=("shrimp",))
         self.botThread.start()
 
         #creates display gui, then creates thread and starts it
