@@ -52,7 +52,7 @@ class Fisher:
         # self.selectedSubScript = self.gui.scriptSelected
 
         #creates thread for the bot and starts it, still need to pass the right arg
-        self.botThread = threading.Thread(target = self.createBot, args=("shrimp",))
+        self.botThread = threading.Thread(target = self.createBot, args=("salmon/trout",))
         self.botThread.start()
 
         #creates display gui, then creates thread and starts it
@@ -95,19 +95,19 @@ class Fisher:
         #enters loop after checking if inventory is full and if it's not currently fishing
         while self.invent.isInventFull(28) == False and self.verifyFishing(animationID) == False:
 
-            self.infoGUI.scriptStatus = "Looking for fishing spot"
-            #finds a potential fishing spot and gets it's coordinates
-            potenialFishingSpotX, potenialFishingSpotY = self.findFishingSpot(fishSpotImageLocation)
+            # self.infoGUI.scriptStatus = "Looking for fishing spot"
+            # #finds a potential fishing spot and gets it's coordinates
+            # potenialFishingSpotX, potenialFishingSpotY = self.findFishingSpot(fishSpotImageLocation)
 
-            #moves mouse to to poential fishing spot, to verify with the text that pops up when hovering
-            #over the fishing spot
-            durForFishSpot = random.uniform(0.5,1.0)
-            self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,durForFishSpot,5)
+            # #moves mouse to to poential fishing spot, to verify with the text that pops up when hovering
+            # #over the fishing spot
+            # durForFishSpot = random.uniform(0.4,0.7)
+            # self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,durForFishSpot,5)
 
-            #grabs pop up text
-            #print(stringVerificationRegion)
-            textToCheck = self.verifyer.getText(left, top, width, height)
-            self.infoGUI.scriptStatus = "Verifying fishing spot"
+            # #grabs pop up text
+            # #print(stringVerificationRegion)
+            # textToCheck = self.verifyer.getText(left, top, width, height)
+            # self.infoGUI.scriptStatus = "Verifying fishing spot"
 
             #checks if the text matches the string
             verificationAttempts = 0
@@ -117,6 +117,21 @@ class Fisher:
                 if verificationAttempts > maxVerifAttempts:
                     self.mouse.rotateCameraInRandomDirection("downRight")
                     verificationAttempts = 0
+
+                self.infoGUI.scriptStatus = "Looking for fishing spot"
+                #finds a potential fishing spot and gets it's coordinates
+                potenialFishingSpotX, potenialFishingSpotY = self.findFishingSpot(fishSpotImageLocation)
+
+                #moves mouse to to poential fishing spot, to verify with the text that pops up when hovering
+                #over the fishing spot
+                durForFishSpot = random.uniform(0.4,0.7)
+                self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,durForFishSpot,5)
+
+                #grabs pop up text
+                #print(stringVerificationRegion)
+                textToCheck = self.verifyer.getText(left, top, width, height)
+                self.infoGUI.scriptStatus = "Verifying fishing spot"
+
 
                 if self.verifyer.verifyText(textToCheck, fishSpotVerificationString) == True:
                     verified = True
