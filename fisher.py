@@ -9,7 +9,6 @@ from mouseFunctions import Mouse
 from verification import Verifyer
 from camera import Camera
 from pyautogui import ImageNotFoundException
-from osFunctions import countFiles
 from universalMethods import Uni
 from runeliteAPI import RuneLiteApi
 
@@ -43,9 +42,6 @@ class Fisher:
 
     def main(self):
 
-        '''
-        disabled gui prompts for ease of testing for now 3/12/2024
-        '''
         # gui for script selection
         self.gui.getDesiredScript(self.FISHTYPE)
         self.selectedSubScript = self.gui.scriptSelected
@@ -283,9 +279,8 @@ class FlyFisher(Fisher):
                 self.invent.powerDropInventory(doNotDrop=2)
 
 def main():
-    time.sleep(2)
-    ff = FlyFisher()
-    
-
+    # time.sleep(2)
+    # ff = FlyFisher()
+    pass
 if __name__ == "__main__":
     main()

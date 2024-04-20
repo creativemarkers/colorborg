@@ -24,7 +24,8 @@ these will be in no particular order
 2) fleshed out database to auth my users and check licenses (sql, apache, azure hosted)
 3) fully working f2p fisher, in theory get you to 1-99 fishing on f2p, with full ban evasion
 4) include ~~shrimp~~, ~~trout/salmon~~, anglerfish
-5) pathfinding
+5) walker
+5.5) pathfinding
 6) ~~bank~~ - semi done, will need to fully test once a script actually needs to do it (anglerfish)
 7) instructions on how to setup the bot (runelite plugins mostly)
 8) nice looking gui, include pause and play button, as well as stop. update on the amount of fish and xp an hour its gained

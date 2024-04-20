@@ -91,10 +91,6 @@ class Gui:
         self.root.protocol("WM_DELETE_WINDOW", onClosing)
         #root.mainloop()
 
-    
-        
-
-
     def formatTime(self, seconds = None):
 
         if seconds == None:
