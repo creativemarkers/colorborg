@@ -17,7 +17,7 @@ class RuneLiteApi():
     inventArray = None
 
     def __init__(self):
-
+        #creating error logs, need to disable
         response = requests.get(self.baseAPIUrl)
 
         # if response.status_code == 200:

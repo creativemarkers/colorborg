@@ -26,6 +26,7 @@ class Gui:
         def on_option_changed(*args):
             self.scriptSelected = selected_option.get()
             root.quit()
+            root.destroy()
 
         # options = [None,"Fisher", "WoodCutter", "Miner"]
         root = Tk()
