@@ -115,6 +115,7 @@ class Fisher:
                         elapsedTime = time.time() - startTime
                         if elapsedTime >= 10:
                             break
+                    self.infoGUI.scriptStatus = "Fishing"
                 else:
                     verificationAttempts += 1
             
@@ -240,6 +241,7 @@ class FlyFisher(Fisher):
     ]
 
     def __init__(self, powerFishingSwitch:bool = True):
+        guiStatus = self.infoGUI.scriptStatus
         self.powerFish = powerFishingSwitch
         self.flyFisher()
 
@@ -258,19 +260,28 @@ class FlyFisher(Fisher):
         self.uni.boothBanker(self.bankBoothColor,self.itemsID,self.api)
         self.uni.walkerCordinator(self.f2pFromBankCords)
 
+    #orchestrates fly fishing 
     def flyFisher(self):
-        #orchestrates fishing functions
-        while self.infoGUI.isRunning == True:
 
-            # self.verifyGUIRunning()
+        def updateGuiStatus(status):
+            self.infoGUI.scriptStatus = status
+        while self.infoGUI.isRunning == True:
+            """
+            TODO:
+                want to add a verification if at fishing spot
+    
+            """
+            self.infoGUI.scriptStatus = "Checking Run Status"
             self.uni.runner(self.api)
+
+            self.infoGUI.scriptStatus = "Checking Inventory"
             while not self.invent.isInventFull(28) and self.infoGUI.isRunning == True:
                 self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
-        
+    
             if self.infoGUI.isRunning == True:
+                updateGuiStatus("DroppingInventory")
                 self.invent.powerDropInventory(doNotDrop=2)
-            # self.ffCordBanker()
-        
+
 def main():
     time.sleep(2)
     ff = FlyFisher()
