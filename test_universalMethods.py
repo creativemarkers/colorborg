@@ -52,7 +52,7 @@ class TestClickAreaDecider(BaseTestClass):
 
     def test_ExpectedCases(self):
         """
-        need to be rewritten
+        needs to be rewritten
         """
         # result = self.obj.clickAreaDecider("northEast","west")
         # self.assertEqual(result,(848,155))

@@ -15,6 +15,13 @@
     https://github.com/UB-Mannheim/tesseract/wiki
 
 
+# RuneLite Extension
+    -Required
+1) Morg HTTP Client
+    creates a local api end point
+    localhost:8081
+
+
 # Road Map
 
 these will be in no particular order
@@ -24,7 +31,7 @@ these will be in no particular order
 2) fleshed out database to auth my users and check licenses (sql, apache, azure hosted)
 3) fully working f2p fisher, in theory get you to 1-99 fishing on f2p, with full ban evasion
 4) include ~~shrimp~~, ~~trout/salmon~~, anglerfish
-5) walker
+5) ~~walker~~
 5.5) pathfinding
 6) ~~bank~~ - semi done, will need to fully test once a script actually needs to do it (anglerfish)
 7) instructions on how to setup the bot (runelite plugins mostly)

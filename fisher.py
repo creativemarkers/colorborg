@@ -12,10 +12,7 @@ from pyautogui import ImageNotFoundException
 from universalMethods import Uni
 from runeliteAPI import RuneLiteApi
 
-
-
 class Fisher:
-
     #variables and objects required for the script to run
     gui = Gui()
     infoGUI = Gui()
@@ -261,11 +258,14 @@ class FlyFisher(Fisher):
 
         def updateGuiStatus(status):
             self.infoGUI.scriptStatus = status
+
         while self.infoGUI.isRunning == True:
             """
             TODO:
                 want to add a verification if at fishing spot
-    
+                add fisher counter
+                add xp an hour
+
             """
             self.infoGUI.scriptStatus = "Checking Run Status"
             self.uni.runner(self.api)
