@@ -159,6 +159,7 @@ class ShrimpFisher(Fisher):
     powerFish = True
     fishingSpotVerificationString = "Net Fishing Spot"
     verificationStringRegion = (8,32,120,20)
+    smallNetFishingAnimationID = 621
 
     def __init__(self,powerfishing=True):
         
@@ -182,7 +183,7 @@ class ShrimpFisher(Fisher):
                 
                 while not self.invent.inventFull:
                     self.verifyGUIRunning()
-                    self.fishWithImg(self.shrimpSpotImg, self.fishingSpotVerificationString, self.verificationStringRegion)
+                    self.fishWithImg(self.shrimpSpotImg, self.fishingSpotVerificationString, self.verificationStringRegion, self.smallNetFishingAnimationID)
                     self.infoGUI.scriptStatus = "Fishing"
                     #this sleep might not be necessary anymore, as fish is now handling it
                     time.sleep(0.6)

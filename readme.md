@@ -13,6 +13,7 @@
     could add a verification step on exe?
     https://github.com/tesseract-ocr/tesseract
     https://github.com/UB-Mannheim/tesseract/wiki
+2) once tesseract is installed add it's file path, to system PATH in windows
 
 
 # RuneLite Extension
@@ -20,7 +21,7 @@
 1) Morg HTTP Client
     creates a local api end point
     localhost:8081
-
+    make sure to allow it on the firewall
 
 # Road Map
 
@@ -35,10 +36,21 @@ these will be in no particular order
 5.5) pathfinding
 6) ~~bank~~ - semi done, will need to fully test once a script actually needs to do it (anglerfish)
 7) instructions on how to setup the bot (runelite plugins mostly)
-8) nice looking gui, include pause and play button, as well as stop. update on the amount of fish and xp an hour its gained
+8) nice looking gui, include pause and play button, as well as stop. 
 9) automatic tesseract install 
 10) can take extended break(for ban evasion)
 11) f2p miner
 12) f2p woodcutter
 
 20) real strecth goal: is to incorporate bezier curves for mouse movements
+
+# Feature Creep
+1) Random stat checker
+2) auto sleep for ban evasion
+3) script to install all my dependency on new machines
+
+# PRIORITY
+
+-Adding proper logging, and fix logging on the API
+-add the pause and play feature to the script
+-start and finish the website

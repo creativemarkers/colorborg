@@ -1,5 +1,5 @@
 import pytesseract
-import easyocr
+#import easyocr
 from PIL import ImageGrab
 import numpy as np
 
@@ -20,12 +20,15 @@ class Verifyer:
         cleanText = text.replace('\n','')
         return cleanText
     
-    def getTextEasyOCR(self,left,top,width,height):
-        screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
-        reader = easyocr.Reader(['en'])
-        screenshot.save("screenshot.png")
-        result = reader.readtext("screenshot.png")
-        return result
+    """
+    below method is never used in my program
+    """
+    # def getTextEasyOCR(self,left,top,width,height):
+    #     screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
+    #     reader = easyocr.Reader(['en'])
+    #     screenshot.save("screenshot.png")
+    #     result = reader.readtext("screenshot.png")
+    #     return result
     
     def verifyText(self,cleanedText, stringToVerify):
 
