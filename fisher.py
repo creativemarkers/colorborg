@@ -3,6 +3,7 @@ import time
 import pyautogui
 import threading
 import random
+import logging
 from gui import Gui
 from inventFunctions import Inventory
 from mouseFunctions import Mouse
@@ -11,6 +12,9 @@ from camera import Camera
 from pyautogui import ImageNotFoundException
 from universalMethods import Uni
 from runeliteAPI import RuneLiteApi
+
+logging.basicConfig(level=logging.DEBUG, filename="fisher_Log.log", filemode="w", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 class Fisher:
     #variables and objects required for the script to run
@@ -31,7 +35,8 @@ class Fisher:
     api = RuneLiteApi()
 
     #array of fish currently supported (not really more for gui testing atm)
-    FISHTYPE = [None,"shrimp","f2p fly fishing","lobster", "swordfish"]
+    FISHTYPE = [None,"shrimp","f2p fly fishing"]
+    logger.info("successfully created fisher class variables")
 
     def __init__(self):
         self.main()
@@ -40,33 +45,36 @@ class Fisher:
     def main(self):
 
         # gui for script selection
+        logger.info("asking which subscript to run")
         self.gui.getDesiredScript(self.FISHTYPE)
         self.selectedSubScript = self.gui.scriptSelected
 
         #creates thread for the bot and starts it, still need to pass the right arg
+        logger.info("creating thread for the bot")
         self.botThread = threading.Thread(target = self.createBot, args=(self.gui.scriptSelected,))
         self.botThread.start()
+        logger.info("CREATED thread for the bot")
 
         #creates display gui, then creates thread and starts it
+        logger.info("creating thread for GUI")
         self.infoGUI.displayBotInfo("Shrimp PowerFisher")
         self.infoGuiThread = threading.Thread(target = self.infoGUI.root.mainloop())
         self.infoGuiThread.start()
-       
-    def createThreads(self):
-        #dead function created for brainstorming might use later to abstract code a bit more
-        pass
+        logger.info("CREATED thread for GUI")
 
     def createBot(self,fishType):
         #creates bot instances, needed for threading
+        logger.info(f"creating fish sub class object, {fishType}")
         if fishType == "shrimp":
             shrimper = ShrimpFisher()
         elif fishType == "f2p fly fishing":
             flyFisher = FlyFisher()
 
     def verifyGUIRunning(self):
-
+        logger.info("checking if gui is running")
         if self.infoGUI.isRunning == False:
-            print("GUI Closed, exiting")
+            logger.critical("GUI was closed changed self.running to False, and exiting")
+            #print("GUI Closed, exiting")
             self.running = False
             exit()
         
@@ -283,5 +291,6 @@ def main():
     # time.sleep(2)
     # ff = FlyFisher()
     pass
+
 if __name__ == "__main__":
     main()

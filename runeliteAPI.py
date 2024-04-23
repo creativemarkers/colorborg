@@ -1,7 +1,11 @@
 import requests
 import json
 import time
+import logging
 from verification import Verifyer
+
+logging.getLogger("requests").setLevel(logging.ERROR)
+logging.getLogger("urllib3").setLevel(logging.ERROR)
 
 class RuneLiteApi():
     #uses "MORG HTTP API plugin on the plugin hub"

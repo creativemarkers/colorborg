@@ -48,9 +48,11 @@ these will be in no particular order
 1) Random stat checker
 2) auto sleep for ban evasion
 3) script to install all my dependency on new machines
+4) notification ping if bot fails or gets stuck (prob would need to count fishes)
 
 # PRIORITY
 
 -Adding proper logging, and fix logging on the API
+-speed up auto dropper, and make sure it only clicks what it needs too
 -add the pause and play feature to the script
 -start and finish the website

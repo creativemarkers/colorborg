@@ -2,6 +2,7 @@
 import subprocess
 import logging
 import sys
+from logger import Logger
 from pyautogui import FailSafeException
 from gui import Gui
 from osFunctions import Window
@@ -13,9 +14,9 @@ gui = Gui()
 game = Window()
 
 #sets up logging file
-logging.basicConfig(filename='errors.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-
-
+# logging.basicConfig(filename='debug.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig(level=logging.DEBUG, filename="mainlog.log", filemode="w", format="%(asctime)s - %(levelname)s - %(message)s")
+logging.debug("hi")
 
 def main():
     # # pyautogui.FAILSAFE = True
@@ -38,8 +39,12 @@ def main():
         code below disabled for testing
         """
 
-        #calls gui obj to get input for what scripts to run
+    
+
+        #calls gui obj to get input for what scripts to run, going to include if user wants logging, enabled by default
         # gui.getDesiredScript()
+
+        
 
         # #calls script getter
         # scriptGetter(gui.scriptSelected)

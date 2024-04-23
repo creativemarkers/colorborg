@@ -89,7 +89,6 @@ class Verifyer:
         else:
             return True
             
-
     # def getTextEnhanced(self,left,top,width,height, threshHold = False, targetColor = (0,0,0)):
     #     #can still try resizeing with easyocr as havent done that
         

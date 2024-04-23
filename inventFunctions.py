@@ -1,8 +1,12 @@
 import pyautogui
 import random
+import logging
 from time import sleep
 from mouseFunctions import Mouse
 # from mouseFunctions import moveMouse , findImageSimple
+
+logger = logging.getLogger(__name__)
+
 class Inventory:
 
     inventory = [0] * 28
@@ -14,7 +18,8 @@ class Inventory:
         self.mouse = Mouse()
 
     def isInventOpen(self):
-        print("INVENTFUNCTIONS: ISINVENTOPEN: checking if invent is open:", pyautogui.pixelMatchesColor(765, 825, (113,38,29)))
+        #logger.debug("ISINVENTOPEN: checking if invent is open:", pyautogui.pixelMatchesColor(765, 825, (113,38,29)))
+        logger.debug("ISINVENTOPEN: checking if invent is open:")
         return pyautogui.pixelMatchesColor(765, 825, (113,38,29))
 
     def openInvent(self): 
@@ -23,7 +28,7 @@ class Inventory:
         self.mouse.moveMouseToArea(778, 838, 0.5, 15)
         sleep(sleeper)
         pyautogui.click()
-        print("INVENTFUNCTIONS: OPENINVENT: clicked on invent")
+        logger.info(": OPENINVENT: clicked on invent")
 
     def checkItemInInventSlot(self, x,y,color:tuple):
         return pyautogui.pixelMatchesColor(x,y,color) 
@@ -41,17 +46,17 @@ class Inventory:
         for i in range(len(self.inventory)):
 
             if self.checkItemInInventSlot(x,y,color) == True:
-                #print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: pixel color matched, setting invent slot to 1")
+                #print(":CHECKINVENTORYSLOTFORSPECIFICITEM: pixel color matched, setting invent slot to 1")
                 self.inventory[i] = 1
             else:
-                #print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: pixel color did not match, setting invent slot to 0")
+                #print(":CHECKINVENTORYSLOTFORSPECIFICITEM: pixel color did not match, setting invent slot to 0")
                 self.inventory[i] = 0
 
             counter += 1
             x += 42
 
             if counter >= 4:
-                #print("INVENTFUNCTIONS:CHECKINVENTORYSLOTFORSPECIFICITEM: counter hit 4, resetting counter, x, and increasing y")
+                #print(":CHECKINVENTORYSLOTFORSPECIFICITEM: counter hit 4, resetting counter, x, and increasing y")
                 counter = 0
                 #sets y for next row
                 y += 36
@@ -63,7 +68,7 @@ class Inventory:
     def isInventFull(self, slotsToFull:int):
 
         while self.isInventOpen() == False:
-            print("INVENTFUNCTIONS:INVENTFULLSTATUS: opening invent")
+            logger.info(":INVENTFULLSTATUS: opening invent")
             self.openInvent()
 
         self.checkIfInventSlotsEmpty()
@@ -96,7 +101,7 @@ class Inventory:
             x += 42
 
             if counter >= 4:
-                #print("INVENTFUNCTIONS:POWERDROPINVENTORY: counter hit 4, resetting counter, x, and increasing y")
+                #print(":POWERDROPINVENTORY: counter hit 4, resetting counter, x, and increasing y")
                 counter = 0
                 #sets y for next row
                 y += 36
@@ -146,7 +151,7 @@ class Inventory:
                 dur = random.uniform(0.3, 0.45)
                 x,y = self.mouse.moveMouseToArea(x,y,dur,areaVariance=2)
                 self.mouse.mouseClick(x,y)
-                print("INVENTFUNCTIONS:bankItem")
+                logger.info("bankItem")
                 return None
 
             counter += 1
@@ -183,7 +188,7 @@ class Inventory:
                 y += 36
                 #sets x back to first column
                 x = originX
-        print(sum(self.inventory))
+        logger.debug(f"items in invent: {sum(self.inventory)}")
 
 
 

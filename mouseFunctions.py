@@ -5,9 +5,12 @@ import random
 from pyautogui import ImageNotFoundException
 import numpy
 import os
+import logging
 
 
 pyautogui.MINIMUM_DURATION = 0.05
+
+logger = logging.getLogger(__name__)
 
 class Mouse:
 
@@ -50,6 +53,7 @@ class Mouse:
     def addVariance(self, x:int, y:int, varianceAmount:int):
 
         if varianceAmount <= 0:
+            #logging.exception("ValueError")
             raise ValueError("Variance must be greater than 0")
         
         xCeilingVariance = x + varianceAmount
@@ -93,11 +97,13 @@ class Mouse:
             x , y = pyautogui.center(imageLocation)
             # x, y = imageLocationCenter
 
-            print("MOUSEFUNCTIONS:FINDIMAGESIMPLE: found center of image:",x, y)
+            logger.info(f"MOUSEFUNCTIONS:FINDIMAGESIMPLE: found center of image:{x},{y}")
 
             return x , y
         except ImageNotFoundException:
+            #logging.exception("ImageNotFoundException")
             raise ImageNotFoundException
+
         
     def findColorsFast(self, colorToFind:tuple, desiredRegion:tuple):
         #note!!! the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
@@ -135,16 +141,18 @@ class Mouse:
         return matchingPixel
     
     def findColorsIteratively(self):
+        # TODO !!!
         #uses find colors randomly function
         #useful for searching near player 
         pass
 
     def findImgIteratively(self):
+        # TODO !!!
         #useful for searching near player
         pass
 
     def mouseClick(self, x:int, y:int, but:str = 'left'):
-        print("CLICKING")
+        logger.debug("CLICKING")
         dur = random.uniform(0.01,0.1)
         pyautogui.click(x,y,duration=dur,button=but)
         clep = random.uniform(0.05,0.1)
@@ -164,7 +172,7 @@ class Mouse:
         }
 
         distance = 100 * (duration *  10) 
-        print("MOUSEFUNCTIONS:ROTATECAMERAWITHMOUSE: Rotating Camera...")
+        #logging.debug("MOUSEFUNCTIONS:ROTATECAMERAWITHMOUSE: Rotating Camera...")
         if direction == "up" or  direction == "down":
             distanceTraveling = currentY + (distance * directionsSimpleDict[direction]) 
             pyautogui.dragTo(currentX, distanceTraveling, duration, button="middle")
@@ -237,6 +245,7 @@ class Mouse:
                 attempts = maxAttempts
             except ImageNotFoundException:
                 attempts += 1
+                #logging.exception("MOUSEFUNCTIONS:MAPAREAFINDERANDCLICKER: ImageNotFound Error")
                 print("MOUSEFUNCTIONS:MAPAREAFINDERANDCLICKER: ImageNotFound Error")
             
         x, y = self.moveMouseToArea(x,y,duration=random.uniform(0.4,0.7),areaVariance=3)
