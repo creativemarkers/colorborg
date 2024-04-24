@@ -12,9 +12,12 @@ from camera import Camera
 from pyautogui import ImageNotFoundException
 from universalMethods import Uni
 from runeliteAPI import RuneLiteApi
+from logOrganizer import LogOrganizer
 
 logging.basicConfig(level=logging.DEBUG, filename="fisher_Log.log", filemode="w", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
+log = LogOrganizer(__name__)
+log.setupDirectory()
 
 class Fisher:
     #variables and objects required for the script to run

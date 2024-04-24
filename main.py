@@ -2,7 +2,7 @@
 import subprocess
 import logging
 import sys
-from logger import Logger
+from logOrganizer import Logger
 from pyautogui import FailSafeException
 from gui import Gui
 from osFunctions import Window

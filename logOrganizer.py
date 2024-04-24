@@ -5,7 +5,7 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-class Logger():
+class LogOrganizer():
 
     def __init__(self, name):
 
@@ -55,6 +55,7 @@ class Logger():
         return False
     
     def checkForName(self, fileName, targetName):
+        #look up KMP and Boyer-Moore for other, better path finding algorithms
         if len(fileName) < len(targetName)+4:
             return False
         
@@ -84,7 +85,7 @@ class Logger():
             os.mkdir(self.logfolderName)
 
 def main():
-    log = Logger("fisher")
+    log = LogOrganizer("fisher")
     # log.checkForLogs()
     log.setupDirectory()
     result = None
@@ -92,6 +93,5 @@ def main():
     result = log.checkForName("fyishettityfishfsdsfdffisssshhheefiishfisheherr_log.log","fisher")
     print(result)
     
-
 if __name__ == "__main__":
     main()
