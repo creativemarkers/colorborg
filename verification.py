@@ -2,8 +2,9 @@ import pytesseract
 #import easyocr
 from PIL import ImageGrab
 import numpy as np
+import logging
 
-
+logger = logging.getLogger(__name__)
 
 class Verifyer:
 
@@ -44,6 +45,8 @@ class Verifyer:
         #prints below for debugging
         print(cWords)
         print(vWords)
+        logging.debug(cWords)
+        logging.debug(vWords)
         
         # cWordsDict = {}
 

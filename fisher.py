@@ -45,18 +45,18 @@ class Fisher:
     def main(self):
 
         # gui for script selection
-        logger.info("asking which subscript to run")
         self.gui.getDesiredScript(self.FISHTYPE)
         self.selectedSubScript = self.gui.scriptSelected
+        logger.info("GOT Subscript")
 
         #creates thread for the bot and starts it, still need to pass the right arg
-        logger.info("creating thread for the bot")
+        
         self.botThread = threading.Thread(target = self.createBot, args=(self.gui.scriptSelected,))
         self.botThread.start()
         logger.info("CREATED thread for the bot")
 
         #creates display gui, then creates thread and starts it
-        logger.info("creating thread for GUI")
+    
         self.infoGUI.displayBotInfo("Shrimp PowerFisher")
         self.infoGuiThread = threading.Thread(target = self.infoGUI.root.mainloop())
         self.infoGuiThread.start()
@@ -71,7 +71,6 @@ class Fisher:
             flyFisher = FlyFisher()
 
     def verifyGUIRunning(self):
-        logger.info("checking if gui is running")
         if self.infoGUI.isRunning == False:
             logger.critical("GUI was closed changed self.running to False, and exiting")
             #print("GUI Closed, exiting")
@@ -139,7 +138,9 @@ class Fisher:
                     return x, y
                 except ImageNotFoundException:
                     attempt += 1
-                    print("image not found, attempt:", attempt)
+                    debugString = f"image not found, attempt: {attempt}"
+                    print(debugString)
+                    logger.debug(debugString)
 
             self.mouse.moveMouseToArea(450,450,duration=random.uniform(0.4,0.7),areaVariance=40)
             self.mouse.rotateCameraInRandomDirection("downRight",dur=random.uniform(0.4,0.6))
@@ -197,7 +198,7 @@ class ShrimpFisher(Fisher):
                     time.sleep(0.6)
 
                 self.infoGUI.scriptStatus = "Dropping inventory"
-                self.invent.powerDropInventory(doNotDrop=2)
+                self.invent.powerDropInventory(doNotDrop=1)
         
         else:
             print("powerFishing set to False")
@@ -276,10 +277,10 @@ class FlyFisher(Fisher):
                 add xp an hour
 
             """
-            self.infoGUI.scriptStatus = "Checking Run Status"
+            updateGuiStatus("Checking Run Status")
             self.uni.runner(self.api)
 
-            self.infoGUI.scriptStatus = "Checking Inventory"
+            updateGuiStatus("Checking Inventory")
             while not self.invent.isInventFull(28) and self.infoGUI.isRunning == True:
                 self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
     

@@ -18,9 +18,9 @@ class Inventory:
         self.mouse = Mouse()
 
     def isInventOpen(self):
-        #logger.debug("ISINVENTOPEN: checking if invent is open:", pyautogui.pixelMatchesColor(765, 825, (113,38,29)))
-        logger.debug("ISINVENTOPEN: checking if invent is open:")
-        return pyautogui.pixelMatchesColor(765, 825, (113,38,29))
+        result = pyautogui.pixelMatchesColor(765, 825, (113,38,29))
+        logger.debug(f"ISINVENTOPEN: checking if invent is open: {result}")
+        return result
 
     def openInvent(self): 
         # move mouse and click on inventory icon or hit escape weight the escape key more
@@ -28,7 +28,7 @@ class Inventory:
         self.mouse.moveMouseToArea(778, 838, 0.5, 15)
         sleep(sleeper)
         pyautogui.click()
-        logger.info(": OPENINVENT: clicked on invent")
+        logger.info("OPENINVENT: clicked on invent")
 
     def checkItemInInventSlot(self, x,y,color:tuple):
         return pyautogui.pixelMatchesColor(x,y,color) 
@@ -68,7 +68,7 @@ class Inventory:
     def isInventFull(self, slotsToFull:int):
 
         while self.isInventOpen() == False:
-            logger.info(":INVENTFULLSTATUS: opening invent")
+            logger.info("INVENTFULLSTATUS: opening invent")
             self.openInvent()
 
         self.checkIfInventSlotsEmpty()
