@@ -40,11 +40,12 @@ class Verifyer:
         if cleanedText == stringToVerify:
             return True
         
+        logging.debug("grabbed text doesn't match, attempting to clean to further verify")
         cWords = cleanedText.split()
         vWords = stringToVerify.split()
         #prints below for debugging
-        print(cWords)
-        print(vWords)
+        # print(cWords)
+        # print(vWords)
         logging.debug(cWords)
         logging.debug(vWords)
         

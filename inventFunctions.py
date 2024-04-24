@@ -80,21 +80,21 @@ class Inventory:
             self.inventFull = False
             return False
 
-    def powerDropInventory(self, doNotDrop:int=0):
+    def powerDropInventory(self, doNotDrop:int=0, amountToDrop = 28):
         #doNotDrop is the number of slots to not drop starting from the first
         originX = 726
         x = 726
         y = 575
         shiftPressed = False
         counter = 0
-
-        for i in range(len(self.inventory)):
+        
+        for i in range(amountToDrop):
 
             if i >= doNotDrop:
                 if shiftPressed != True:
                     pyautogui.keyDown('shift')
                     shiftPressed = True
-                dur = random.uniform(0.1, 0.2)
+                dur = random.uniform(0.075, 0.15)
                 self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10,click=True)
 
             counter += 1
@@ -190,6 +190,22 @@ class Inventory:
                 x = originX
         logger.debug(f"items in invent: {sum(self.inventory)}")
 
+    def getAmountOfItemsInInvent(self, api:object) -> int:
+        api.getInventoryData()
+        itemCount = 0
+        for item in api.inventArray:
+            if item['id'] != -1:
+                itemCount += 1
+        return itemCount
+        
+def main():
+    import time
+
+    time.sleep(2)
+    i = Inventory()
+    # i.powerDropInventory(1,25)
+if __name__ == "__main__":
+    main()
 
 
         

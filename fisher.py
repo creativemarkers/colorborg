@@ -14,10 +14,10 @@ from universalMethods import Uni
 from runeliteAPI import RuneLiteApi
 from logOrganizer import LogOrganizer
 
-logging.basicConfig(level=logging.DEBUG, filename="fisher_Log.log", filemode="w", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger = logging.getLogger(__name__)
 log = LogOrganizer(__name__)
 log.setupDirectory()
+logging.basicConfig(level=logging.DEBUG, filename="fisher_Log.log", filemode="w", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 class Fisher:
     #variables and objects required for the script to run
@@ -199,12 +199,14 @@ class ShrimpFisher(Fisher):
                     self.infoGUI.scriptStatus = "Fishing"
                     #this sleep might not be necessary anymore, as fish is now handling it
                     time.sleep(0.6)
-
-                self.infoGUI.scriptStatus = "Dropping inventory"
-                self.invent.powerDropInventory(doNotDrop=1)
+                if self.infoGUI.isRunning == True:
+                    self.infoGUI.scriptStatus = "Dropping inventory"
+                    itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
+                    self.invent.powerDropInventory(doNotDrop=1, amountToDrop=itemsInInvent)
         
         else:
-            print("powerFishing set to False")
+            #print("powerFishing set to False")
+            pass
 
 class FlyFisher(Fisher):
 
@@ -289,12 +291,17 @@ class FlyFisher(Fisher):
     
             if self.infoGUI.isRunning == True:
                 updateGuiStatus("DroppingInventory")
-                self.invent.powerDropInventory(doNotDrop=2)
+                itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
+                self.invent.powerDropInventory(doNotDrop=2, amountToDrop=itemsInInvent)
 
 def main():
     # time.sleep(2)
     # ff = FlyFisher()
-    pass
+    i = Inventory()
+    api = RuneLiteApi()
+
+    result = i.getAmountOfItemsInInvent(api)
+    i.powerDropInventory(1,result)
 
 if __name__ == "__main__":
     main()

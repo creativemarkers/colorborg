@@ -53,7 +53,7 @@ these will be in no particular order
 # PRIORITY
 
 -Adding proper logging, and ~~fix logging on the API~~
--speed up auto dropper, and make sure it only clicks what it needs too
+~~-speed up auto dropper, and make sure it only clicks what it needs too~~
 -fix the issue where fly fisher crashes from not finding the write spot wrote notes in my notebook on possible fix
 -add the pause and play feature to the script
 -start and finish the website
