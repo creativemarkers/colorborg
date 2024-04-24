@@ -268,6 +268,13 @@ class FlyFisher(Fisher):
         self.uni.boothBanker(self.bankBoothColor,self.itemsID,self.api)
         self.uni.walkerCordinator(self.f2pFromBankCords)
 
+    def changef2pSpots(self)->None:
+        spot = self.f2pFFspotChecker()
+        if spot == "leftSpot":
+            self.uni.walkerCordinator(self.f2pRightFishingBoundingCord)
+        else:
+            self.uni.walkerCordinator(self.f2pLeftFishingBoundingCord)
+
     #orchestrates fly fishing 
     def flyFisher(self):
 
@@ -287,8 +294,12 @@ class FlyFisher(Fisher):
 
             updateGuiStatus("Checking Inventory")
             while not self.invent.isInventFull(28) and self.infoGUI.isRunning == True:
-                self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
-    
+                try:
+                    self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
+                except TypeError:
+                    logger.info("couldn't find fishing icon, changing fishing spots")
+                    self.changef2pSpots()
+
             if self.infoGUI.isRunning == True:
                 updateGuiStatus("DroppingInventory")
                 itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
