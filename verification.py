@@ -40,14 +40,14 @@ class Verifyer:
         if cleanedText == stringToVerify:
             return True
         
-        logging.debug("grabbed text doesn't match, attempting to clean to further verify")
+        logger.debug("grabbed text doesn't match, attempting to clean to further verify")
         cWords = cleanedText.split()
         vWords = stringToVerify.split()
         #prints below for debugging
         # print(cWords)
         # print(vWords)
-        logging.debug(cWords)
-        logging.debug(vWords)
+        logger.debug(cWords)
+        logger.debug(vWords)
         
         # cWordsDict = {}
 
@@ -71,7 +71,7 @@ class Verifyer:
         
     def verifyInArea(self, api:object, boundingTile:tuple, MaxRange:int)-> bool:
         currentWorldPos = api.getCurrentWorldPosition()
-
+        print(boundingTile)
         desiredX, desiredY =  boundingTile
 
         currentX,currentY = currentWorldPos

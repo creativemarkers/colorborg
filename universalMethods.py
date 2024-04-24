@@ -299,10 +299,10 @@ class Uni:
                 print("moving..")
                 time.sleep(0.6)
 
-    def walkerCordinator(self, cordsList, range=3):
+    def walkerCordinator(self, cordsList, desrange=3):
         #takes a list of cords and feeds them to the coordinate walker
         for cords in cordsList:
-            self.coordinateWalker(cords,range=range)
+            self.coordinateWalker(cords,range=desrange)
 
     def runner(self, api:RuneLiteApi):
         runningColor = (236,218,103)

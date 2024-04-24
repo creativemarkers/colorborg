@@ -14,9 +14,6 @@ from universalMethods import Uni
 from runeliteAPI import RuneLiteApi
 from logOrganizer import LogOrganizer
 
-log = LogOrganizer(__name__)
-log.setupDirectory()
-logging.basicConfig(level=logging.DEBUG, filename="fisher_Log.log", filemode="w", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 class Fisher:
@@ -35,6 +32,7 @@ class Fisher:
     startTime = gui.startTime
     running = True
     uni = Uni()
+
     api = RuneLiteApi()
 
     #array of fish currently supported (not really more for gui testing atm)
@@ -50,7 +48,7 @@ class Fisher:
         # gui for script selection
         self.gui.getDesiredScript(self.FISHTYPE)
         self.selectedSubScript = self.gui.scriptSelected
-        logger.info("GOT Subscript")
+        logger.info("SUBSCRIPT SELECTED")
 
         #creates thread for the bot and starts it, still need to pass the right arg
         
@@ -69,8 +67,10 @@ class Fisher:
         #creates bot instances, needed for threading
         logger.info(f"creating fish sub class object, {fishType}")
         if fishType == "shrimp":
+            logger.info("shrimp fisher Chosen")
             shrimper = ShrimpFisher()
         elif fishType == "f2p fly fishing":
+            logger.info("F2P fly fisher chosen")
             flyFisher = FlyFisher()
 
     def verifyGUIRunning(self):
@@ -271,9 +271,9 @@ class FlyFisher(Fisher):
     def changef2pSpots(self)->None:
         spot = self.f2pFFspotChecker()
         if spot == "leftSpot":
-            self.uni.walkerCordinator(self.f2pRightFishingBoundingCord)
+            self.uni.coordinateWalker(self.f2pRightFishingBoundingCord)
         else:
-            self.uni.walkerCordinator(self.f2pLeftFishingBoundingCord)
+            self.uni.coordinateWalker(self.f2pLeftFishingBoundingCord)
 
     #orchestrates fly fishing 
     def flyFisher(self):
@@ -306,13 +306,13 @@ class FlyFisher(Fisher):
                 self.invent.powerDropInventory(doNotDrop=2, amountToDrop=itemsInInvent)
 
 def main():
+    """
+    for testing
+    """
+    time.sleep(1)
     # time.sleep(2)
-    # ff = FlyFisher()
-    i = Inventory()
-    api = RuneLiteApi()
-
-    result = i.getAmountOfItemsInInvent(api)
-    i.powerDropInventory(1,result)
+    ff = FlyFisher()
+    ff.changef2pSpots()
 
 if __name__ == "__main__":
     main()

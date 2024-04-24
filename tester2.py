@@ -32,8 +32,10 @@ from universalMethods import Uni
 # text = ver.getTextEasyOCR(None,0,0,289,66)
 # print(text)
 
-uni = Uni()
-time.sleep(3)
-verificationText = "Bank Bank Booth"
-result = uni.verifyBankBooth(verificationText)
-print(result)
+# uni = Uni()
+# time.sleep(3)
+# verificationText = "Bank Bank Booth"
+# result = uni.verifyBankBooth(verificationText)
+# print(result)
+
+print(os.getcwd())

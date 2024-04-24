@@ -1,22 +1,20 @@
-
-import subprocess
 import logging
 import sys
-#from logOrganizer import LogOrganizer
 from pyautogui import FailSafeException
 from gui import Gui
 from osFunctions import Window
 from fisher import Fisher
 from slayer import Slayer
+from logOrganizer import LogOrganizer
 
 #initializes gui and game objects to get info for what scripts to run
 gui = Gui()
 game = Window()
 
-#sets up logging file
-# logging.basicConfig(filename='debug.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-#logging.basicConfig(level=logging.DEBUG, filename="mainlog.log", filemode="w", format="%(asctime)s - %(levelname)s - %(message)s")
-logging.debug("hi")
+def createBot(scriptName:str):
+
+    bot = globals().get(scriptName)
+    return bot()
 
 def main():
     # # pyautogui.FAILSAFE = True
@@ -38,50 +36,27 @@ def main():
         """
         code below disabled for testing
         """
-
-    
-
         #calls gui obj to get input for what scripts to run, going to include if user wants logging, enabled by default
-        # gui.getDesiredScript()
+        availableScripts = [None, "Fisher", "Slayer"]
+        gui.getDesiredScript(availableScripts)
+        lScript = gui.scriptSelected.lower()
+        log = LogOrganizer(lScript)
+        log.setupDirectory()
+        logFileName = lScript + "_log.log"
+        #print(logFileName)
+        logging.basicConfig(level=logging.DEBUG, filename= logFileName, filemode="w", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        logging.debug(f"{gui.scriptSelected.upper()} SELECTED")
+        createBot(gui.scriptSelected)
 
         
 
-        # #calls script getter
-        # scriptGetter(gui.scriptSelected)
-
-        fisher = Fisher()
-        """
-        code below disabled for testing
-        """
-
+        #fisher = Fisher()
         #slayer = Slayer()
-
-
-        
 
     #end script gracefully since we have two threads now
     except FailSafeException:
         print("PyAutoGUI fail-safe triggered from mouse moving to a corner of the screen. To disable this fail-safe, set pyautogui.FAILSAFE to False. DISABLING FAIL-SAFE IS NOT RECOMMENDED.")
         sys.exit()
-
-
-
-
-#creates appropriate object for the request script    
-def scriptGetter(scriptName:str):
-    # try:
-    #     # ft = ".py"
-    #     # fileName = scriptName.lower() + ft
-    #     # subprocess.run(["python", fileName])
-    #     subprocess.run("fisher.py")
-    #     logging.debug("Subprocess output:")
-    #     logging.debug(result.stdout)
-    #     logging.error("Subprocess error:")
-    #     logging.error(result.stderr)
-    # except Exception as e:
-    #     logging.exception("An unexpected error occurred:")
-
-    fisher = Fisher()
 
 if __name__ == "__main__":
     main()
