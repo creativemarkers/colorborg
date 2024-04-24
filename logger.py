@@ -3,6 +3,8 @@ import os
 import shutil
 from datetime import datetime
 
+logger = logging.getLogger(__name__)
+
 class Logger():
 
     def __init__(self, name):
@@ -13,7 +15,7 @@ class Logger():
         self.items = os.listdir(cwd)
 
     def checkForLogFolder(self):
-
+        #print(self.logfolderName)
         if self.logfolderName in self.items:
             return True
         else:
@@ -24,7 +26,10 @@ class Logger():
         newFolderName = currentDate.strftime("date_%m_%d_%y_time_%H_%M_logs")
 
         if not self.checkForLogFolder():
-            os.mkdir(self.logfolderName)
+            try:
+                os.mkdir(self.logfolderName)
+            except FileExistsError:
+                logger.warning("Warning:Folder Might exsist already but has the wrong capitals somewhere")
 
         mkNewFolderPath = self.logfolderName + "/" + newFolderName
 
@@ -36,7 +41,7 @@ class Logger():
     
     def isLog(self, fileName):
         for i, char in enumerate(fileName):
-            if char == '.':
+            if char == '.' and i != 0:
                 fileType = fileName[i:]
                 #print(fileType)
                 if fileType == ".log":
@@ -49,10 +54,26 @@ class Logger():
                 return True
         return False
     
+    def checkForName(self, fileName, targetName):
+        if len(fileName) < len(targetName)+4:
+            return False
+        
+        t = 0    
+        for i in range(len(fileName)):
+            if t > 0 and fileName[i] != targetName[t]:
+                t = 0
+            
+            if fileName[i] == targetName[t]:
+                t += 1
+                if t == len(targetName):
+                    return True
+        
+        return False
+                
     def moveOldLogFiles(self, oldLogsPath):
         #making my own algo to find the log extensions
         for item in self.items:
-            if self.isLog(item):
+            if self.isLog(item) and self.checkForName(item,self.name):
                 shutil.move(item, oldLogsPath)
 
     def setupDirectory(self):
@@ -62,51 +83,15 @@ class Logger():
         elif not self.checkForLogFolder():
             os.mkdir(self.logfolderName)
 
-    def createLogger(self):
-        self.logger = logging.getLogger(self.name + "_log")
-        self.logger.setLevel(logging.DEBUG)
-
-
-    def createDebugHandler(self):
-        self.debugHandler = logging.FileHandler(self.name+"_debug.log")
-        self.debugHandler.setLevel(logging.DEBUG)
-        debugForm = logging.Formatter("%(asctime)s - %(name)s - %(message)s")
-        self.debugHandler.setFormatter(debugForm)
-        self.logger.addHandler(self.infoHandler)
-    
-    def createInfoHandler(self):
-        self.infoHandler = logging.FileHandler(self.name+"_info.log")
-        self.infoHandler.setLevel(logging.INFO)
-        infoFormatter = logging.Formatter("%(asctime)s - %(name)s - %(message)s")
-        self.infoHandler.setFormatter(infoFormatter)
-        self.logger.addHandler(self.infoHandler)
-
-    def createErrorHandler(self):
-        self.errorHandler = logging.FileHandler(self.name+"_error.log")
-        self.errorHandler.setLevel(logging.ERROR)
-        errorFormatter = logging.Formatter("%(asctime)s - %(name)s - %(message)s")
-        self.errorHandler.setFormatter(errorFormatter)
-        self.logger.addHandler(self.errorHandler)
-
-    """
-    check for previous log files
-    if they exsist move them into a new folder and arrange by date
-    create loggers
-    set logging levels
-    """
-
 def main():
-    log = Logger("Fisher")
+    log = Logger("fisher")
     # log.checkForLogs()
     log.setupDirectory()
-    log.createLogger()
-    log.createInfoHandler()
-    log.createErrorHandler()
-    log.logger.info("This is an info message")
-    log.logger.error("This is an error message")
-    log.logger.debug("DEBUG THIS BITCH")
-    log.logger.error("why am i showing up in info")
-    log.logger.info("am i showing up in error?")
+    result = None
+    result = log.checkForLogFolder()
+    result = log.checkForName("fyishettityfishfsdsfdffisssshhheefiishfisheherr_log.log","fisher")
+    print(result)
+    
 
 if __name__ == "__main__":
     main()
