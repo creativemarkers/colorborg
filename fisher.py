@@ -265,7 +265,7 @@ class FlyFisher(Fisher):
     def __init__(self, powerFishingSwitch:bool = True):
         guiStatus = self.infoGUI.scriptStatus
         self.powerFish = powerFishingSwitch
-        # self.flyFisher()
+        self.flyFisherOrchestrator()
 
     def f2pFFspotChecker(self)->str:
         if self.verifyer.verifyInArea(self.api,self.f2pLeftFishingBoundingCord, 2):
@@ -289,8 +289,7 @@ class FlyFisher(Fisher):
         else:
             self.uni.coordinateWalker(self.f2pLeftFishingBoundingCord)
 
-    #orchestrates fly fishing 
-    def flyFisher(self):
+    def flyFisherOrchestrator(self):
 
         def updateGuiStatus(status):
             self.infoGUI.scriptStatus = status
@@ -302,7 +301,6 @@ class FlyFisher(Fisher):
                 want to add a verification if at fishing spot
                 add fisher counter
                 add xp an hour
-
             """
             updateGuiStatus("Checking Run Status")
             self.uni.runner(self.api)
@@ -321,7 +319,6 @@ class FlyFisher(Fisher):
                 itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
                 self.invent.powerDropInventory(doNotDrop=2, amountToDrop=itemsInInvent)
 
-        
 def main():
     """
     for testing
