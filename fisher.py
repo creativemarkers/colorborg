@@ -83,7 +83,7 @@ class Fisher:
     def fishWithImg(self, fishSpotImageLocation:str, fishSpotVerificationString:str, stringVerificationRegion:tuple, animationID:int):
 
         left,top,width,height = stringVerificationRegion
-
+        #need to add the bait check here
         while self.invent.isInventFull(28) == False and self.verifyFishing(animationID) == False:
 
             verificationAttempts = 0
@@ -161,6 +161,19 @@ class Fisher:
         else:
             return False
         
+    def hasBait(self, baitID):
+        
+        self.api.getInventoryData()
+        inventArray = self.api.inventArray
+        if any(slot["id"] == baitID for slot in inventArray):
+            return True
+        else:
+            self.running == False
+            logger.critical("RAN OUT OF BAIT **EXITING!**")
+            #TODO
+            #CREATE A POP UP THAT ALERTS THE USER WHY IT'S EXITING
+            exit()
+    
 class ShrimpFisher(Fisher):
 
     inventoryCheckX = 730
@@ -220,6 +233,7 @@ class FlyFisher(Fisher):
     ffAnimationID = 623
     bankBoothColor=(0,255,255)
     itemsID = [331,335]
+    baitID = 314
 
     rightF2PfishingSpotToBankCords = [
         (3097,3442),
@@ -251,7 +265,7 @@ class FlyFisher(Fisher):
     def __init__(self, powerFishingSwitch:bool = True):
         guiStatus = self.infoGUI.scriptStatus
         self.powerFish = powerFishingSwitch
-        self.flyFisher()
+        # self.flyFisher()
 
     def f2pFFspotChecker(self)->str:
         if self.verifyer.verifyInArea(self.api,self.f2pLeftFishingBoundingCord, 2):
@@ -284,6 +298,7 @@ class FlyFisher(Fisher):
         while self.infoGUI.isRunning == True:
             """
             TODO:
+                add a popup when exiting
                 want to add a verification if at fishing spot
                 add fisher counter
                 add xp an hour
@@ -293,7 +308,8 @@ class FlyFisher(Fisher):
             self.uni.runner(self.api)
 
             updateGuiStatus("Checking Inventory")
-            while not self.invent.isInventFull(28) and self.infoGUI.isRunning == True:
+
+            while not self.invent.isInventFull(28) and self.infoGUI.isRunning == True and self.hasBait(self.baitID):
                 try:
                     self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
                 except TypeError:
@@ -305,6 +321,7 @@ class FlyFisher(Fisher):
                 itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
                 self.invent.powerDropInventory(doNotDrop=2, amountToDrop=itemsInInvent)
 
+        
 def main():
     """
     for testing
@@ -312,7 +329,10 @@ def main():
     time.sleep(1)
     # time.sleep(2)
     ff = FlyFisher()
-    ff.changef2pSpots()
+    # ff.changef2pSpots()
+
+    result = ff.hasBait(318)
+    print(result)
 
 if __name__ == "__main__":
     main()

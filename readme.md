@@ -49,8 +49,12 @@ these will be in no particular order
 2) auto sleep for ban evasion
 3) script to install all my dependency on new machines
 4) notification ping if bot fails or gets stuck (prob would need to count fishes)
+5) GUI popup for fatal errors if user error inform user
+
 
 # PRIORITY
+
+-add a bait counter and a stopper if it's run out 
 
 -Adding proper logging, and ~~fix logging on the API~~
 
