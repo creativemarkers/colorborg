@@ -1,11 +1,14 @@
 import random
 import time
 import pyautogui
+import logging
 from mouseFunctions import Mouse
 from verification import Verifyer
 from pyautogui import ImageNotFoundException
 from inventFunctions import Inventory
 from runeliteAPI import RuneLiteApi
+
+logger = logging.getLogger(__name__)
 
 class Uni:
     mouse = Mouse()
@@ -323,11 +326,47 @@ class Uni:
         else:
             print("UNIVERSALMETHODS:RUNNER: Running")
 
+    def simpleStatChecker(self, skillCords:tuple):
+        """
+        opens stat menu
+        hovers over desired skill
+        then reopens invent? maybe it could be killed
+        """
+        logger.info("Checking stats to look human")
+        dur = random.uniform(0.25, 0.40)
+        #moves mouse to skill icon in menu and clicks
+        self.mouse.moveMouseToArea(710, 837, dur, 14, True)
+        time.sleep(random.uniform(0.3,0.4))
+        hoverTime = random.uniform(3.02,5.05)
+        startTime = time.time()
+        elapsedTime = 0
+        x,y = skillCords
+        dur = random.uniform(0.4,0.8)
+        self.mouse.moveMouseToArea(x,y,dur,13)
+        while elapsedTime <= hoverTime:
+            #to make it more complex i would stick the mouse moving in here
+            elapsedTime = time.time() - startTime
+    
+    def statCheckDecider(self, chance:int, skillCords:tuple)->bool:
+        if chance >= 1:
+            rollOne = random.randint(1,chance)
+            rollTwo = random.randint(1,chance)
+            if rollOne == rollTwo:
+                self.simpleStatChecker(skillCords)
+                return True
+           
 if __name__ == "__main__":
+    # 710,837
     c = Uni()
-    api = RuneLiteApi()
-    bankBoothColor=(0,255,255)
-    itemsID = [331,335]
-    # c.coordinateWalker((3096,3437))
-    c.boothBanker(bankBoothColor,itemsID,api)
+    # api = RuneLiteApi()
+    # bankBoothColor=(0,255,255)
+    # itemsID = [331,335]
+    # # c.coordinateWalker((3096,3437))
+    # c.boothBanker(bankBoothColor,itemsID,api)
+    # time.sleep(1)
+    # start=time.time()
+ 
+    # c.simpleStatChecker((853,632))
+
+    # print(time.time() - start)
 

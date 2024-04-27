@@ -33,6 +33,7 @@ class Fisher:
     startTime = gui.startTime
     running = True
     uni = Uni()
+    skillFishIconCords = (853,632)
 
     api = RuneLiteApi()
 
@@ -126,6 +127,11 @@ class Fisher:
         chanceToTurn = 1000
         self.cam.humanCameraBehavior(chanceToTurn)
 
+        #random.randint(420,700)
+        #^ideal way if it just checked every time on gather a fish
+        if self.uni.statCheckDecider(2000,self.skillFishIconCords):
+            logger.info("Checked stats from fishWithImg")
+
     def findFishingSpot(self, fishSpotImageLocation):
         maxAttempts = 10
         attempt = 0
@@ -213,7 +219,10 @@ class ShrimpFisher(Fisher):
                     self.infoGUI.scriptStatus = "Fishing"
                     #this sleep might not be necessary anymore, as fish is now handling it
                     time.sleep(0.6)
+                
                 if self.infoGUI.isRunning == True:
+                    if self.uni.statCheckDecider(abs(int(random.gauss(15,5))),self.skillFishIconCords):
+                        logger.info("Checking stats from shrimper")
                     self.infoGUI.scriptStatus = "Dropping inventory"
                     itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
                     self.invent.powerDropInventory(doNotDrop=1, amountToDrop=itemsInInvent)
@@ -317,9 +326,13 @@ class FlyFisher(Fisher):
                     self.changef2pSpots()
 
             if self.infoGUI.isRunning == True:
+                #might change random to use standard deviation
+                if self.uni.statCheckDecider(abs(int(random.gauss(15,5))),self.skillFishIconCords):
+                        logger.info("Checking stats from shrimper")
                 updateGuiStatus("DroppingInventory")
                 itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
                 self.invent.powerDropInventory(doNotDrop=2, amountToDrop=itemsInInvent)
+
 
 def main():
     """

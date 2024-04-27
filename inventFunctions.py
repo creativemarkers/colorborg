@@ -81,7 +81,11 @@ class Inventory:
             return False
 
     def powerDropInventory(self, doNotDrop:int=0, amountToDrop = 28):
-        #doNotDrop is the number of slots to not drop starting from the first
+        #doNotDrop is the number of slots to not drop starting from the first slot
+        while self.isInventOpen() == False:
+            logger.info("INVENTFULLSTATUS: opening invent")
+            self.openInvent()
+
         originX = 726
         x = 726
         y = 575
@@ -112,6 +116,10 @@ class Inventory:
         shiftPressed=True
 
     def traverseThroughInventory(self, inventSlot:int):
+
+        while self.isInventOpen() == False:
+            logger.info("INVENTFULLSTATUS: opening invent")
+            self.openInvent()
 
         originX = 726
         x = 726
