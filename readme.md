@@ -45,7 +45,9 @@ these will be in no particular order
 20) real strecth goal: is to incorporate bezier curves for mouse movements
 
 # Feature Creep
+
 1) Random stat checker
+LOGOUT FUNCTION
 2) auto sleep for ban evasion
 3) script to install all my dependency on new machines
 4) notification ping if bot fails or gets stuck (prob would need to count fishes)

@@ -4,6 +4,7 @@ import pyautogui
 import threading
 import random
 import logging
+import sys
 from gui import Gui
 from inventFunctions import Inventory
 from mouseFunctions import Mouse
@@ -78,7 +79,7 @@ class Fisher:
             logger.critical("GUI was closed changed self.running to False, and exiting")
             #print("GUI Closed, exiting")
             self.running = False
-            exit()
+            sys.exit()
         
     def fishWithImg(self, fishSpotImageLocation:str, fishSpotVerificationString:str, stringVerificationRegion:tuple, animationID:int):
 
@@ -172,7 +173,7 @@ class Fisher:
             logger.critical("RAN OUT OF BAIT **EXITING!**")
             #TODO
             #CREATE A POP UP THAT ALERTS THE USER WHY IT'S EXITING
-            exit()
+            sys.exit()
     
 class ShrimpFisher(Fisher):
 
@@ -297,6 +298,7 @@ class FlyFisher(Fisher):
         while self.infoGUI.isRunning == True:
             """
             TODO:
+                add a logout if exiting
                 add a popup when exiting
                 want to add a verification if at fishing spot
                 add fisher counter
