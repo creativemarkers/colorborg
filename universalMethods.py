@@ -354,7 +354,22 @@ class Uni:
             if rollOne == rollTwo:
                 self.simpleStatChecker(skillCords)
                 return True
-           
+            
+    def logOuter(self):
+        #could include the logIn Checker
+        logger.info("Logging out")
+        rDur = random.uniform(0.4,0.7)
+        self.mouse.moveMouseToArea(876,44,rDur,10,True)
+        randomX = random.randint(720,859)
+        randomY = random.randint(763,794)
+        time.sleep(random.uniform(0.05,0.1))
+        self.mouse.moveMouseToArea(randomX, randomY,rDur,click=True)
+
+    """
+    loggedInChecker
+    loginer
+    """
+
 if __name__ == "__main__":
     # 710,837
     c = Uni()
@@ -369,4 +384,6 @@ if __name__ == "__main__":
     # c.simpleStatChecker((853,632))
 
     # print(time.time() - start)
+    time.sleep(1)
+    c.logOuter()
 

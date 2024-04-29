@@ -79,6 +79,7 @@ class Fisher:
         if self.infoGUI.isRunning == False:
             logger.critical("GUI was closed changed self.running to False, and exiting")
             #print("GUI Closed, exiting")
+            self.uni.logOuter()
             self.running = False
             sys.exit()
         
@@ -175,6 +176,7 @@ class Fisher:
         if any(slot["id"] == baitID for slot in inventArray):
             return True
         else:
+            self.uni.logOuter()
             self.running == False
             logger.critical("RAN OUT OF BAIT **EXITING!**")
             #TODO
