@@ -37,7 +37,7 @@ def main():
         code below disabled for testing
         """
         #calls gui obj to get input for what scripts to run, going to include if user wants logging, enabled by default
-        availableScripts = [None, "Fisher", "Slayer"]
+        availableScripts = ["Fisher", "Slayer"]
         gui.getDesiredScript(availableScripts)
         lScript = gui.scriptSelected.lower()
         log = LogOrganizer(lScript)

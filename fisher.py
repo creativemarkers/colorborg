@@ -37,7 +37,7 @@ class Fisher:
     api = RuneLiteApi()
 
     #array of fish currently supported (not really more for gui testing atm)
-    FISHTYPE = [None,"shrimp","f2p fly fishing"]
+    FISHTYPE = ["shrimp","f2p fly fishing"]
     logger.info("successfully created fisher class variables")
 
     def __init__(self):
