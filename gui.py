@@ -3,6 +3,7 @@ import threading
 
 from tkinter import *
 from tkinter import ttk
+from tkinter.ttk import *
 
 
 class Gui:
@@ -28,24 +29,19 @@ class Gui:
             root.quit()
             root.destroy()
 
-        # options = [None,"Fisher", "WoodCutter", "Miner"]
         root = Tk()
         root.title("Script Selector")
 
         root.lift()
         root.attributes("-topmost", True)
 
-
         selected_option = StringVar(root)
         selected_option.set(scripts[0])
-
 
         frm = ttk.Frame(root,padding=15)
         frm.grid()
 
         ttk.Label(frm, text="Choose a Script").grid(column=0,row=0)
-        # ttk.Button(frm, text="Quit", command=root.destroy).grid(column=0,row=1)
-        # ttk.OptionMenu(frm, selected_option, *scripts).grid(column=0,row=2)
 
         option_menu = ttk.OptionMenu(frm, selected_option, *scripts)
         option_menu.grid(column=0, row=1)
@@ -53,10 +49,8 @@ class Gui:
 
         selected_option.trace_add("write", on_option_changed)
 
-        # print(selected_option.get())
-
         root.mainloop()
-
+    """
     def displayBotInfo(self,botName:str):
 
         def updateStatus():
@@ -64,7 +58,6 @@ class Gui:
 
         def updateTime():
 
-            #updates for label will need to be put in heres
             self.elapsedTime = round(time.time() - self.startTime)
             formattedTime = self.formatTime()  
             self.labelTime.config(text=f"Running for: {formattedTime}")
@@ -76,20 +69,23 @@ class Gui:
             self.isRunning = False
             self.root.destroy()
 
+        def onPlayClick():
+            print("Play Pressed")
+        def onPauseClick():
+            print("Button was clicked!")
+        def onStopClick():
+            print("Stop was clicked")
+
         self.root = Tk()
         self.root.title(botName)
-        #sets the location of the gui
+
         self.root.geometry("+890+10")
         self.labelTime = ttk.Label(self.root,text="Running for: ")
         self.labelTime.pack()
         self.labelStatus = ttk.Label(self.root, text="Status:")
         self.labelStatus.pack()
-        self.isRunning = True
-
-
         updateTime()
         self.root.protocol("WM_DELETE_WINDOW", onClosing)
-        #root.mainloop()
 
     def formatTime(self, seconds = None):
 
@@ -103,7 +99,12 @@ class Gui:
 
         formattedTime = "{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds)
         return formattedTime
+    """
+if __name__ == "__main__":
 
+    g = Gui()
+    g.displayBotInfo("test")
+    g.root.mainloop()
 
 
 

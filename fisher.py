@@ -6,6 +6,7 @@ import random
 import logging
 import sys
 from gui import Gui
+from infoGUI import InfoGUI
 from inventFunctions import Inventory
 from mouseFunctions import Mouse
 from verification import Verifyer
@@ -13,14 +14,12 @@ from camera import Camera
 from pyautogui import ImageNotFoundException
 from universalMethods import Uni
 from runeliteAPI import RuneLiteApi
-from logOrganizer import LogOrganizer
 
 logger = logging.getLogger(__name__)
 
 class Fisher:
-    #variables and objects required for the script to run
     gui = Gui()
-    infoGUI = Gui()
+    infoGUI = InfoGUI()
     infoGuiThread = None
     botThread = None
     invent = Inventory()
@@ -60,8 +59,9 @@ class Fisher:
 
         #creates display gui, then creates thread and starts it
     
-        self.infoGUI.displayBotInfo("Shrimp PowerFisher")
-        self.infoGuiThread = threading.Thread(target = self.infoGUI.root.mainloop())
+        # self.infoGUI.displayBotInfo(self.gui.scriptSelected)
+        #self.infoGuiThread = threading.Thread(target = self.infoGUI.root.mainloop())
+        self.infoGuiThread = threading.Thread(target = self.infoGUI.main(self.gui.scriptSelected))
         self.infoGuiThread.start()
         logger.info("CREATED thread for GUI")
 
@@ -177,6 +177,8 @@ class Fisher:
             return True
         else:
             self.uni.logOuter()
+            self.infoGUI.root.destroy()
+            logger.critical("destroyed info gui")
             self.running == False
             logger.critical("RAN OUT OF BAIT **EXITING!**")
             #TODO
