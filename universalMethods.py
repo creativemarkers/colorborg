@@ -365,6 +365,23 @@ class Uni:
         time.sleep(random.uniform(0.05,0.1))
         self.mouse.moveMouseToArea(randomX, randomY,rDur,click=True)
 
+    def loginer(self):
+        #assumes jagex account is using runelite
+        #should add more thorough checks instead of relying on sleep time to go to next screen
+        print("logging in")
+        logger.info("Logging In")
+        rDur = random.uniform(0.4,0.7)
+        randomX = random.randint(340,557)
+        randomY = random.randint(246,306)
+        self.mouse.moveMouseToArea(randomX,randomY,rDur)
+        time.sleep(random.uniform(0.1,0.1))
+        self.mouse.mouseClick(randomX,randomY)
+        time.sleep(random.randint(8,12))
+        randomX = random.randint(335,563)
+        randomY = random.randint(323,412)
+        self.mouse.moveMouseToArea(randomX,randomY,rDur,click=True)
+        time.sleep(random.randint(3,5))
+        
     """
     loggedInChecker
     loginer
@@ -385,5 +402,5 @@ if __name__ == "__main__":
 
     # print(time.time() - start)
     time.sleep(1)
-    c.logOuter()
+    c.loginer()
 

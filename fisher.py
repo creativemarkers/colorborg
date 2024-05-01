@@ -153,7 +153,7 @@ class Fisher:
                 except ImageNotFoundException:
                     attempt += 1
                     debugString = f"image not found, attempt: {attempt}"
-                    print(debugString)
+                    # print(debugString)
                     logger.debug(debugString)
 
             self.mouse.moveMouseToArea(450,450,duration=random.uniform(0.4,0.7),areaVariance=40)
@@ -220,7 +220,7 @@ class ShrimpFisher(Fisher):
 
                 self.invent.isInventFull(28)
                 
-                while not self.invent.inventFull:
+                while not self.invent.inventFull and self.running == True and self.infoGUI.takeBreak == False:
                     self.verifyGUIRunning()
                     self.fishWithImg(self.shrimpSpotImg, self.fishingSpotVerificationString, self.verificationStringRegion, self.smallNetFishingAnimationID)
                     self.infoGUI.scriptStatus = "Fishing"
@@ -230,15 +230,21 @@ class ShrimpFisher(Fisher):
                 if self.infoGUI.isRunning == True:
                     if self.uni.statCheckDecider(abs(int(random.gauss(15,5))),self.skillFishIconCords):
                         logger.info("Checking stats from shrimper")
-                    self.infoGUI.scriptStatus = "Dropping inventory"
-                    itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
-                    self.invent.powerDropInventory(doNotDrop=1, amountToDrop=itemsInInvent)
+                    
+                    if self.invent.inventFull:
+                        self.infoGUI.scriptStatus = "Dropping inventory"
+                        itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
+                        self.invent.powerDropInventory(doNotDrop=1, amountToDrop=itemsInInvent)
 
             #this will more then likely need to be a universal function for reuse
             if self.infoGUI.takeBreak == True:
-                print("taking break")
+                # print(f"taking break for {self.infoGUI.breakTime} seconds")
+                logger.info(f"takingn a break for: {self.infoGUI.breakTime} seconds")
                 self.infoGUI.scriptStatus = "Taking a break"
+                time.sleep(random.uniform(0.6,1.2))
+                self.uni.logOuter()
                 time.sleep(self.infoGUI.breakTime)
+                self.uni.loginer()
                 self.infoGUI.takeBreak = False
                 self.infoGUI.lastBreak = time.time()
                 self.infoGUI.calculateTimes()
@@ -315,6 +321,15 @@ class FlyFisher(Fisher):
         else:
             self.uni.coordinateWalker(self.f2pLeftFishingBoundingCord)
 
+    def shouldCoreLoopRun(self):
+        if self.infoGUI.isRunning and self.infoGUI.takeBreak==False:
+            if self.hasBait(self.baitID) and not self.invent.isInventFull(28):
+                return True
+            else:
+                return False
+        else:
+            return False
+
     def flyFisherOrchestrator(self):
 
         def updateGuiStatus(status):
@@ -323,7 +338,6 @@ class FlyFisher(Fisher):
         while self.infoGUI.isRunning == True:
             """
             TODO:
-                add a logout if exiting
                 add a popup when exiting
                 want to add a verification if at fishing spot
                 add fisher counter
@@ -334,7 +348,8 @@ class FlyFisher(Fisher):
 
             updateGuiStatus("Checking Inventory")
 
-            while not self.invent.isInventFull(28) and self.infoGUI.isRunning == True and self.hasBait(self.baitID):
+            # while not self.invent.isInventFull(28) and self.infoGUI.isRunning == True and self.hasBait(self.baitID):
+            while self.shouldCoreLoopRun():
                 try:
                     self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
                 except TypeError:
@@ -345,22 +360,36 @@ class FlyFisher(Fisher):
                 #might change random to use standard deviation
                 if self.uni.statCheckDecider(abs(int(random.gauss(15,5))),self.skillFishIconCords):
                         logger.info("Checking stats from shrimper")
-                updateGuiStatus("DroppingInventory")
-                itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
-                self.invent.powerDropInventory(doNotDrop=2, amountToDrop=itemsInInvent)
+                if self.invent.isInventFull(28):
+                    updateGuiStatus("DroppingInventory")
+                    itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
+                    self.invent.powerDropInventory(doNotDrop=2, amountToDrop=itemsInInvent)
+
+            if self.infoGUI.takeBreak == True:
+                # print(f"taking break for {self.infoGUI.breakTime} seconds")
+                logger.info(f"takingn a break for: {self.infoGUI.breakTime} seconds")
+                self.infoGUI.scriptStatus = "Taking a break"
+                time.sleep(random.uniform(0.6,1.2))
+                self.uni.logOuter()
+                time.sleep(self.infoGUI.breakTime)
+                self.uni.loginer()
+                self.infoGUI.takeBreak = False
+                self.infoGUI.lastBreak = time.time()
+                self.infoGUI.calculateTimes()
 
 
 def main():
     """
     for testing
     """
-    time.sleep(1)
-    # time.sleep(2)
-    ff = FlyFisher()
-    # ff.changef2pSpots()
+    # time.sleep(1)
+    # # time.sleep(2)
+    # ff = FlyFisher()
+    # # ff.changef2pSpots()
 
-    result = ff.hasBait(318)
-    print(result)
+    # result = ff.hasBait(318)
+    # print(result)
+    pass
 
 if __name__ == "__main__":
     main()

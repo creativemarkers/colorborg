@@ -43,7 +43,7 @@ class InfoGUI():
 
         if self.breaks == True:
             self.takeBreak = False
-            self.calculateTimes((0,0))
+            self.calculateTimes()
             self.updateTimeWithBreaks()
         else:
             self.updateTime()
@@ -54,14 +54,14 @@ class InfoGUI():
     def calculateTimes(self,range:tuple = (3,5)):
         l,r = range
         playTimeInHours = random.randint(l,r)
-        print(playTimeInHours)
+        #print("playTimeInHours:",playTimeInHours)
         playTimeInMinutes = playTimeInHours * 60
-        print(playTimeInMinutes)
-        # randomMinuteOffset = random.choice((-1,1)) * random.randint(1,59)
-        randomMinuteOffset = random.randint(1,2)
-        print(randomMinuteOffset)
+        #print("playTimeInMinutes:", playTimeInMinutes)
+        randomMinuteOffset = random.choice((-1,1)) * random.randint(1,59)
+        # randomMinuteOffset = random.randint(1,30)
+        #print("RandomMinuteOffset:",randomMinuteOffset)
         realPlayTime = playTimeInMinutes + randomMinuteOffset
-        print(realPlayTime)
+        #print("realPlayTime:",realPlayTime)
         # print(f"hour:{realPlayTime//60}, minutes: {realPlayTime%60}")
 
         # print(realPlayTime*60)
@@ -69,7 +69,7 @@ class InfoGUI():
         # return realPlayTime * 60
 
         self.suggestedPlayTime = realPlayTime * 60
-        print(self.suggestedPlayTime)
+        #print("suggestedPlayTime:",self.suggestedPlayTime)
         
     def onClosing(self):
         self.isRunning = False
@@ -82,6 +82,7 @@ class InfoGUI():
         print("paused")
 
     def onStopClick(self):
+        logger.critical("STOP BUTTON CLICKED KILLING SCRIPT")
         self.isRunning = False
         self.root.destroy()
 
@@ -99,10 +100,11 @@ class InfoGUI():
         self.elapsedTime = round(time.time()-self.startTime)
         formattedTime = self.formatTime()
         self.timeLabelText.set(f"Running for: {formattedTime}")
-
+        
         self.timeSinceLastBreak = round(time.time()-self.lastBreak)
         if self.takeBreak == False and self.timeSinceLastBreak >= self.suggestedPlayTime:
             self.breakTime = round(self.suggestedPlayTime / random.uniform(1.5,2))
+            #print("breakTime:",self.breakTime)
             self.takeBreak = True
 
         self.updateStatus()
