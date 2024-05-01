@@ -51,6 +51,9 @@ class Fisher:
         self.selectedSubScript = self.gui.scriptSelected
         logger.info("SUBSCRIPT SELECTED")
 
+        if self.gui.breaks == True:
+            self.infoGUI.breaks = True
+
         #creates thread for the bot and starts it, still need to pass the right arg
         
         self.botThread = threading.Thread(target = self.createBot, args=(self.gui.scriptSelected,))
@@ -209,7 +212,7 @@ class ShrimpFisher(Fisher):
             #semi dead conditional, here as pseudo code, will be useful when banking is implemented
             
            
-            while self.running == True:
+            while self.running == True and self.infoGUI.takeBreak == False:
             #while self.infoGUI.isRunning == True:
             #horrible conditional but necessary for testing will more then likely need to changed to a quit command
 
@@ -230,6 +233,15 @@ class ShrimpFisher(Fisher):
                     self.infoGUI.scriptStatus = "Dropping inventory"
                     itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
                     self.invent.powerDropInventory(doNotDrop=1, amountToDrop=itemsInInvent)
+
+            #this will more then likely need to be a universal function for reuse
+            if self.infoGUI.takeBreak == True:
+                print("taking break")
+                self.infoGUI.scriptStatus = "Taking a break"
+                time.sleep(self.infoGUI.breakTime)
+                self.infoGUI.takeBreak = False
+                self.infoGUI.lastBreak = time.time()
+                self.infoGUI.calculateTimes()
         
         else:
             #print("powerFishing set to False")

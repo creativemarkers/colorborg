@@ -1,5 +1,6 @@
 import time
 import logging
+import random
 from tkinter import *
 
 logger = logging.getLogger(__name__)
@@ -9,6 +10,8 @@ class InfoGUI():
         self.scriptStatus = "Waiting for script"
         self.isRunning = True
         self.startTime = time.time()
+        self.lastBreak = time.time()
+        self.breaks = False
 
     def main(self, scriptName):
         self.root = Tk()
@@ -37,11 +40,37 @@ class InfoGUI():
         self.playButton.pack(side=LEFT,ipadx=5,ipady=5,padx=10,pady=5)
         self.pauseButton.pack(side=LEFT,ipadx=5,ipady=5,padx=10,pady=5)
         self.stopButton.pack(side=LEFT,ipadx=5,ipady=5,padx=10,pady=5)
-    
-        self.updateTime()
+
+        if self.breaks == True:
+            self.takeBreak = False
+            self.calculateTimes((0,0))
+            self.updateTimeWithBreaks()
+        else:
+            self.updateTime()
+
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
         self.root.mainloop()
 
+    def calculateTimes(self,range:tuple = (3,5)):
+        l,r = range
+        playTimeInHours = random.randint(l,r)
+        print(playTimeInHours)
+        playTimeInMinutes = playTimeInHours * 60
+        print(playTimeInMinutes)
+        # randomMinuteOffset = random.choice((-1,1)) * random.randint(1,59)
+        randomMinuteOffset = random.randint(1,2)
+        print(randomMinuteOffset)
+        realPlayTime = playTimeInMinutes + randomMinuteOffset
+        print(realPlayTime)
+        # print(f"hour:{realPlayTime//60}, minutes: {realPlayTime%60}")
+
+        # print(realPlayTime*60)
+
+        # return realPlayTime * 60
+
+        self.suggestedPlayTime = realPlayTime * 60
+        print(self.suggestedPlayTime)
+        
     def onClosing(self):
         self.isRunning = False
         self.root.destroy()
@@ -66,6 +95,19 @@ class InfoGUI():
         self.updateStatus()
         self.root.after(1000,self.updateTime)
 
+    def updateTimeWithBreaks(self):
+        self.elapsedTime = round(time.time()-self.startTime)
+        formattedTime = self.formatTime()
+        self.timeLabelText.set(f"Running for: {formattedTime}")
+
+        self.timeSinceLastBreak = round(time.time()-self.lastBreak)
+        if self.takeBreak == False and self.timeSinceLastBreak >= self.suggestedPlayTime:
+            self.breakTime = round(self.suggestedPlayTime / random.uniform(1.5,2))
+            self.takeBreak = True
+
+        self.updateStatus()
+        self.root.after(1000,self.updateTimeWithBreaks)
+
     def formatTime(self, seconds = None):
 
         if seconds == None:
@@ -79,8 +121,14 @@ class InfoGUI():
         formattedTime = "{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds)
         return formattedTime
 
-g = InfoGUI()
-# g.main("test")
-# g = GUI()
-# time.sleep(2)
-# g.scriptStatus("test")
+# g = InfoGUI()
+# g.calculateTimes((0,0))
+# # # g.main("test")
+# # # g = GUI()
+# # # time.sleep(2)
+
+# # # g.scriptStatus("test")
+
+# # print(round(10860/1.39))
+
+# # print(10860/1.39)
