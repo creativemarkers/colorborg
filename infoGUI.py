@@ -12,6 +12,7 @@ class InfoGUI():
         self.startTime = time.time()
         self.lastBreak = time.time()
         self.breaks = False
+        self.pause = False
 
     def main(self, scriptName):
         self.root = Tk()
@@ -51,14 +52,14 @@ class InfoGUI():
         self.root.protocol("WM_DELETE_WINDOW", self.onClosing)
         self.root.mainloop()
 
-    def calculateTimes(self,range:tuple = (3,5)):
+    def calculateTimes(self,range:tuple = (4,5)):
         l,r = range
         playTimeInHours = random.randint(l,r)
         #print("playTimeInHours:",playTimeInHours)
         playTimeInMinutes = playTimeInHours * 60
         #print("playTimeInMinutes:", playTimeInMinutes)
-        randomMinuteOffset = random.choice((-1,1)) * random.randint(1,59)
-        # randomMinuteOffset = random.randint(1,30)
+        # randomMinuteOffset = random.choice((-1,1)) * random.randint(1,59)
+        randomMinuteOffset = random.randint(1,1)
         #print("RandomMinuteOffset:",randomMinuteOffset)
         realPlayTime = playTimeInMinutes + randomMinuteOffset
         #print("realPlayTime:",realPlayTime)
@@ -76,10 +77,14 @@ class InfoGUI():
         self.root.destroy()
 
     def onPlayClick(self):
-        print("hi")
+        self.pause = False
+        logger.info("Play button has been clicked")
+        print("play clicked")
     
     def onPauseClick(self):
-        print("paused")
+        self.pause = True
+        logger.info("Pause button has been clicked")
+        print("paused clicked")
 
     def onStopClick(self):
         logger.critical("STOP BUTTON CLICKED KILLING SCRIPT")

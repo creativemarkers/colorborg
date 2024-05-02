@@ -187,7 +187,12 @@ class Fisher:
             #TODO
             #CREATE A POP UP THAT ALERTS THE USER WHY IT'S EXITING
             sys.exit()
-    
+
+    def pauser(self):
+        self.infoGUI.scriptStatus = "Script Paused"
+        while self.infoGUI.pause:
+            time.sleep(0.6)
+
 class ShrimpFisher(Fisher):
 
     inventoryCheckX = 730
@@ -205,52 +210,63 @@ class ShrimpFisher(Fisher):
         self.powerFish = powerfishing
         self.shrimp()
 
+    def shouldFishingLoopRun(self):
+
+        if not self.infoGUI.isRunning:
+            return False
+        if self.infoGUI.takeBreak:
+            return False
+        if self.infoGUI.pause:
+            return False
+        if self.invent.isInventFull(28):
+            return False
+        return True
+
     def shrimp(self):
         time.sleep(0.5)
 
         if self.powerFish == True:
             #semi dead conditional, here as pseudo code, will be useful when banking is implemented
             
-           
-            while self.running == True and self.infoGUI.takeBreak == False:
+            while self.infoGUI.isRunning:
             #while self.infoGUI.isRunning == True:
             #horrible conditional but necessary for testing will more then likely need to changed to a quit command
 
-                self.verifyGUIRunning()
-
-                self.invent.isInventFull(28)
-                
-                while not self.invent.inventFull and self.running == True and self.infoGUI.takeBreak == False:
+                if self.infoGUI.pause:
+                    self.pauser()
+                  
+                # self.invent.isInventFull(28)
+                # while not self.invent.inventFull and self.running == True and self.infoGUI.takeBreak == False:
+                while self.shouldFishingLoopRun():
                     self.verifyGUIRunning()
                     self.fishWithImg(self.shrimpSpotImg, self.fishingSpotVerificationString, self.verificationStringRegion, self.smallNetFishingAnimationID)
                     self.infoGUI.scriptStatus = "Fishing"
                     #this sleep might not be necessary anymore, as fish is now handling it
                     time.sleep(0.6)
                 
-                if self.infoGUI.isRunning == True:
+                if self.infoGUI.isRunning and not self.infoGUI.pause:
                     if self.uni.statCheckDecider(abs(int(random.gauss(15,5))),self.skillFishIconCords):
                         logger.info("Checking stats from shrimper")
                     
-                    if self.invent.inventFull:
+                    if self.invent.inventFull and not self.infoGUI.pause:
                         self.infoGUI.scriptStatus = "Dropping inventory"
                         itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
                         self.invent.powerDropInventory(doNotDrop=1, amountToDrop=itemsInInvent)
 
             #this will more then likely need to be a universal function for reuse
-            if self.infoGUI.takeBreak == True:
-                # print(f"taking break for {self.infoGUI.breakTime} seconds")
-                logger.info(f"takingn a break for: {self.infoGUI.breakTime} seconds")
-                self.infoGUI.scriptStatus = "Taking a break"
-                time.sleep(random.uniform(0.6,1.2))
-                self.uni.logOuter()
-                time.sleep(self.infoGUI.breakTime)
-                self.uni.loginer()
-                self.infoGUI.takeBreak = False
-                self.infoGUI.lastBreak = time.time()
-                self.infoGUI.calculateTimes()
-        
+                if self.infoGUI.takeBreak == True:
+                    # print(f"taking break for {self.infoGUI.breakTime} seconds")
+                    logger.info(f"takingn a break for: {self.infoGUI.breakTime} seconds")
+                    formattedBreakTime = self.infoGUI.formatTime(self.infoGUI.breakTime)
+                    self.infoGUI.scriptStatus = f"Taking a break for: {formattedBreakTime}"
+                    time.sleep(random.uniform(0.6,1.2))
+                    self.uni.logOuter()
+                    time.sleep(self.infoGUI.breakTime)
+                    self.uni.loginer()
+                    self.infoGUI.takeBreak = False
+                    self.infoGUI.lastBreak = time.time()
+                    self.infoGUI.calculateTimes()
         else:
-            #print("powerFishing set to False")
             pass
 
 class FlyFisher(Fisher):
@@ -322,13 +338,20 @@ class FlyFisher(Fisher):
             self.uni.coordinateWalker(self.f2pLeftFishingBoundingCord)
 
     def shouldCoreLoopRun(self):
-        if self.infoGUI.isRunning and self.infoGUI.takeBreak==False:
-            if self.hasBait(self.baitID) and not self.invent.isInventFull(28):
-                return True
-            else:
-                return False
-        else:
+
+        if not self.infoGUI.isRunning:
             return False
+        
+        if not self.infoGUI.takeBreak:
+            return False
+        
+        if not self.hasBait(self.baitID):
+            return False
+        
+        if self.invent.isInventFull(28):
+            return False
+        
+        return True
 
     def flyFisherOrchestrator(self):
 
@@ -368,7 +391,8 @@ class FlyFisher(Fisher):
             if self.infoGUI.takeBreak == True:
                 # print(f"taking break for {self.infoGUI.breakTime} seconds")
                 logger.info(f"takingn a break for: {self.infoGUI.breakTime} seconds")
-                self.infoGUI.scriptStatus = "Taking a break"
+                formattedBreakTime = self.infoGUI.formatTime(self.infoGUI.breakTime)
+                self.infoGUI.scriptStatus = f"Taking a break for: {formattedBreakTime}"
                 time.sleep(random.uniform(0.6,1.2))
                 self.uni.logOuter()
                 time.sleep(self.infoGUI.breakTime)

@@ -153,7 +153,7 @@ class Mouse:
 
     def mouseClick(self, x:int, y:int, but:str = 'left'):
         logger.debug("CLICKING")
-        print("CLICKING")
+        # print("CLICKING")
         dur = random.uniform(0.01,0.1)
         pyautogui.click(x,y,duration=dur,button=but)
         clep = random.uniform(0.05,0.1)
