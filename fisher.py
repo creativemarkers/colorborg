@@ -179,13 +179,10 @@ class Fisher:
         if any(slot["id"] == baitID for slot in inventArray):
             return True
         else:
+            logger.critical("Attempting to logout due to lack of bait")
             self.uni.logOuter()
-            self.infoGUI.root.destroy()
-            logger.critical("destroyed info gui")
             self.running == False
-            logger.critical("RAN OUT OF BAIT **EXITING!**")
-            #TODO
-            #CREATE A POP UP THAT ALERTS THE USER WHY IT'S EXITING
+            self.gui.fatalErrorPopUp("Ran out of bait, exiting...")
             sys.exit()
 
     def pauser(self):
@@ -227,6 +224,9 @@ class ShrimpFisher(Fisher):
 
         if self.powerFish == True:
             #semi dead conditional, here as pseudo code, will be useful when banking is implemented
+
+            while not self.uni.loggedinChecker():
+                self.uni.loginOrchestrator()
             
             while self.infoGUI.isRunning:
             #while self.infoGUI.isRunning == True:
@@ -340,23 +340,35 @@ class FlyFisher(Fisher):
     def shouldCoreLoopRun(self):
 
         if not self.infoGUI.isRunning:
+            print("failed at is running")
             return False
         
-        if not self.infoGUI.takeBreak:
+        if self.infoGUI.pause:
+            print("paused can't run")
+            return False
+        
+        if self.infoGUI.takeBreak:
+            print("taking a break")
             return False
         
         if not self.hasBait(self.baitID):
+            print("has no bait")
             return False
         
         if self.invent.isInventFull(28):
+            print("invent full")
             return False
         
+        print("returning true no fails")
         return True
 
     def flyFisherOrchestrator(self):
 
         def updateGuiStatus(status):
             self.infoGUI.scriptStatus = status
+
+        while not self.uni.loggedinChecker():
+                self.uni.loginOrchestrator()
 
         while self.infoGUI.isRunning == True:
             """
@@ -366,6 +378,11 @@ class FlyFisher(Fisher):
                 add fisher counter
                 add xp an hour
             """
+            #print("taking a break in:", self.infoGUI.suggestedPlayTime)
+            if self.infoGUI.pause:
+                    print("pausing")
+                    self.pauser()
+
             updateGuiStatus("Checking Run Status")
             self.uni.runner(self.api)
 
@@ -379,7 +396,7 @@ class FlyFisher(Fisher):
                     logger.info("couldn't find fishing icon, changing fishing spots")
                     self.changef2pSpots()
 
-            if self.infoGUI.isRunning == True:
+            if self.infoGUI.isRunning == True and not self.infoGUI.pause:
                 #might change random to use standard deviation
                 if self.uni.statCheckDecider(abs(int(random.gauss(15,5))),self.skillFishIconCords):
                         logger.info("Checking stats from shrimper")

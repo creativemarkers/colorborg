@@ -3,7 +3,10 @@ import os
 import time
 from verification import Verifyer
 from universalMethods import Uni
-
+import pyautogui
+import tkinter as tk
+from tkinter import messagebox
+import sys
 # def countFiles(folderPath:str):
 
 #     fileCount = 0
@@ -38,4 +41,17 @@ from universalMethods import Uni
 # result = uni.verifyBankBooth(verificationText)
 # print(result)
 
-print(os.getcwd())
+# print(os.getcwd())
+
+def simFatalError():
+    try:
+        x = 1/0
+    except ZeroDivisionError as e:
+        root = tk.Tk()
+        root.withdraw()
+
+        messagebox.showerror("Fatal Error", f"A fatal error occurred: {str(e)}")
+
+        sys.exit(1)
+
+simFatalError()

@@ -1,7 +1,8 @@
 import time
 import threading
-
+import sys
 from tkinter import *
+from tkinter import messagebox
 # from tkinter import ttk
 from tkinter.ttk import *
 
@@ -76,9 +77,16 @@ class Gui:
 
         root.mainloop()
 
+    def fatalErrorPopUp(self, message="Fatal Error please report bug!"):
+
+        root = Tk()
+        root.withdraw()
+        messagebox.showerror("Fatal Error", message)
+        sys.exit(1)
+        
 if __name__ == "__main__":
 
     g = Gui()
-    g.getDesiredScript()
+    g.fatalErrorPopUp()
 
 

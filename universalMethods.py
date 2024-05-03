@@ -381,6 +381,22 @@ class Uni:
         randomY = random.randint(323,412)
         self.mouse.moveMouseToArea(randomX,randomY,rDur,click=True)
         time.sleep(random.randint(3,5))
+
+    def loggedinChecker(self):
+        logger.info("Checking if logged in")
+        if not pyautogui.pixelMatchesColor(516,881,(51,19,18)):
+            logger.info("Not logged in, returning False")
+            return False
+        logger.info("Logged in, returning True")
+        return True
+
+    def loginOrchestrator(self):
+        if not self.loggedinChecker():
+            self.loginer()
+        else:
+            logger.info("Already logged in")
+        
+        
         
     """
     loggedInChecker
@@ -402,5 +418,6 @@ if __name__ == "__main__":
 
     # print(time.time() - start)
     time.sleep(1)
-    c.loginer()
+    result = c.loggedinChecker()
+    print(result)
 

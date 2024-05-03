@@ -58,8 +58,8 @@ class InfoGUI():
         #print("playTimeInHours:",playTimeInHours)
         playTimeInMinutes = playTimeInHours * 60
         #print("playTimeInMinutes:", playTimeInMinutes)
-        # randomMinuteOffset = random.choice((-1,1)) * random.randint(1,59)
-        randomMinuteOffset = random.randint(1,1)
+        randomMinuteOffset = random.choice((-1,1)) * random.randint(1,59)
+        # randomMinuteOffset = random.randint(1,1)
         #print("RandomMinuteOffset:",randomMinuteOffset)
         realPlayTime = playTimeInMinutes + randomMinuteOffset
         #print("realPlayTime:",realPlayTime)
@@ -73,6 +73,7 @@ class InfoGUI():
         #print("suggestedPlayTime:",self.suggestedPlayTime)
         
     def onClosing(self):
+        print("wtf is going on")
         self.isRunning = False
         self.root.destroy()
 

@@ -47,23 +47,14 @@ these will be in no particular order
 # Feature Creep
 
 1) ~~Random stat checker~~
-LOGOUT FUNCTION add the logged in checker to the logout function
-2) auto sleep for ban evasion
-3) script to install all my dependency on new machines
-4) notification ping if bot fails or gets stuck (prob would need to count fishes)
-5) GUI popup for fatal errors if user error inform user
+2) ~~LOGOUT FUNCTION add the logged in checker to the logout function~~
+3) ~~auto sleep for ban evasion~~
+4) script to install all my dependency on new machines
+5) notification ping if bot fails or gets stuck (prob would need to count fishes)
+6) GUI popup for fatal errors if user error inform user
 
 
 # PRIORITY
 
--add a bait counter and a stopper if it's run out 
-
--Adding proper logging, and ~~fix logging on the API~~
-
-~~-speed up auto dropper, and make sure it only clicks what it needs too~~
-
--!!TESTING!!fix the issue where fly fisher crashes from not finding the write spot wrote notes in my notebook on possible fix
-
--add the pause and play feature to the script
-
 -start and finish the website
+-loginer doesn't account for f2p or members world

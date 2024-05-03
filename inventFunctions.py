@@ -209,9 +209,10 @@ class Inventory:
 def main():
     import time
 
-    time.sleep(2)
+    time.sleep(1)
     i = Inventory()
     # i.powerDropInventory(1,25)
+    i.powerDropInventory(1,28)
 if __name__ == "__main__":
     main()
 
