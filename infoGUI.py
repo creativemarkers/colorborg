@@ -64,11 +64,8 @@ class InfoGUI():
         realPlayTime = playTimeInMinutes + randomMinuteOffset
         #print("realPlayTime:",realPlayTime)
         # print(f"hour:{realPlayTime//60}, minutes: {realPlayTime%60}")
-
         # print(realPlayTime*60)
-
         # return realPlayTime * 60
-
         self.suggestedPlayTime = realPlayTime * 60
         #print("suggestedPlayTime:",self.suggestedPlayTime)
         

@@ -6,6 +6,7 @@ from pyautogui import ImageNotFoundException
 import numpy
 import os
 import logging
+from utils.fernsUtils import recursiveTruncateRandGauss
 
 
 pyautogui.MINIMUM_DURATION = 0.05
@@ -16,6 +17,8 @@ class Mouse:
 
     def __init__(self):
         pyautogui.FAILSAFE = True
+
+
 
     def moveMouseToArea(self, x:int, y:int, duration=1, areaVariance:int = 0, click:bool=False):
         xVaried = x
@@ -51,7 +54,7 @@ class Mouse:
             pyautogui.moveTo(x, y, duration)
 
     def addVariance(self, x:int, y:int, varianceAmount:int):
-
+        #could add better randomness
         if varianceAmount <= 0:
             #logging.exception("ValueError")
             raise ValueError("Variance must be greater than 0")
@@ -151,13 +154,27 @@ class Mouse:
         #useful for searching near player
         pass
 
+    def randomClickDurStdDiv(self):
+        return round(recursiveTruncateRandGauss(0.0950, 0.01, 0.250, 0.5),4)
+    
+    def randomTimeBetweenClicks(self):
+        return round(recursiveTruncateRandGauss(0.175,0.015,0.4,0.100),4)
+
     def mouseClick(self, x:int, y:int, but:str = 'left'):
         logger.debug("CLICKING")
         # print("CLICKING")
-        dur = random.uniform(0.01,0.1)
+        dur = self.randomClickDurStdDiv()
         pyautogui.click(x,y,duration=dur,button=but)
-        clep = random.uniform(0.05,0.1)
-        time.sleep(clep)
+        time.sleep(self.randomTimeBetweenClicks())
+
+    def multipeClicks(self,x, y):
+        clickAmounts = round(recursiveTruncateRandGauss(3,.50,1,6))
+        dur = self.randomClickDurStdDiv()
+        for i in range(clickAmounts):
+            pyautogui.click(x,y,self.randomClickDurStdDiv())
+            x,y = self.addVariance(x,y,random.randint(2,3))
+            time.sleep(self.randomTimeBetweenClicks())
+
 
     def rotateCameraWithMouse(self, direction, duration=0.4):
         #directions correspond to how the mouse moves not the camera necessarily
