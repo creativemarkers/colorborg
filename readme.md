@@ -58,3 +58,4 @@ these will be in no particular order
 
 -start and finish the website
 -loginer doesn't account for f2p or members world
+-hasbait isn't destroying the the gui properly due to root.destroy killing everything in it's tracks

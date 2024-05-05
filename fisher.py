@@ -338,28 +338,21 @@ class FlyFisher(Fisher):
             self.uni.coordinateWalker(self.f2pLeftFishingBoundingCord)
 
     def shouldCoreLoopRun(self):
-
         if not self.infoGUI.isRunning:
-            print("failed at is running")
             return False
         
         if self.infoGUI.pause:
-            print("paused can't run")
             return False
         
         if self.infoGUI.takeBreak:
-            print("taking a break")
             return False
         
         if not self.hasBait(self.baitID):
-            print("has no bait")
             return False
         
         if self.invent.isInventFull(28):
-            print("invent full")
             return False
         
-        print("returning true no fails")
         return True
 
     def flyFisherOrchestrator(self):
@@ -378,7 +371,6 @@ class FlyFisher(Fisher):
                 add fisher counter
                 add xp an hour
             """
-            #print("taking a break in:", self.infoGUI.suggestedPlayTime)
             if self.infoGUI.pause:
                     print("pausing")
                     self.pauser()
@@ -388,7 +380,6 @@ class FlyFisher(Fisher):
 
             updateGuiStatus("Checking Inventory")
 
-            # while not self.invent.isInventFull(28) and self.infoGUI.isRunning == True and self.hasBait(self.baitID):
             while self.shouldCoreLoopRun():
                 try:
                     self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
@@ -397,16 +388,14 @@ class FlyFisher(Fisher):
                     self.changef2pSpots()
 
             if self.infoGUI.isRunning == True and not self.infoGUI.pause:
-                #might change random to use standard deviation
                 if self.uni.statCheckDecider(abs(int(random.gauss(15,5))),self.skillFishIconCords):
                         logger.info("Checking stats from shrimper")
                 if self.invent.isInventFull(28):
-                    updateGuiStatus("DroppingInventory")
+                    updateGuiStatus("Dropping Inventory")
                     itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
                     self.invent.powerDropInventory(doNotDrop=2, amountToDrop=itemsInInvent)
 
             if self.infoGUI.takeBreak == True:
-                # print(f"taking break for {self.infoGUI.breakTime} seconds")
                 logger.info(f"takingn a break for: {self.infoGUI.breakTime} seconds")
                 formattedBreakTime = self.infoGUI.formatTime(self.infoGUI.breakTime)
                 self.infoGUI.scriptStatus = f"Taking a break for: {formattedBreakTime}"
@@ -417,7 +406,6 @@ class FlyFisher(Fisher):
                 self.infoGUI.takeBreak = False
                 self.infoGUI.lastBreak = time.time()
                 self.infoGUI.calculateTimes()
-
 
 def main():
     """
