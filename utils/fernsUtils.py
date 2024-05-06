@@ -34,26 +34,27 @@ FOR THE MINDFUL TESTERS
     """
 
     import matplotlib.pyplot as plt  
-    mean = 0.0950
-    sigma = .01
-    lowerBound = 0.05
-    upperBound = 0.250
+    mean = 2
+    sigma = 1.10
+    lowerBound = .50
+    upperBound = 6
     clicks = {}
     clickDurs = []
 
     # testRange,
 
-    for i in range(100000):
-        result = round(iterativeTruncateRandGauss(mean,sigma,upperBound,lowerBound),3)
-        clickDurs.append(result)
-        # if result not in clicks:
-        #     clicks[result] = 1
-        # else:
-        #     clicks[result] +=1
+    for i in range(1000000):
+        result = round(iterativeTruncateRandGauss(mean,sigma,upperBound,lowerBound))
+        # clickDurs.append(result)
+    
+        if result not in clicks:
+            clicks[result] = 1
+        else:
+            clicks[result] +=1
 
-    plt.hist(clickDurs, bins=20)
-    plt.show()
-    # print(clicks)
+    # plt.hist(clickDurs, bins=20)
+    # plt.show()
+    print(clicks)
     # plt.bar(clicks.keys(),clicks.values(),align="center")
     # plt.show()
 

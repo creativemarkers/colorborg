@@ -45,8 +45,17 @@ these will be in no particular order
 20) real strecth goal: is to incorporate bezier curves for mouse movements
 
 # Feature Creep
-
+0) MORE BAN EVASION
+   * MULTIPLE MOUSE CLICKS
+   * MOVE MOUSE OFF CLIENT TO SIMULATE AFK
+   * BETTER BREAK SYSTEM maybe based on timezone
+        * AFK LOGOUTS
+   * RANDOM POWER DROPPER
+   * RIGHT CLICK OCCASSIONALY
+   * ADD MISSED CLICKS
+    
 1) ~~Random stat checker~~
+    * BETTER STAT CHECKER
 2) ~~LOGOUT FUNCTION add the logged in checker to the logout function~~
 3) ~~auto sleep for ban evasion~~
 4) script to install all my dependency on new machines

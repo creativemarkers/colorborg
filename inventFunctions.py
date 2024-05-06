@@ -5,6 +5,8 @@ from time import sleep
 from mouseFunctions import Mouse
 # from mouseFunctions import moveMouse , findImageSimple
 
+pyautogui.MINIMUM_DURATION = 0.05
+
 logger = logging.getLogger(__name__)
 
 class Inventory:
@@ -98,7 +100,8 @@ class Inventory:
                 if shiftPressed != True:
                     pyautogui.keyDown('shift')
                     shiftPressed = True
-                dur = random.uniform(0.075, 0.15)
+                dur = round(random.uniform(0.03, 0.075),4)
+                print("dur from pd:", dur)
                 self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10,click=True)
 
             counter += 1

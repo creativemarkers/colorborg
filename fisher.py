@@ -15,6 +15,8 @@ from pyautogui import ImageNotFoundException
 from universalMethods import Uni
 from runeliteAPI import RuneLiteApi
 
+pyautogui.MINIMUM_DURATION = 0.05
+
 logger = logging.getLogger(__name__)
 
 class Fisher:
@@ -96,6 +98,8 @@ class Fisher:
             maxVerifAttempts = 2
             verified = False
             while verified == False:
+
+                print("trying to find fishing spot")
                 if verificationAttempts > maxVerifAttempts:
                     self.mouse.rotateCameraInRandomDirection("downRight")
                     verificationAttempts = 0
@@ -104,7 +108,7 @@ class Fisher:
                 
                 potenialFishingSpotX, potenialFishingSpotY = self.findFishingSpot(fishSpotImageLocation)
 
-                durForFishSpot = random.uniform(0.4,0.7)
+                durForFishSpot = random.uniform(0.3,0.6)
                 self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,durForFishSpot,5)
 
                 #print(stringVerificationRegion)
@@ -113,17 +117,35 @@ class Fisher:
 
 
                 if self.verifyer.verifyText(textToCheck, fishSpotVerificationString) == True:
-                    verified = True
                     #sleep to make sure game is caught up
                     time.sleep(0.1)
                     self.infoGUI.scriptStatus = "Moving to fishing spot"
-                    pyautogui.click(potenialFishingSpotX,potenialFishingSpotY,duration=0.1,button='left')
-                    startTime = time.time()
+                    # pyautogui.click(potenialFishingSpotX,potenialFishingSpotY,duration=0.1,button='left')
+                    self.mouse.multipeClicks(potenialFishingSpotX,potenialFishingSpotY)
+                    # startTime = time.time()
+                    time.sleep(1.2)
                     while not self.verifyFishing(animationID):
-                        time.sleep(1)
-                        elapsedTime = time.time() - startTime
-                        if elapsedTime >= 10:
+                        # time.sleep(1)
+                        # elapsedTime = time.time() - startTime
+                        # if elapsedTime >= 10:
+                        #     break
+                        time.sleep(0.6)
+                        moveStatus = self.api.getMovementStatus()
+                        print(moveStatus)
+                        while moveStatus != "idle":
+                            print(moveStatus)
+                            print("moving to fishingspot...")
+                            time.sleep(0.6)
+                            moveStatus = self.api.getMovementStatus()
+
+                        time.sleep(1.2)
+                        if moveStatus == "idle" and not self.verifyFishing(animationID):
+                            print("didn't find fishing spot breaking out of loop to find next fishing spot")
+                            verified = False
                             break
+
+                    verified = True
+                    print("fishing")
                     self.infoGUI.scriptStatus = "Fishing"
                 else:
                     verificationAttempts += 1

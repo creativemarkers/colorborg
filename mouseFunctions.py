@@ -48,9 +48,13 @@ class Mouse:
         willTween = random.randrange(0,10)
 
         if willTween >= 6:
+            print("will tween")
+            print(duration)
             pyautogui.moveTo(x,y, duration, random.choice(tweeningList))
         else:
+            print("no tween")
             duration /= 1.5
+            print(duration)
             pyautogui.moveTo(x, y, duration)
 
     def addVariance(self, x:int, y:int, varianceAmount:int):
@@ -155,9 +159,10 @@ class Mouse:
         pass
 
     def randomClickDurStdDiv(self):
-        return round(recursiveTruncateRandGauss(0.0950, 0.01, 0.250, 0.5),4)
+        return round(recursiveTruncateRandGauss(0.08, 0.01, 0.13, 0.03),4)
     
     def randomTimeBetweenClicks(self):
+        #too high of vaaleus possibly
         return round(recursiveTruncateRandGauss(0.175,0.015,0.4,0.100),4)
 
     def mouseClick(self, x:int, y:int, but:str = 'left'):
@@ -165,15 +170,17 @@ class Mouse:
         # print("CLICKING")
         dur = self.randomClickDurStdDiv()
         pyautogui.click(x,y,duration=dur,button=but)
-        time.sleep(self.randomTimeBetweenClicks())
+        time.sleep(self.randomClickDurStdDiv())
 
     def multipeClicks(self,x, y):
-        clickAmounts = round(recursiveTruncateRandGauss(3,.50,1,6))
+        clickAmounts = round(recursiveTruncateRandGauss(2,1.10,6,.50))
         dur = self.randomClickDurStdDiv()
+        print(f"Clicking {clickAmounts} times")
         for i in range(clickAmounts):
-            pyautogui.click(x,y,self.randomClickDurStdDiv())
-            x,y = self.addVariance(x,y,random.randint(2,3))
-            time.sleep(self.randomTimeBetweenClicks())
+            print("clicking")
+            pyautogui.click(x=x,y=y,duration=self.randomClickDurStdDiv())
+            # x,y = self.addVariance(x,y,random.randint(2,3))
+            time.sleep(self.randomClickDurStdDiv())
 
 
     def rotateCameraWithMouse(self, direction, duration=0.4):

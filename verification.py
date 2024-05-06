@@ -44,8 +44,8 @@ class Verifyer:
         cWords = cleanedText.split()
         vWords = stringToVerify.split()
         #prints below for debugging
-        # print(cWords)
-        # print(vWords)
+        print(cWords)
+        print(vWords)
         logger.debug(cWords)
         logger.debug(vWords)
         
@@ -65,8 +65,10 @@ class Verifyer:
                 matches += 1
         
         if matches >= needToMatch:
+            print("split words matches:", matches)
             return True
            
+        print("no match")
         return False
         
     def verifyInArea(self, api:object, boundingTile:tuple, MaxRange:int)-> bool:

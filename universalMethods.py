@@ -8,6 +8,8 @@ from pyautogui import ImageNotFoundException
 from inventFunctions import Inventory
 from runeliteAPI import RuneLiteApi
 
+pyautogui.MINIMUM_DURATION = 0.02
+
 logger = logging.getLogger(__name__)
 
 class Uni:
