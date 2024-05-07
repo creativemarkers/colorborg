@@ -119,11 +119,11 @@ class Fisher:
                 if self.verifyer.verifyText(textToCheck, fishSpotVerificationString) == True:
                     #sleep to make sure game is caught up
                     time.sleep(0.1)
-                    self.infoGUI.scriptStatus = "Moving to fishing spot"
                     # pyautogui.click(potenialFishingSpotX,potenialFishingSpotY,duration=0.1,button='left')
                     self.mouse.multipeClicks(potenialFishingSpotX,potenialFishingSpotY)
+                    self.infoGUI.scriptStatus = "Moving to fishing spot"
                     # startTime = time.time()
-                    time.sleep(1.2)
+                    time.sleep(1.2) 
                     while not self.verifyFishing(animationID):
                         # time.sleep(1)
                         # elapsedTime = time.time() - startTime
@@ -134,13 +134,12 @@ class Fisher:
                         print(moveStatus)
                         while moveStatus != "idle":
                             print(moveStatus)
-                            print("moving to fishingspot...")
                             time.sleep(0.6)
                             moveStatus = self.api.getMovementStatus()
 
                         time.sleep(1.2)
                         if moveStatus == "idle" and not self.verifyFishing(animationID):
-                            print("didn't find fishing spot breaking out of loop to find next fishing spot")
+                            print("didn't find fishing spot, looking for new fishing spot")
                             verified = False
                             break
 
@@ -263,6 +262,7 @@ class ShrimpFisher(Fisher):
                     self.verifyGUIRunning()
                     self.fishWithImg(self.shrimpSpotImg, self.fishingSpotVerificationString, self.verificationStringRegion, self.smallNetFishingAnimationID)
                     self.infoGUI.scriptStatus = "Fishing"
+                    self.uni.moveMouseOffScreen()
                     #this sleep might not be necessary anymore, as fish is now handling it
                     time.sleep(0.6)
                 
@@ -408,6 +408,9 @@ class FlyFisher(Fisher):
                 except TypeError:
                     logger.info("couldn't find fishing icon, changing fishing spots")
                     self.changef2pSpots()
+
+                self.uni.moveMouseOffScreen()
+                
 
             if self.infoGUI.isRunning == True and not self.infoGUI.pause:
                 if self.uni.statCheckDecider(abs(int(random.gauss(15,5))),self.skillFishIconCords):

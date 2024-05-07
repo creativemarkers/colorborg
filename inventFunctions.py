@@ -98,6 +98,7 @@ class Inventory:
 
             if i >= doNotDrop:
                 if shiftPressed != True:
+                    print("pressing shift")
                     pyautogui.keyDown('shift')
                     shiftPressed = True
                 dur = round(random.uniform(0.03, 0.075),4)
@@ -115,9 +116,21 @@ class Inventory:
                 #sets x back to first column
                 x = originX
 
+        print("releasing shift")
         pyautogui.keyUp('shift')
-        shiftPressed=True
+        # shiftPressed=True
 
+    def betterPowerDropper():
+        """
+        store every inventory slot cord in an array
+        store miss cords for every inventory slot
+        generate random miss amount 0,3 | 0 to 1 being the most likely 2 being close second
+        apply misses to a random slots that can't be dropped
+        ^ still not sure how to do this
+        ^ use a while loop and the odds? like 2/26 2 misses and 26 slots as an exmaple
+        generate the random pattern (maybe could make multiple patterns)
+        apply the pattern in a for loop
+        """
     def traverseThroughInventory(self, inventSlot:int):
 
         while self.isInventOpen() == False:
@@ -215,7 +228,7 @@ def main():
     time.sleep(1)
     i = Inventory()
     # i.powerDropInventory(1,25)
-    i.powerDropInventory(1,28)
+    i.powerDropInventory(2,28)
 if __name__ == "__main__":
     main()
 

@@ -13,6 +13,7 @@ pyautogui.MINIMUM_DURATION = 0.02
 logger = logging.getLogger(__name__)
 
 class Uni:
+
     mouse = Mouse()
     ver = Verifyer()
     inv = Inventory()
@@ -398,7 +399,10 @@ class Uni:
         else:
             logger.info("Already logged in")
         
-        
+    def moveMouseOffScreen(self):
+        #moves mouse offscreen and clicks to make it seem like client isn't active
+        rDur = random.uniform(0.4,0.8)
+        self.mouse.moveMouseToArea(981,55,rDur,areaVariance=10,click=True)
         
     """
     loggedInChecker

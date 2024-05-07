@@ -3,6 +3,7 @@ import pytesseract
 from PIL import ImageGrab
 import numpy as np
 import logging
+from mouseFunctions import Mouse
 
 logger = logging.getLogger(__name__)
 
@@ -12,6 +13,8 @@ class Verifyer:
     # reader = easyocr.Reader(['en'])
 
     def __init__(self):
+        self.mouse = Mouse()
+        #for right clicking
         pass
 
     def getText(self,left,top,width,height):

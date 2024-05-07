@@ -47,12 +47,17 @@ these will be in no particular order
 # Feature Creep
 0) MORE BAN EVASION
    * MULTIPLE MOUSE CLICKS
+        - first implementation done, along with more robost verification if fishing
    * MOVE MOUSE OFF CLIENT TO SIMULATE AFK
+   * Better detection of objects (start from center of player then move outwards)
    * BETTER BREAK SYSTEM maybe based on timezone
         * AFK LOGOUTS
    * RANDOM POWER DROPPER
+        - need to make it misclick
+        - follow a pattern but it be random kinda of 
    * RIGHT CLICK OCCASSIONALY
    * ADD MISSED CLICKS
+   * RANDOM ZOOM INS?
     
 1) ~~Random stat checker~~
     * BETTER STAT CHECKER
@@ -68,3 +73,8 @@ these will be in no particular order
 -start and finish the website
 -loginer doesn't account for f2p or members world
 -hasbait isn't destroying the the gui properly due to root.destroy killing everything in it's tracks
+
+
+# Random Event NPC Names to highlight
+    Bee Keeper, Capt' Arnav, Niles, Miles, Giles, Count Check, Sergeant Damient, Drunken dwarf, Evil Bob, Servant, Postie Pete, Molly,, Freaky Forester, Genie, Leo, Dr Jekyll, Prince, Princess, Mysterious Old Man, Flippa, Tilt, Quiz Master, Rick Turpentine, Sandwich Lady, Strange Plant,
+    Dunce, Mr. Mordaut
