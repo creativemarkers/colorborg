@@ -49,10 +49,12 @@ these will be in no particular order
    * MULTIPLE MOUSE CLICKS
         - first implementation done, along with more robost verification if fishing
    * MOVE MOUSE OFF CLIENT TO SIMULATE AFK
+        - implemented
    * Better detection of objects (start from center of player then move outwards)
    * BETTER BREAK SYSTEM maybe based on timezone
         * AFK LOGOUTS
-   * RANDOM POWER DROPPER
+   * RANDOM POWER DROPPER 
+        - make it seem like it was user was afk before powerdropping mean of 5-10 seconds
         - need to make it misclick
         - follow a pattern but it be random kinda of 
    * RIGHT CLICK OCCASSIONALY

@@ -7,6 +7,7 @@ import pyautogui
 import tkinter as tk
 from tkinter import messagebox
 import sys
+import keyboard
 # def countFiles(folderPath:str):
 
 #     fileCount = 0
@@ -44,14 +45,20 @@ import sys
 # print(os.getcwd())
 
 def simFatalError():
-    try:
-        x = 1/0
-    except ZeroDivisionError as e:
-        root = tk.Tk()
-        root.withdraw()
+    # try:
+    #     x = 1/0
+    # except ZeroDivisionError as e:
+    #     root = tk.Tk()
+    #     root.withdraw()
 
-        messagebox.showerror("Fatal Error", f"A fatal error occurred: {str(e)}")
+    #     messagebox.showerror("Fatal Error", f"A fatal error occurred: {str(e)}")
 
-        sys.exit(1)
+    #     sys.exit(1)
+    n = 0
+    while True:
+        if keyboard.is_pressed('shift'):
+            n += 1
+            print("shift pressed",n)
+            time.sleep(0.1)
 
 simFatalError()

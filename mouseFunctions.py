@@ -48,13 +48,12 @@ class Mouse:
         willTween = random.randrange(0,10)
 
         if willTween >= 6:
-            print("will tween")
-            print(duration)
+            #print(duration)
             pyautogui.moveTo(x,y, duration, random.choice(tweeningList))
         else:
-            print("no tween")
+
             duration /= 1.5
-            print(duration)
+            #print(duration)
             pyautogui.moveTo(x, y, duration)
 
     def addVariance(self, x:int, y:int, varianceAmount:int):

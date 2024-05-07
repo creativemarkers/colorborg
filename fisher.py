@@ -409,7 +409,7 @@ class FlyFisher(Fisher):
                     logger.info("couldn't find fishing icon, changing fishing spots")
                     self.changef2pSpots()
 
-                self.uni.moveMouseOffScreen()
+                #self.uni.moveMouseOffScreen()
                 
 
             if self.infoGUI.isRunning == True and not self.infoGUI.pause:

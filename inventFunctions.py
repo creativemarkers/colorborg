@@ -1,6 +1,7 @@
 import pyautogui
 import random
 import logging
+import keyboard
 from time import sleep
 from mouseFunctions import Mouse
 # from mouseFunctions import moveMouse , findImageSimple
@@ -65,7 +66,7 @@ class Inventory:
                 #sets x back to first column
                 x = originX
 
-        print(sum(self.inventory))
+        #print(sum(self.inventory))
 
     def isInventFull(self, slotsToFull:int):
 
@@ -93,35 +94,34 @@ class Inventory:
         y = 575
         shiftPressed = False
         counter = 0
-        
+
         for i in range(amountToDrop):
+            logger.info(f"powering dropping:{amountToDrop}")
 
             if i >= doNotDrop:
-                if shiftPressed != True:
-                    print("pressing shift")
+                if shiftPressed == False:
                     pyautogui.keyDown('shift')
+                    sleep(random.uniform(0.1,0.2))
                     shiftPressed = True
                 dur = round(random.uniform(0.03, 0.075),4)
-                print("dur from pd:", dur)
                 self.mouse.moveMouseToArea(x,y,duration=dur,areaVariance=10,click=True)
 
             counter += 1
             x += 42
-
             if counter >= 4:
-                #print(":POWERDROPINVENTORY: counter hit 4, resetting counter, x, and increasing y")
+                
                 counter = 0
-                #sets y for next row
+             
                 y += 36
-                #sets x back to first column
                 x = originX
 
-        print("releasing shift")
+        logger.info("finished powerdropping")
         pyautogui.keyUp('shift')
-        # shiftPressed=True
 
     def betterPowerDropper():
         """
+        detect if runelite is the main screen if it's not
+        double click on a random fish near your start pattern, to make runelite the main screen again
         store every inventory slot cord in an array
         store miss cords for every inventory slot
         generate random miss amount 0,3 | 0 to 1 being the most likely 2 being close second
