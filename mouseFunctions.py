@@ -18,8 +18,6 @@ class Mouse:
     def __init__(self):
         pyautogui.FAILSAFE = True
 
-
-
     def moveMouseToArea(self, x:int, y:int, duration=1, areaVariance:int = 0, click:bool=False):
         xVaried = x
         yVaried =  y
@@ -109,8 +107,72 @@ class Mouse:
         except ImageNotFoundException:
             #logging.exception("ImageNotFoundException")
             raise ImageNotFoundException
-
         
+    def findImageIteratively(self, imageToFind:str, maxCords:tuple=(687,725), expandAmount:int = 100,startConfidence = .9, floorConfidence = .5):
+
+        def expandImageRegion(tLx,tLy,bRx,bRy):
+            maxX,maxY = maxCords
+
+            if tLx <= 0 and tLy <= 0 and bRx >= maxX and bRy >= maxY:
+                return False
+            
+            if tLx >= 0:
+                tLx -= expandAmount
+                if tLx < 0:
+                    tLy = 0
+            if tLy >= 0:
+                tLy -= expandAmount
+                if tLy < 0:
+                    tLy = 0
+
+            if bRx < maxX:
+                bRx += expandAmount
+                if bRx > maxX:
+                    bRx = maxX
+            if bRy < maxY:
+                bRy += expandAmount
+                if bRy > maxY:
+                    bRy = maxY
+
+            return tLx,tLy,bRx,bRy
+
+        maxed = False
+        tLX,tLY = 400,400
+        bRX, bRY = 500,500
+        sizeX = bRX - tLX
+        sizeY = bRY - tLY
+        screenShotRegion = (tLX,tLY,sizeX,sizeY)
+        i = 0
+
+        while not maxed:
+            print(f"region attempt #{i}")
+
+            curConf = startConfidence
+            k = 0
+            while curConf >= floorConfidence:
+                print(f"conf attempt #{k}, current conf: {curConf}, screenShotRegion: {screenShotRegion}")
+                try:
+                    imageLocation = pyautogui.locateOnScreen(imageToFind, region=screenShotRegion, confidence=curConf)
+                    x,y = pyautogui.center(imageLocation)
+                    return x,y
+                except ImageNotFoundException:
+                    print(f"could not find image with confidence set at {curConf}, lowering it by .1")
+                except TypeError:
+                    print("type Error")   
+                curConf -= 0.1
+                k +=1
+                
+            if expandImageRegion(tLX,tLY,bRX,bRY) == False:
+                print("already at max image")
+                raise ImageNotFoundException
+            else:
+                tLX,tLY,bRX,bRY = expandImageRegion(tLX,tLY,bRX,bRY)
+                sizeX = bRX - tLX
+                sizeY = bRY - tLY
+                screenShotRegion = (tLX,tLY,sizeX,sizeY)
+                i += 1
+
+
     def findColorsFast(self, colorToFind:tuple, desiredRegion:tuple):
         #note!!! the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
         #this method searches pixels left to right, bad for human likeness and overall behavior
@@ -180,7 +242,6 @@ class Mouse:
             pyautogui.click(x=x,y=y,duration=self.randomClickDurStdDiv())
             # x,y = self.addVariance(x,y,random.randint(2,3))
             time.sleep(self.randomClickDurStdDiv())
-
 
     def rotateCameraWithMouse(self, direction, duration=0.4):
         #directions correspond to how the mouse moves not the camera necessarily
@@ -275,5 +336,12 @@ class Mouse:
         x, y = self.moveMouseToArea(x,y,duration=random.uniform(0.4,0.7),areaVariance=3)
         self.mouseClick(x,y)
 
+def main():
+    m = Mouse()
+
+    time.sleep(1)
+    x,y = m.findImageIteratively("img/salmonFishingIcon.png")
+    print(x,y)
+
 if __name__ == "__main__":
-    pass
+    main()

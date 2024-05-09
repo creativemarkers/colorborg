@@ -55,10 +55,13 @@ def simFatalError():
 
     #     sys.exit(1)
     n = 0
-    while True:
-        if keyboard.is_pressed('shift'):
-            n += 1
-            print("shift pressed",n)
-            time.sleep(0.1)
+    # while True:
+    #     if keyboard.is_pressed('shift'):
+    #         n += 1
+    #         print("shift pressed",n)
+    #         time.sleep(0.1)
+    time.sleep(1)
+    from win32gui import GetWindowText, GetForegroundWindow
+    print(GetWindowText(GetForegroundWindow()))
 
 simFatalError()
