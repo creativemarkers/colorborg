@@ -4,6 +4,8 @@ from PIL import ImageGrab
 import numpy as np
 import logging
 from mouseFunctions import Mouse
+from utils.fernsUtils import recursiveTruncateRandGauss
+from pyautogui import ImageNotFoundException
 
 logger = logging.getLogger(__name__)
 
@@ -23,16 +25,6 @@ class Verifyer:
         text = pytesseract.image_to_string(screenshot)
         cleanText = text.replace('\n','')
         return cleanText
-    
-    """
-    below method is never used in my program
-    """
-    # def getTextEasyOCR(self,left,top,width,height):
-    #     screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
-    #     reader = easyocr.Reader(['en'])
-    #     screenshot.save("screenshot.png")
-    #     result = reader.readtext("screenshot.png")
-    #     return result
     
     def verifyText(self,cleanedText, stringToVerify):
 
@@ -97,28 +89,30 @@ class Verifyer:
             return False
         else:
             return True
-            
-    # def getTextEnhanced(self,left,top,width,height, threshHold = False, targetColor = (0,0,0)):
-    #     #can still try resizeing with easyocr as havent done that
         
-    #     screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
-    #     # resizedSS = screenshot.resize((width*20,height*20))
-    #     screenshot_np = np.array(screenshot)
+    def rightClickVerifier(self,x,y,imgToFind):
 
-    #     result = self.reader.readtext(screenshot_np)
-
-    #     for detection in result:
-    #         print(detection[1])
-       
-    #     # resizedSS.save('img/tesseractTestImg.jpg')
-    #     #enhanced_img.save('img/tesseractTestImg.jpg')
-    #     # text = pytesseract.image_to_string(res)
-
-    #     # cleanText = text.replace('\n','')
-
-    #     return None
+        self.mouse.mouseClick(x,y,but='right')
+        try:
+            x,y = self.mouse.findImageSimple(imgToFind)
+            rDur = recursiveTruncateRandGauss(0.45,0.1,0.8,0.250)
+            self.mouse.moveMouseToArea(x,y,rDur,areaVariance=3,click=True)
+            return True
+        except ImageNotFoundException:
+            return False
 
 def main():
+
+    import time
+
+    m = Mouse()
+    v = Verifyer()
+    time.sleep(1)
+    x,y = m.findImageIteratively("img/salmonFishingIcon.png")
+    x,y = m.moveMouseToArea(x,y,duration=0.5,areaVariance=5)
+    result = v.rightClickVerifier(x,y,"img/ffrightclicktext.png")
+    print(result)
+
     pass
 
 if __name__ == "__main__":

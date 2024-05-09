@@ -403,6 +403,15 @@ class Uni:
         #moves mouse offscreen and clicks to make it seem like client isn't active
         rDur = random.uniform(0.4,0.8)
         self.mouse.moveMouseToArea(981,55,rDur,areaVariance=10,click=True)
+
+    def waitTillIdle(self,api:object):
+        time.sleep(0.6)
+        moveStatus = api.getMovementStatus()
+        print(moveStatus)
+        while moveStatus != "idle":
+            print(moveStatus)
+            time.sleep(0.6)
+            moveStatus = api.getMovementStatus()
         
     """
     loggedInChecker

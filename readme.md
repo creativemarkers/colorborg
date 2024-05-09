@@ -44,22 +44,28 @@ these will be in no particular order
 
 20) real strecth goal: is to incorporate bezier curves for mouse movements
 
-# Feature Creep
+# TO-DO
 0) MORE BAN EVASION
+   * RANDOM POWER DROPPER 
+        - make it seem like it was user was afk before powerdropping mean of 5-10 seconds
+        - need to make it misclick
+        - follow a pattern but it be random kinda of 
+  
+   * ADD MISSED CLICKS
+   * RANDOM ZOOM INS?
+
+    # needs more testing
    * MULTIPLE MOUSE CLICKS
         - first implementation done, along with more robost verification if fishing
    * MOVE MOUSE OFF CLIENT TO SIMULATE AFK
         - implemented
    * Better detection of objects (start from center of player then move outwards)
+        - implemented new image finder that looks for images from center of character
    * BETTER BREAK SYSTEM maybe based on timezone
         * AFK LOGOUTS
-   * RANDOM POWER DROPPER 
-        - make it seem like it was user was afk before powerdropping mean of 5-10 seconds
-        - need to make it misclick
-        - follow a pattern but it be random kinda of 
    * RIGHT CLICK OCCASSIONALY
-   * ADD MISSED CLICKS
-   * RANDOM ZOOM INS?
+        - right click now implemented if first verification of text fails, might do it too frequently
+        - shrimper needs to be updated with right click tech
     
 1) ~~Random stat checker~~
     * BETTER STAT CHECKER
@@ -72,7 +78,9 @@ these will be in no particular order
 
 # PRIORITY
 
--start and finish the website
+
+-finish the website
+-add more ban evasion
 -loginer doesn't account for f2p or members world
 -hasbait isn't destroying the the gui properly due to root.destroy killing everything in it's tracks
 

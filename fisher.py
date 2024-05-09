@@ -88,7 +88,9 @@ class Fisher:
             self.running = False
             sys.exit()
         
-    def fishWithImg(self, fishSpotImageLocation:str, fishSpotVerificationString:str, stringVerificationRegion:tuple, animationID:int):
+    def fishWithImg(self, fishSpotImageLocation:str, rightClickImageLocation:str,
+                    fishSpotVerificationString:str, stringVerificationRegion:tuple, 
+                    animationID:int,):
 
         left,top,width,height = stringVerificationRegion
         #need to add the bait check here
@@ -119,35 +121,44 @@ class Fisher:
                 if self.verifyer.verifyText(textToCheck, fishSpotVerificationString) == True:
                     #sleep to make sure game is caught up
                     time.sleep(0.1)
-                    # pyautogui.click(potenialFishingSpotX,potenialFishingSpotY,duration=0.1,button='left')
+
                     self.mouse.multipeClicks(potenialFishingSpotX,potenialFishingSpotY)
                     self.infoGUI.scriptStatus = "Moving to fishing spot"
-                    # startTime = time.time()
+           
                     time.sleep(1.2) 
                     while not self.verifyFishing(animationID):
-                        # time.sleep(1)
-                        # elapsedTime = time.time() - startTime
-                        # if elapsedTime >= 10:
-                        #     break
-                        time.sleep(0.6)
-                        moveStatus = self.api.getMovementStatus()
-                        print(moveStatus)
-                        while moveStatus != "idle":
-                            print(moveStatus)
-                            time.sleep(0.6)
-                            moveStatus = self.api.getMovementStatus()
+           
+                        self.uni.waitTillIdle(self.api)
 
                         time.sleep(1.2)
+                        moveStatus = self.api.getMovementStatus()
                         if moveStatus == "idle" and not self.verifyFishing(animationID):
                             print("didn't find fishing spot, looking for new fishing spot")
                             verified = False
                             break
-
                     verified = True
                     print("fishing")
                     self.infoGUI.scriptStatus = "Fishing"
                 else:
-                    verificationAttempts += 1
+                    if self.verifyer.rightClickVerifier(potenialFishingSpotX,potenialFishingSpotY,rightClickImageLocation):
+
+                        time.sleep(1.2)
+                        while not self.verifyFishing(animationID):
+                            self.uni.waitTillIdle(self.api)
+                            time.sleep(1.2)
+                            moveStatus = self.api.getMovementStatus()
+                            if moveStatus == "idle" and not self.verifyFishing(animationID):
+                                print("didn't find fishing spot, looking for new fishing spot")
+                                verified = False
+                                break
+                                
+                            verified = True
+                            print("fishing")
+                            self.infoGUI.scriptStatus = "Fishing"
+                    else:
+                        verificationAttempts += 1
+                        
+
             
         chanceToTurn = 1000
         self.cam.humanCameraBehavior(chanceToTurn)
@@ -158,30 +169,37 @@ class Fisher:
             logger.info("Checked stats from fishWithImg")
 
     def findFishingSpot(self, fishSpotImageLocation):
-        maxAttempts = 10
-        attempt = 0
+        # maxAttempts = 10
+        # attempt = 0
         maxTurnAttempt = 4
         turnAttempt = 0
-        conf = 0.8
+        # conf = 0.8
 
         while turnAttempt < maxTurnAttempt:
         
-            while attempt < maxAttempts:
-                try:
-                    x , y = self.mouse.findImageSimple(fishSpotImageLocation, desiredConfidence = conf)
+            # while attempt < maxAttempts:
+            #     try:
+            #         x , y = self.mouse.findImageSimple(fishSpotImageLocation, desiredConfidence = conf)
 
-                    return x, y
-                except ImageNotFoundException:
-                    attempt += 1
-                    debugString = f"image not found, attempt: {attempt}"
-                    # print(debugString)
-                    logger.debug(debugString)
+            #         return x, y
+            #     except ImageNotFoundException:
+            #         attempt += 1
+            #         debugString = f"image not found, attempt: {attempt}"
+            #         # print(debugString)
+            #         logger.debug(debugString)
+            try:
+                x,y = self.mouse.findImageIteratively(fishSpotImageLocation,floorConfidence=0.4)
+                return x,y
+            except ImageNotFoundException:
+                debugString = f"image not found, attempt: {turnAttempt}"
+                print(debugString)
+                logger.debug(debugString)
 
             self.mouse.moveMouseToArea(450,450,duration=random.uniform(0.4,0.7),areaVariance=40)
             self.mouse.rotateCameraInRandomDirection("downRight",dur=random.uniform(0.4,0.6))
             
-            conf -= 0.1
-            attempt = 0
+            # conf -= 0.1
+            # attempt = 0
             turnAttempt += 1
             
     def verifyFishing(self, animationID):
@@ -294,6 +312,7 @@ class ShrimpFisher(Fisher):
 class FlyFisher(Fisher):
 
     flyFishingSpotImg = "img/salmonFishingIcon.png"
+    ffRightClickImg = "img/ffrightclicktext.png"
     salmonColors = [(202,126,112),(174,95,81)]
     colorSearchRegion = (0, 0, 687, 726)
     flyfishingSpotVerificationString = "Lure Rod Fishing Spot"
@@ -404,14 +423,13 @@ class FlyFisher(Fisher):
 
             while self.shouldCoreLoopRun():
                 try:
-                    self.fishWithImg(self.flyFishingSpotImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
+                    self.fishWithImg(self.flyFishingSpotImg, self.ffRightClickImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
                 except TypeError:
                     logger.info("couldn't find fishing icon, changing fishing spots")
                     self.changef2pSpots()
 
                 #self.uni.moveMouseOffScreen()
                 
-
             if self.infoGUI.isRunning == True and not self.infoGUI.pause:
                 if self.uni.statCheckDecider(abs(int(random.gauss(15,5))),self.skillFishIconCords):
                         logger.info("Checking stats from shrimper")

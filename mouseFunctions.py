@@ -111,6 +111,7 @@ class Mouse:
     def findImageIteratively(self, imageToFind:str, maxCords:tuple=(687,725), expandAmount:int = 100,startConfidence = .9, floorConfidence = .5):
 
         def expandImageRegion(tLx,tLy,bRx,bRy):
+            
             maxX,maxY = maxCords
 
             if tLx <= 0 and tLy <= 0 and bRx >= maxX and bRy >= maxY:
@@ -145,25 +146,23 @@ class Mouse:
         i = 0
 
         while not maxed:
-            print(f"region attempt #{i}")
+            #print(f"region attempt #{i}")
 
             curConf = startConfidence
             k = 0
             while curConf >= floorConfidence:
-                print(f"conf attempt #{k}, current conf: {curConf}, screenShotRegion: {screenShotRegion}")
+                #print(f"conf attempt #{k}, current conf: {curConf}, screenShotRegion: {screenShotRegion}")
                 try:
                     imageLocation = pyautogui.locateOnScreen(imageToFind, region=screenShotRegion, confidence=curConf)
                     x,y = pyautogui.center(imageLocation)
                     return x,y
                 except ImageNotFoundException:
-                    print(f"could not find image with confidence set at {curConf}, lowering it by .1")
-                except TypeError:
-                    print("type Error")   
+                    logger.debug(f"could not find image with confidence set at {curConf}, lowering it by .1")
                 curConf -= 0.1
                 k +=1
                 
             if expandImageRegion(tLX,tLY,bRX,bRY) == False:
-                print("already at max image")
+                logger.debug("whole screen checked couldn't find image raising ImageNotFoundException")
                 raise ImageNotFoundException
             else:
                 tLX,tLY,bRX,bRY = expandImageRegion(tLX,tLY,bRX,bRY)
@@ -171,7 +170,6 @@ class Mouse:
                 sizeY = bRY - tLY
                 screenShotRegion = (tLX,tLY,sizeX,sizeY)
                 i += 1
-
 
     def findColorsFast(self, colorToFind:tuple, desiredRegion:tuple):
         #note!!! the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
@@ -212,11 +210,6 @@ class Mouse:
         # TODO !!!
         #uses find colors randomly function
         #useful for searching near player 
-        pass
-
-    def findImgIteratively(self):
-        # TODO !!!
-        #useful for searching near player
         pass
 
     def randomClickDurStdDiv(self):
@@ -339,8 +332,9 @@ class Mouse:
 def main():
     m = Mouse()
 
-    time.sleep(1)
-    x,y = m.findImageIteratively("img/salmonFishingIcon.png")
+    time.sleep(2)
+    # x,y = m.findImageIteratively("img/ffrightclicktext.png")
+    x,y = m.findImageSimple("img/ffrightclicktext.png")
     print(x,y)
 
 if __name__ == "__main__":
