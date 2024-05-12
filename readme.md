@@ -52,6 +52,7 @@ these will be in no particular order
         - follow a pattern but it be random kinda of 
   
    * ADD MISSED CLICKS
+   * ADD MORE ROBUST CAMERA MOVEMENTS
    * RANDOM ZOOM INS?
 
     # needs more testing

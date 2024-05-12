@@ -5,6 +5,7 @@ import keyboard
 from time import sleep
 from mouseFunctions import Mouse
 # from mouseFunctions import moveMouse , findImageSimple
+from utils.fernsUtils import recursiveTruncateRandGauss
 
 pyautogui.MINIMUM_DURATION = 0.05
 
@@ -94,7 +95,6 @@ class Inventory:
         y = 575
         shiftPressed = False
         counter = 0
-
         for i in range(amountToDrop):
             logger.info(f"powering dropping:{amountToDrop}")
 
@@ -118,7 +118,7 @@ class Inventory:
         logger.info("finished powerdropping")
         pyautogui.keyUp('shift')
 
-    def betterPowerDropper():
+    def betterPowerDropper(self, doNotDrop:int=0, amountToDrop=28):
         """
         detect if runelite is the main screen if it's not
         double click on a random fish near your start pattern, to make runelite the main screen again
@@ -131,6 +131,63 @@ class Inventory:
         generate the random pattern (maybe could make multiple patterns)
         apply the pattern in a for loop
         """
+        inventSlotCords={
+            0: (728, 576), 1: (770, 576), 2: (812, 576), 3: (854, 576), 
+            4: (728, 612), 5: (770, 612), 6: (812, 612), 7: (854, 612), 
+            8: (728, 648), 9: (770, 648), 10: (812, 648), 11: (854, 648), 
+            12: (728, 684), 13: (770, 684), 14: (812, 684), 15: (854, 684), 
+            16: (728, 720), 17: (770, 720), 18: (812, 720), 19: (854, 720), 
+            20: (728, 756), 21: (770, 756), 22: (812, 756), 23: (854, 756), 
+            24: (728, 792), 25: (770, 792), 26: (812, 792), 27: (854, 792)
+        }
+        generateMisses = round(recursiveTruncateRandGauss(0,0.75,3,0))
+        slotsToMiss = set()
+        for i in range(generateMisses):
+            slotsToMiss.add(random.randint(doNotDrop,27))
+
+        def dropSlot():
+            pass
+        def doubleRowPattern(doNotDrop:int=0,amountToDrop=28):
+            row1 = 0
+            row2 = 4
+            for i in range(amountToDrop):
+                print(i)
+
+                if i != 0 and i % 8 == 0:
+                    print("switching rows")
+                    row1 = i
+                    row2 = i + 4
+
+                if i not in slotsToMiss:
+                    if i % 2 == 0:
+                        # dropSlot(inventSlotCords[row1])
+                        print("dropping row1:", row1)
+                        row1 += 1
+                    else:
+                        # dropSlot(inventSlotCords[row2])
+                        print("dropping row2:", row2)
+                        row2 += 1
+                else:
+                    if i % 2 == 0:
+                        # dropSlot(inventSlotCords[row1])
+                        print("not dropping row1:", row1)
+                        row1 += 1
+                    else:
+                        # dropSlot(inventSlotCords[row2])
+                        print("not dropping row2:", row2)
+                        row2 += 1
+        doubleRowPattern()
+    
+        # while self.isInventOpen() == False:
+        #     logger.info("INVENTFULLSTATUS: opening invent")
+        #     self.openInvent()
+
+        
+
+        
+
+
+
     def traverseThroughInventory(self, inventSlot:int):
 
         while self.isInventOpen() == False:
@@ -214,6 +271,31 @@ class Inventory:
                 x = originX
         logger.debug(f"items in invent: {sum(self.inventory)}")
 
+    def popDict(self):
+
+        originX = 728
+        originY = 576
+        x = originX
+        y = originY
+        counter = 0
+        dictI = {}
+
+        for i in range(28):
+            dictI[i] = (x,y)
+
+            counter += 1
+            x += 42
+
+            if counter >= 4:
+                #print("INVENTFUNCTION:CHECKIFINVENTSLOTSEMPTY: counter hit 4, resetting counter, x, and increasing y")
+                counter = 0
+                #sets y for next row
+                y += 36
+                #sets x back to first column
+                x = originX
+
+        return dictI
+    
     def getAmountOfItemsInInvent(self, api:object) -> int:
         api.getInventoryData()
         itemCount = 0
@@ -223,12 +305,19 @@ class Inventory:
         return itemCount
         
 def main():
-    import time
+    # import time
 
-    time.sleep(1)
+    # time.sleep(1)
     i = Inventory()
-    # i.powerDropInventory(1,25)
-    i.powerDropInventory(2,28)
+    # # i.powerDropInventory(1,25)
+    # i.powerDropInventory(2,28)
+
+    # result = i.popDict()
+    # print(result)
+
+    # print(round(recursiveTruncateRandGauss(0,0.5,3,0))
+    i.betterPowerDropper()
+
 if __name__ == "__main__":
     main()
 
