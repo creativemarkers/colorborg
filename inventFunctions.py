@@ -4,6 +4,7 @@ import logging
 import keyboard
 from time import sleep
 from mouseFunctions import Mouse
+from runeliteAPI import RuneLiteApi
 # from mouseFunctions import moveMouse , findImageSimple
 from utils.fernsUtils import recursiveTruncateRandGauss
 
@@ -20,6 +21,7 @@ class Inventory:
 
     def __init__(self):
         self.mouse = Mouse()
+        self.api = RuneLiteApi()
 
     def isInventOpen(self):
         result = pyautogui.pixelMatchesColor(765, 825, (113,38,29))
@@ -118,19 +120,27 @@ class Inventory:
         logger.info("finished powerdropping")
         pyautogui.keyUp('shift')
 
+    def dropInventSlot(self,x,y):
+        #assumes shift is held
+        rDur = round(recursiveTruncateRandGauss(0.04,0.01,0.6,0.025),5)
+        rAV = round(recursiveTruncateRandGauss(5,1,10,0))
+        x,y = self.mouse.moveMouseToArea(x,y,rDur,rAV)
+        self.mouse.mouseClick(x,y)
+
     def betterPowerDropper(self, doNotDrop:int=0, amountToDrop=28):
         """
-        detect if runelite is the main screen if it's not
-        double click on a random fish near your start pattern, to make runelite the main screen again
-        store every inventory slot cord in an array
-        store miss cords for every inventory slot
-        generate random miss amount 0,3 | 0 to 1 being the most likely 2 being close second
-        apply misses to a random slots that can't be dropped
-        ^ still not sure how to do this
-        ^ use a while loop and the odds? like 2/26 2 misses and 26 slots as an exmaple
         generate the random pattern (maybe could make multiple patterns)
         apply the pattern in a for loop
+
+        misses are usually because you go to fast,lag
+        or miss the target completely
+        or failed a click
+        the speed needs to be faster
         """
+        if amountToDrop == 28:
+            amountToDrop = 32
+            
+
         inventSlotCords={
             0: (728, 576), 1: (770, 576), 2: (812, 576), 3: (854, 576), 
             4: (728, 612), 5: (770, 612), 6: (812, 612), 7: (854, 612), 
@@ -140,53 +150,55 @@ class Inventory:
             20: (728, 756), 21: (770, 756), 22: (812, 756), 23: (854, 756), 
             24: (728, 792), 25: (770, 792), 26: (812, 792), 27: (854, 792)
         }
-        generateMisses = round(recursiveTruncateRandGauss(0,0.75,3,0))
+        generateMisses = round(recursiveTruncateRandGauss(0,0.5,3,0))
+        print("Misses generate:",generateMisses)
         slotsToMiss = set()
         for i in range(generateMisses):
             slotsToMiss.add(random.randint(doNotDrop,27))
 
-        def dropSlot():
-            pass
-        def doubleRowPattern(doNotDrop:int=0,amountToDrop=28):
+        print("slots missed on purpose",slotsToMiss)
+
+        def doubleRowPattern(doNotDrop:int=0,amountToDrop=32):
             row1 = 0
             row2 = 4
-            for i in range(amountToDrop):
-                print(i)
-
+            for i in range(doNotDrop,amountToDrop):
+    
                 if i != 0 and i % 8 == 0:
-                    print("switching rows")
                     row1 = i
                     row2 = i + 4
 
-                if i not in slotsToMiss:
-                    if i % 2 == 0:
-                        # dropSlot(inventSlotCords[row1])
-                        print("dropping row1:", row1)
-                        row1 += 1
-                    else:
-                        # dropSlot(inventSlotCords[row2])
-                        print("dropping row2:", row2)
-                        row2 += 1
+                if i % 2 == 0:
+                    # dropSlot(inventSlotCords[row1])
+                    if row1 not in slotsToMiss and row1 >= doNotDrop:
+                        x,y = inventSlotCords[row1]
+                        self.dropInventSlot(x,y)
+                    row1 += 1
                 else:
-                    if i % 2 == 0:
-                        # dropSlot(inventSlotCords[row1])
-                        print("not dropping row1:", row1)
-                        row1 += 1
-                    else:
-                        # dropSlot(inventSlotCords[row2])
-                        print("not dropping row2:", row2)
-                        row2 += 1
-        doubleRowPattern()
+                    # dropSlot(inventSlotCords[row2])
+                    if row2 in inventSlotCords and row2 not in slotsToMiss and row2 >= doNotDrop:
+                        x,y = inventSlotCords[row2]
+                        self.dropInventSlot(x,y)
+                    row2 += 1
+
+        pyautogui.keyDown('shift')
+        doubleRowPattern(doNotDrop,amountToDrop)
+        pyautogui.keyUp('shift')
+
+                    
     
         # while self.isInventOpen() == False:
         #     logger.info("INVENTFULLSTATUS: opening invent")
         #     self.openInvent()
 
-        
 
-        
-
-
+    def getFullSlots(self):
+        #returns a list of slots that are not empty
+        self.api.getInventoryData()
+        fullSlots = []
+        for i, slot in enumerate(self.api.inventArray):
+            if slot['id'] != -1:
+                fullSlots.append(i)
+        return fullSlots
 
     def traverseThroughInventory(self, inventSlot:int):
 
@@ -305,7 +317,7 @@ class Inventory:
         return itemCount
         
 def main():
-    # import time
+    import time
 
     # time.sleep(1)
     i = Inventory()
@@ -316,7 +328,10 @@ def main():
     # print(result)
 
     # print(round(recursiveTruncateRandGauss(0,0.5,3,0))
-    i.betterPowerDropper()
+    time.sleep(1)
+    # i.betterPowerDropper(2,28)
+    result=i.getFullSlots()
+    print(result)
 
 if __name__ == "__main__":
     main()
