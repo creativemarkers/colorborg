@@ -124,6 +124,7 @@ class Inventory:
         #assumes shift is held
         rDur = round(recursiveTruncateRandGauss(0.04,0.01,0.6,0.025),5)
         rAV = round(recursiveTruncateRandGauss(5,1,10,0))
+        print(f"rDur: {rDur}, rAV: {rAV}")
         x,y = self.mouse.moveMouseToArea(x,y,rDur,rAV)
         self.mouse.mouseClick(x,y)
 
@@ -137,10 +138,10 @@ class Inventory:
         or failed a click
         the speed needs to be faster
         """
+
         if amountToDrop == 28:
             amountToDrop = 32
             
-
         inventSlotCords={
             0: (728, 576), 1: (770, 576), 2: (812, 576), 3: (854, 576), 
             4: (728, 612), 5: (770, 612), 6: (812, 612), 7: (854, 612), 
@@ -150,46 +151,55 @@ class Inventory:
             20: (728, 756), 21: (770, 756), 22: (812, 756), 23: (854, 756), 
             24: (728, 792), 25: (770, 792), 26: (812, 792), 27: (854, 792)
         }
+
         generateMisses = round(recursiveTruncateRandGauss(0,0.5,3,0))
-        print("Misses generate:",generateMisses)
+        print("BETTERPOWERDROPPER:Misses generated:",generateMisses)
         slotsToMiss = set()
         for i in range(generateMisses):
             slotsToMiss.add(random.randint(doNotDrop,27))
-
-        print("slots missed on purpose",slotsToMiss)
+        
+        #print("slots missed on purpose", slotsToMiss)
 
         def doubleRowPattern(doNotDrop:int=0,amountToDrop=32):
             row1 = 0
             row2 = 4
-            for i in range(doNotDrop,amountToDrop):
-    
+
+            invArray = self.getFullSlots()
+            # print("BETTERPOWERDROPPER:invArray:", invArray)
+
+            for i in range(amountToDrop):
+                # print(f"BETTERPOWERDROPPER:i:{i}")
                 if i != 0 and i % 8 == 0:
                     row1 = i
                     row2 = i + 4
 
                 if i % 2 == 0:
                     # dropSlot(inventSlotCords[row1])
-                    if row1 not in slotsToMiss and row1 >= doNotDrop:
+                    if row1 not in slotsToMiss and row1 >= doNotDrop and row1 in invArray:
                         x,y = inventSlotCords[row1]
                         self.dropInventSlot(x,y)
+                        # print("BETTERPOWERDROPPER:dropping slot:", row1)
                     row1 += 1
                 else:
-                    # dropSlot(inventSlotCords[row2])
-                    if row2 in inventSlotCords and row2 not in slotsToMiss and row2 >= doNotDrop:
+                    #redundant arg with row2 inventslotCords
+                    # if row2 in inventSlotCords and row2 not in slotsToMiss and row2 >= doNotDrop and row2 in invArray:
+                    if row2 not in slotsToMiss and row2 >= doNotDrop and row2 in invArray:
                         x,y = inventSlotCords[row2]
                         self.dropInventSlot(x,y)
+                        # print("BETTERPOWERDROPPER:dropping slot:", row2)
                     row2 += 1
 
         pyautogui.keyDown('shift')
         doubleRowPattern(doNotDrop,amountToDrop)
+
+        while len(self.getFullSlots()) > doNotDrop:
+            print("dropping leftovers")
+            invArray = self.getFullSlots()
+            for i in range(len(invArray)):
+                if invArray[i] >= doNotDrop:
+                    x,y = inventSlotCords[invArray[i]]
+                    self.dropInventSlot(x,y)
         pyautogui.keyUp('shift')
-
-                    
-    
-        # while self.isInventOpen() == False:
-        #     logger.info("INVENTFULLSTATUS: opening invent")
-        #     self.openInvent()
-
 
     def getFullSlots(self):
         #returns a list of slots that are not empty
@@ -329,9 +339,15 @@ def main():
 
     # print(round(recursiveTruncateRandGauss(0,0.5,3,0))
     time.sleep(1)
-    # i.betterPowerDropper(2,28)
-    result=i.getFullSlots()
-    print(result)
+    i.betterPowerDropper(2,28)
+    # result=i.getFullSlots()
+    # print(result)
+
+    # while len(i.getFullSlots()) > 2:
+    #     time.sleep(0.6)
+    #     print("too much in invent")
+
+
 
 if __name__ == "__main__":
     main()

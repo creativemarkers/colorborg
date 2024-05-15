@@ -1,6 +1,8 @@
 # Fern's Ultimate Colorbot
 
 
+#### I CHANGED THE PYAUTOGUI MINIMUM ITS LOWER NOW CAN CAUSE UNEXPECTED BEHAVIOR NEEDS TESTING, time between clicks is too damn high
+
 # Instructions
     1. Open runelite and have your login details saved
     2. make sure at desired botting location

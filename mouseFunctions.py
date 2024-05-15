@@ -9,7 +9,7 @@ import logging
 from utils.fernsUtils import recursiveTruncateRandGauss
 
 
-pyautogui.MINIMUM_DURATION = 0.05
+pyautogui.MINIMUM_DURATION = 0.02
 
 logger = logging.getLogger(__name__)
 
@@ -49,8 +49,6 @@ class Mouse:
             #print(duration)
             pyautogui.moveTo(x,y, duration, random.choice(tweeningList))
         else:
-
-            duration /= 1.5
             #print(duration)
             pyautogui.moveTo(x, y, duration)
 

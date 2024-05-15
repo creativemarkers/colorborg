@@ -290,8 +290,8 @@ class ShrimpFisher(Fisher):
                     
                     if self.invent.inventFull and not self.infoGUI.pause:
                         self.infoGUI.scriptStatus = "Dropping inventory"
-                        itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
-                        self.invent.powerDropInventory(doNotDrop=1, amountToDrop=itemsInInvent)
+                        # itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
+                        self.invent.betterPowerDropper(doNotDrop=1, amountToDrop=28)
 
             #this will more then likely need to be a universal function for reuse
                 if self.infoGUI.takeBreak == True:
@@ -435,8 +435,8 @@ class FlyFisher(Fisher):
                         logger.info("Checking stats from shrimper")
                 if self.invent.isInventFull(28):
                     updateGuiStatus("Dropping Inventory")
-                    itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
-                    self.invent.powerDropInventory(doNotDrop=2, amountToDrop=itemsInInvent)
+                    # itemsInInvent = self.invent.getAmountOfItemsInInvent(self.api)
+                    self.invent.betterPowerDropper(doNotDrop=2, amountToDrop=28)
 
             if self.infoGUI.takeBreak == True:
                 logger.info(f"takingn a break for: {self.infoGUI.breakTime} seconds")
