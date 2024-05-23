@@ -35,7 +35,7 @@ these will be in no particular order
 3) fully working f2p fisher, in theory get you to 1-99 fishing on f2p, with full ban evasion
 4) include ~~shrimp~~, ~~trout/salmon~~, anglerfish
 5) ~~walker~~
-5.5) pathfinding
+5.5) ~~pathfinding~~
 6) ~~bank~~ - semi done, will need to fully test once a script actually needs to do it (anglerfish)
 7) instructions on how to setup the bot (runelite plugins mostly)
 8) nice looking gui, include pause and play button, as well as stop. 
@@ -49,13 +49,13 @@ these will be in no particular order
 # TO-DO
 0) MORE BAN EVASION
    * RANDOM POWER DROPPER 
-        - make it seem like it was user was afk before powerdropping mean of 5-10 seconds
+        - make it seem like it was user was afk before powerdropping mean of 5-10 seconds, handle this in a different function
         - need to make it misclick
         - follow a pattern but it be random kinda of 
   
+   * RANDOM ZOOM INS?
    * ADD MISSED CLICKS
    * ADD MORE ROBUST CAMERA MOVEMENTS
-   * RANDOM ZOOM INS?
 
     # needs more testing
    * MULTIPLE MOUSE CLICKS
@@ -77,6 +77,8 @@ these will be in no particular order
 4) script to install all my dependency on new machines
 5) notification ping if bot fails or gets stuck (prob would need to count fishes)
 6) GUI popup for fatal errors if user error inform user
+7) afk logout
+
 
 
 # PRIORITY

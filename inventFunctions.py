@@ -127,6 +127,9 @@ class Inventory:
         print(f"rDur: {rDur}, rAV: {rAV}")
         x,y = self.mouse.moveMouseToArea(x,y,rDur,rAV)
         self.mouse.mouseClick(x,y)
+        """
+        could add a 1%-0.5% chance to double click
+        """
 
     def betterPowerDropper(self, doNotDrop:int=0, amountToDrop=28):
         """
