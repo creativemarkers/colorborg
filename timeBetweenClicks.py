@@ -47,4 +47,3 @@ result = tester.run()
 import matplotlib.pyplot as plt
 plt.hist(result, bins=20)
 plt.show()
-

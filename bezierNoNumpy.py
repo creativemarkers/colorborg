@@ -2,22 +2,27 @@ import matplotlib.pyplot as plt
 import pyautogui
 import random
 
+
+def getTotalDistance(p0, p2):
+
+    p0x, p0y = p0
+    p2x, p2y = p2
+
+    return abs(p0x-p2x) + abs(p0y-p2y)
+
 def calculateTincrement(p0, p2):
 
-    p0x, p0y = p0
-    p2x, p2y = p2
-
-    totalDistance = abs(p0x-p2x) + abs(p0y-p2y)
-    tIncrement = totalDistance
-
-    return tIncrement
-
+    tD = getTotalDistance(p0, p2)
+    if tD <= 100:
+        return 0.1
+    elif tD <= 500:
+        return 0.02
+    else:
+        return 0.01
+    
 def calculateOffSet(p0,p2):
 
-    p0x, p0y = p0
-    p2x, p2y = p2
-
-    totalDistance = abs(p0x-p2x) + abs(p0y-p2y)
+    totalDistance = getTotalDistance(p0,p2)
     offSet = totalDistance / 5
     return offSet
 
@@ -74,8 +79,10 @@ def main():
     """
     distance  | increment
     000 - 100 | 0.10 (10cp)
-    101 - 500 | 0.05 (50cp)
+    101 - 500 | 0.02 (50cp)
     500+ - inf| 0.01 (100cp)
+
+    need a function that can handle the speed based on distance since less increments can make stuff look unnhuman
 
     would want variablespeed - the move function could handle the speed and divide it amonst the control points
     and multiple curves
