@@ -1,7 +1,10 @@
 import matplotlib.pyplot as plt
 import pyautogui
 import random
+from utils.fernsUtils import recursiveTruncateRandGauss, measureTime
 
+# pyautogui.MINIMUM_DURATION = 0.0001
+# pyautogui.PAUSE = 0.0001
 
 def getTotalDistance(p0, p2):
 
@@ -20,6 +23,19 @@ def calculateTincrement(p0, p2):
     else:
         return 0.01
     
+def calculateTravelSpeed(tD) -> float:
+    """
+    5-10px a millisecond
+    average speed of a mouse movement is 100-250 inches per second the higher range being competive gaming
+    assuming our mouse is set to 1000dpi
+    usb polls at 1000hz
+    the average human reaction time is 200ms for experienced gamers can be as low as 150ms for visual stimuli
+    """
+    randPXPerMS = recursiveTruncateRandGauss(7.5,1,11,4)
+    #grabs total distance and divides it be px per microsecond, then converts to microseconds ex: 100/5 = 2.5/10000= 0.0025 <- final result in microseconds
+    totalTravelTime = (tD/randPXPerMS)/10000
+    print("total travel time:",totalTravelTime)
+    return totalTravelTime
 def calculateOffSet(p0,p2):
 
     totalDistance = getTotalDistance(p0,p2)
@@ -48,7 +64,7 @@ def calculateQuadraticControlPoints(p0, p1, p2, tIncrement):
         p1t = tuple( ((2*(1-t))*t) * digit for digit in p1 )
         p2t = tuple( (t**2) * digit for digit in p2 )
         b = tuple( a+b+c for a,b,c in zip(p0t,p1t,p2t))
-        print(b)
+        # print(b)
         bArr.append(b)
         t += tIncrement
     return bArr
@@ -62,19 +78,25 @@ def calculatelinearControlPoints(p0,p1,tIncrement):
         print(b)
         t += tIncrement
 
-def moveMouseWithArray(cpArr):
+@measureTime
+def moveMouseWithArray(cpArr,totalDur):
+    pyautogui.MINIMUM_DURATION = 0.00001
+    pyautogui.MINIMUM_SLEEP = 0.0001
+    pyautogui.PAUSE = 0.000001
 
+    amountOfIters = len(cpArr)
+    print("steps:",amountOfIters)
+    durPerIter = totalDur/amountOfIters
+    durPerIter = round(durPerIter,4)
+    print("dur per iter:",durPerIter)
     while cpArr:
         cords = cpArr.pop(0)
         x,y = cords
         x = round(x)
         y = round(y)
-        pyautogui.moveTo(x,y,0.001)
-
+        pyautogui.moveTo(x,y,durPerIter)
 
 def main():
-    pyautogui.MINIMUM_DURATION = 0.001
-    pyautogui.PAUSE = 0.005
 
     """
     distance  | increment
@@ -89,33 +111,38 @@ def main():
     for more precise clicks a different type of algorithm would need to be used
     """
 
-    p0 = (100,100)
-    p2 = (140,140)
-
     # p0 = (100,100)
-    # p2 = (1500,100)
+    # p2 = (140,140)
+
+    p0 = (100,100)
+    p2 = (1500,100)
+
+    td = getTotalDistance(p0,p2)
+    dur = calculateTravelSpeed(td)
+    print("travelSpeed:", dur)
+    tI = calculateTincrement(p0,p2)
 
     os = calculateOffSet(p0,p2)
     m = determineMidPoint(p0,p2,os)
     # m = (4,8)
 
-    result = calculateQuadraticControlPoints(p0,m,p2,.10)
+    result = calculateQuadraticControlPoints(p0,m,p2,tI)
 
-    moveMouseWithArray(result)
+    moveMouseWithArray(result,dur)
     
-    x_coords = [point[0] for point in result]
-    y_coords = [point[1] for point in result]
+    # x_coords = [point[0] for point in result]
+    # y_coords = [point[1] for point in result]
 
-    fig , ax = plt.subplots()
-    ax.plot(x_coords, y_coords, label='Quadratic Bézier Curve')
+    # fig , ax = plt.subplots()
+    # ax.plot(x_coords, y_coords, label='Quadratic Bézier Curve')
 
-    ax.scatter(*zip(*[p0, m, p2]), color='red', label='Control Points')  # Plot the control points
+    # ax.scatter(*zip(*[p0, m, p2]), color='red', label='Control Points')  # Plot the control points
 
-    ax.legend()
-    plt.xlabel('X')
-    plt.ylabel('Y')
-    plt.title('Quadratic Bézier Curve')
-    plt.show()
+    # ax.legend()
+    # plt.xlabel('X')
+    # plt.ylabel('Y')
+    # plt.title('Quadratic Bézier Curve')
+    # plt.show()
 
 
 if __name__ == "__main__":
