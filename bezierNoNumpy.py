@@ -78,23 +78,27 @@ def calculatelinearControlPoints(p0,p1,tIncrement):
         print(b)
         t += tIncrement
 
+
 @measureTime
 def moveMouseWithArray(cpArr,totalDur):
-    pyautogui.MINIMUM_DURATION = 0.00001
+    pyautogui.MINIMUM_DURATION = 0.0001
     pyautogui.MINIMUM_SLEEP = 0.0001
     pyautogui.PAUSE = 0.000001
 
     amountOfIters = len(cpArr)
     print("steps:",amountOfIters)
     durPerIter = totalDur/amountOfIters
-    durPerIter = round(durPerIter,4)
+    durPerIter = round(durPerIter,5)
     print("dur per iter:",durPerIter)
     while cpArr:
         cords = cpArr.pop(0)
         x,y = cords
         x = round(x)
         y = round(y)
-        pyautogui.moveTo(x,y,durPerIter)
+        @measureTime
+        def moveM(x,y,durPerIter):
+            pyautogui.moveTo(x,y,durPerIter)
+        moveM(x,y,durPerIter)
 
 def main():
 
@@ -111,11 +115,11 @@ def main():
     for more precise clicks a different type of algorithm would need to be used
     """
 
-    # p0 = (100,100)
-    # p2 = (140,140)
-
     p0 = (100,100)
-    p2 = (1500,100)
+    p2 = (140,140)
+
+    # p0 = (100,100)
+    # p2 = (1500,100)
 
     td = getTotalDistance(p0,p2)
     dur = calculateTravelSpeed(td)
