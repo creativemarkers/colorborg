@@ -7,16 +7,17 @@ pyautogui.MINIMUM_DURATION = 0.0001
 pyautogui.MINIMUM_SLEEP = 0.0001
 pyautogui.PAUSE = 0.000001
 
-def getTotalDistance(p0, p2):
+def getMaxDistance(p0, p2):
 
     p0x, p0y = p0
     p2x, p2y = p2
-
-    return abs(p0x-p2x) + abs(p0y-p2y)
+    xDist = abs(p0x-p2x)
+    yDist = abs(p0y-p2y)
+    return max(xDist,yDist)
 
 def calculateTincrement(p0, p2):
 
-    tD = getTotalDistance(p0, p2)
+    tD = getMaxDistance(p0, p2)
     if tD <= 100:
         return 0.1
     elif tD <= 500:
@@ -38,11 +39,9 @@ def calculateTravelSpeed(tD) -> float:
     print("total travel time:",totalTravelTime)
     return totalTravelTime
 
-
-
 def calculateOffSet(p0,p2):
 
-    totalDistance = getTotalDistance(p0,p2)
+    totalDistance = getMaxDistance(p0,p2)
     offSet = totalDistance / 5
     return offSet
 
@@ -59,7 +58,6 @@ def determineMidPoint(p0,p2,offset):
     y = ((p0y + p2y)/2) + osy
 
     return (x,y)
-
     
 def calculatelinearControlPoints(p0,p1,tIncrement):
     t = 0
@@ -70,7 +68,7 @@ def calculatelinearControlPoints(p0,p1,tIncrement):
         print(b)
         t += tIncrement
 
-@measureTime
+# @measureTime
 def calculateQuadraticControlPoints(p0, p1, p2, tIncrement):
     t = 0
     bArr = []
@@ -84,7 +82,7 @@ def calculateQuadraticControlPoints(p0, p1, p2, tIncrement):
         t += tIncrement
     return bArr
 
-def getOffsetPoint(start:tuple, end:tuple, ll:float=.10, ul:float=.90):
+def getOffsetPoint(start:tuple, end:tuple, ll:float=.01, ul:float=.99):
     #will pick a random point to start calculating the offset point
     """
     perhaps could determine this based on dista
@@ -92,7 +90,8 @@ def getOffsetPoint(start:tuple, end:tuple, ll:float=.10, ul:float=.90):
     t = random.uniform(ll,ul)
     startT = tuple(((1-t) * digit for digit in start))
     endT = tuple(t * digit for digit in end )
-    return startT + endT
+    res = tuple(a+b for a,b in zip(startT,endT))
+    return res
 
 def getCubicControlPoints(p0,osp1,osp2,p3):
     """
@@ -101,17 +100,43 @@ def getCubicControlPoints(p0,osp1,osp2,p3):
     https://homepages.bluffton.edu/~nesterd/apps/beziersketcher.html
     ^for messing around with the curves
     """
+    mD = getMaxDistance(p0,p3)
+    
+    maxOffset = round(mD/10)
+
+    cp1 = tuple(random.randint((-1*(maxOffset)),maxOffset) + digit for digit in osp1)
+    print("cp1",cp1)
+    cp2 = tuple(random.randint((-1*(maxOffset)),maxOffset) + digit for digit in osp2)
+    print("cp2",cp2)
+
+    return cp1, cp2
 
 def calculateCubicControlPoints(p0,p3):
-    """
-    it doesn't actually matter where the offsetPoints are the more important thing is the offset off those points
-    """
-    osp1 =  getOffsetPoint(p0,p3, .2, .4)
-    osp2 = getOffsetPoint(p0,p3, .6, .8)
+    #it doesn't actually matter where the offsetPoints are the more important thing is the amount offset off those points
+
+    osp1 =  getOffsetPoint(p0,p3)
+    print("osp1:",osp1)
+    osp2 = getOffsetPoint(p0,p3)
+    print("osp2:",osp2)
     p1,p2 = getCubicControlPoints(p0,osp1,osp2,p3)
+    return p1,p2
 
+def moveMouseWithCubicCurve(dest,origin=None):
+    if not origin:
+        p0 = pyautogui.position()
+    else:
+        p0 = origin
+    p1,p2 = calculateCubicControlPoints(p0,dest)
+    tInc = calculateTincrement(p0,dest)
+    cpArr = calculateCubicCurve(p0,p1,p2,dest,tInc)
+    pArr = cpArr[:]
+    dist = getMaxDistance(p0,dest)
+    dur = calculateTravelSpeed(dist)
+    moveMouseWithArray(cpArr, dur)
 
-@measureTime
+    return p0, p1, p2, dest, pArr
+
+# @measureTime
 def calculateCubicCurve(p0,p1,p2,p3, tIncrement):
     t = 0
     bArr = []
@@ -121,25 +146,26 @@ def calculateCubicCurve(p0,p1,p2,p3, tIncrement):
         p2t = tuple( ((1-t)*(t**2))*3 * digit for digit in p2 )
         p3t = tuple( (t**3) * digit for digit in p3 )
         b = tuple( a+b+c+d for a,b,c,d in zip(p0t,p1t,p2t,p3t))
-        print(b)
+        # print(b)
         bArr.append(b)
         t += tIncrement
+        t = round(t,2)
     return bArr
 
-@measureTime
+# @measureTime
 def moveMouseWithArray(cpArr,totalDur):
 
     amountOfIters = len(cpArr)
-    print("steps:",amountOfIters)
+    # print("steps:",amountOfIters)
     durPerIter = totalDur/amountOfIters
     durPerIter = round(durPerIter,5)
-    print("dur per iter:",durPerIter)
+    # print("dur per iter:",durPerIter)
     while cpArr:
         cords = cpArr.pop(0)
         x,y = cords
         x = round(x)
         y = round(y)
-        @measureTime
+        # @measureTime
         def moveM(x,y,durPerIter):
             pyautogui.moveTo(x,y,durPerIter)
         moveM(x,y,durPerIter)
@@ -159,31 +185,46 @@ def main():
     for more precise clicks a different type of algorithm would need to be used
     """
 
+    # # p0 = (100,100)
+    # # p2 = (140,140)
+
     # p0 = (100,100)
-    # p2 = (140,140)
+    # p2 = (1500,100)
 
-    p0 = (100,100)
-    p2 = (1500,100)
+    # td = getMaxDistance(p0,p2)
+    # dur = calculateTravelSpeed(td)
+    # print("travelSpeed:", dur)
+    # tI = calculateTincrement(p0,p2)
 
-    td = getTotalDistance(p0,p2)
-    dur = calculateTravelSpeed(td)
-    print("travelSpeed:", dur)
-    tI = calculateTincrement(p0,p2)
+    # os = calculateOffSet(p0,p2)
+    # m = determineMidPoint(p0,p2,os)
+    # # m = (4,8)
 
-    os = calculateOffSet(p0,p2)
-    m = determineMidPoint(p0,p2,os)
-    # m = (4,8)
+    # os = calculateOffSet(p0,p2)
+    # p1 = determineMidPoint(p0,p2,os)
 
-    os = calculateOffSet(p0,p2)
-    p1 = determineMidPoint(p0,p2,os)
-
-    os = calculateOffSet(p0,p2)
-    p2 = determineMidPoint(p0,p2,os)
+    # os = calculateOffSet(p0,p2)
+    # p2 = determineMidPoint(p0,p2,os)
 
     # result = calculateQuadraticControlPoints(p0,m,p2,tI)
-    result = calculateCubicCurve((0,0),p1,p2,(1000,1000),0.01)
-
     # moveMouseWithArray(result,dur)
+
+
+    # val = getOffsetPoint((900,900),(1000,1000))
+    # print(val)
+
+    # r = calculateCubicCurve((0,0),(1,2),(3,3),(4,0),0.25)
+    # print(r)
+    
+    p0,p1,p2,p3,result = moveMouseWithCubicCurve((501,501),(1,1))
+    print(result[-1])
+    # print(result)
+    # p0 = (0, 0)
+    # p1 = (1, 2)
+    # p2 = (3, 3)
+    # p3 = (4, 0)
+    # result = [(0, 0), (1, 1.5), (2, 2.25), (3, 1.5), (4, 0)]
+
     
     x_coords = [point[0] for point in result]
     y_coords = [point[1] for point in result]
@@ -191,14 +232,13 @@ def main():
     fig , ax = plt.subplots()
     ax.plot(x_coords, y_coords, label='Quadratic Bézier Curve')
 
-    ax.scatter(*zip(*[p0, m, p2]), color='red', label='Control Points')  # Plot the control points
+    ax.scatter(*zip(*[p0, p1, p2, p3]), color='red', label='Control Points')  # Plot the control points
 
     ax.legend()
     plt.xlabel('X')
     plt.ylabel('Y')
     plt.title('Quadratic Bézier Curve')
     plt.show()
-
 
 if __name__ == "__main__":
     main()
