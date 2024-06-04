@@ -7,6 +7,7 @@ import numpy
 import os
 import logging
 from utils.fernsUtils import recursiveTruncateRandGauss
+from bezierNoNumpy import BezierMouse as bm
 
 
 pyautogui.MINIMUM_DURATION = 0.02
@@ -18,15 +19,19 @@ class Mouse:
     def __init__(self):
         pyautogui.FAILSAFE = True
 
-    def moveMouseToArea(self, x:int, y:int, duration=1, areaVariance:int = 0, click:bool=False):
+    def moveMouseToArea(self, x:int, y:int, duration=1, areaVariance:int = 0, click:bool=False, bezier:bool = False):
         xVaried = x
         yVaried =  y
 
         if areaVariance > 0:
             xVaried, yVaried = self.addVariance(x, y, areaVariance)
 
-        self.moveMouse(xVaried, yVaried, duration)
-    
+        if not bezier:
+            self.moveMouse(xVaried, yVaried, duration)
+        else:
+            bezierMouse = bm()
+            bezierMouse.moveMouseWithCubicCurve((xVaried, yVaried))
+
         if click == True:
             self.mouseClick(xVaried,yVaried)
 

@@ -124,8 +124,8 @@ class Inventory:
         #assumes shift is held
         rDur = round(recursiveTruncateRandGauss(0.04,0.01,0.6,0.025),5)
         rAV = round(recursiveTruncateRandGauss(5,1,10,0))
-        print(f"rDur: {rDur}, rAV: {rAV}")
-        x,y = self.mouse.moveMouseToArea(x,y,rDur,rAV)
+        # print(f"rDur: {rDur}, rAV: {rAV}")
+        x,y = self.mouse.moveMouseToArea(x,y,bezier=True)
         self.mouse.mouseClick(x,y)
         """
         could add a 1%-0.5% chance to double click
@@ -349,7 +349,6 @@ def main():
     # while len(i.getFullSlots()) > 2:
     #     time.sleep(0.6)
     #     print("too much in invent")
-
 
 
 if __name__ == "__main__":
