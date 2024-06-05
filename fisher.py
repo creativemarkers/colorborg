@@ -111,7 +111,9 @@ class Fisher:
                 potenialFishingSpotX, potenialFishingSpotY = self.findFishingSpot(fishSpotImageLocation)
 
                 durForFishSpot = random.uniform(0.3,0.6)
-                self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,durForFishSpot,5)
+        
+                # self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,durForFishSpot,5)
+                self.mouse.moveMouseToArea(potenialFishingSpotX,potenialFishingSpotY,areaVariance=5,bezier=True)
 
                 #print(stringVerificationRegion)
                 textToCheck = self.verifyer.getText(left, top, width, height)
@@ -166,6 +168,7 @@ class Fisher:
         #random.randint(420,700)
         #^ideal way if it just checked every time on gather a fish
         if self.uni.statCheckDecider(2000,self.skillFishIconCords):
+            print("checking stats from parent fish class")
             logger.info("Checked stats from fishWithImg")
 
     def findFishingSpot(self, fishSpotImageLocation):

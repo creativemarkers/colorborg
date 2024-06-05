@@ -194,7 +194,7 @@ class Inventory:
 
         pyautogui.keyDown('shift')
         doubleRowPattern(doNotDrop,amountToDrop)
-
+        sleep(round(recursiveTruncateRandGauss(0.4,0.1,0.8,0.3),4))
         while len(self.getFullSlots()) > doNotDrop:
             print("dropping leftovers")
             invArray = self.getFullSlots()

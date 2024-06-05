@@ -8,9 +8,12 @@ import os
 import logging
 from utils.fernsUtils import recursiveTruncateRandGauss
 from bezierNoNumpy import BezierMouse as bm
+from utils.fernsUtils import measureTime
 
-
-pyautogui.MINIMUM_DURATION = 0.02
+pyautogui.MINIMUM_DURATION = 0.01
+#just brought in the below too CONSTANTS
+pyautogui.MINIMUM_SLEEP = 0.01
+pyautogui.PAUSE = 0.01
 
 logger = logging.getLogger(__name__)
 
@@ -18,8 +21,14 @@ class Mouse:
 
     def __init__(self):
         pyautogui.FAILSAFE = True
+        self.bezierMouse = bm()
+        pyautogui.MINIMUM_DURATION = 0.01
+        pyautogui.MINIMUM_SLEEP = 0.01
+        pyautogui.PAUSE = 0.01
 
+    @measureTime
     def moveMouseToArea(self, x:int, y:int, duration=1, areaVariance:int = 0, click:bool=False, bezier:bool = False):
+        # print(duration)
         xVaried = x
         yVaried =  y
 
@@ -27,16 +36,22 @@ class Mouse:
             xVaried, yVaried = self.addVariance(x, y, areaVariance)
 
         if not bezier:
+            # print("not using bezier")
+            print("LINEAR MOUSE GOING")
             self.moveMouse(xVaried, yVaried, duration)
         else:
-            bezierMouse = bm()
-            bezierMouse.moveMouseWithCubicCurve((xVaried, yVaried))
+            print("BEZIER MOUSE GOING")
+            self.bezierMouse.moveMouseWithCubicCurve((xVaried, yVaried))
+            pyautogui.MINIMUM_DURATION = 0.01
+            pyautogui.MINIMUM_SLEEP = 0.01
+            pyautogui.PAUSE = 0.01
 
         if click == True:
             self.mouseClick(xVaried,yVaried)
 
         return xVaried, yVaried  
-                         
+    
+    @measureTime                     
     def moveMouse(self, x:int, y:int, duration=1):
         
         tweeningList = [
@@ -335,10 +350,16 @@ class Mouse:
 def main():
     m = Mouse()
 
-    time.sleep(2)
-    # x,y = m.findImageIteratively("img/ffrightclicktext.png")
-    x,y = m.findImageSimple("img/ffrightclicktext.png")
-    print(x,y)
+    # time.sleep(2)
+    # # x,y = m.findImageIteratively("img/ffrightclicktext.png")
+    # x,y = m.findImageSimple("img/ffrightclicktext.png")
+    # print(x,y)
+
+    # rDur = recursiveTruncateRandGauss(0.45,0.1,0.8,0.250)
+    # print(rDur)
+    rDur = 0.6
+    m.moveMouseToArea(1,1,duration=rDur,areaVariance=3,click=True)
+    m.moveMouseToArea(50,50,bezier=True)
 
 if __name__ == "__main__":
     main()

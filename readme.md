@@ -1,8 +1,5 @@
 # Fern's Ultimate Colorbot
 
-
-#### I CHANGED THE PYAUTOGUI MINIMUM ITS LOWER NOW CAN CAUSE UNEXPECTED BEHAVIOR NEEDS TESTING, time between clicks is too damn high
-
 # Instructions
     1. Open runelite and have your login details saved
     2. make sure at desired botting location
@@ -47,7 +44,29 @@ these will be in no particular order
 20) real strecth goal: is to incorporate bezier curves for mouse movements
 
 # TO-DO
-0) MORE BAN EVASION
+ 
+0) BUILD A RUNELITE EXE WITH CUSTOM PLUGIN
+    SlyAutomations Plugin : https://www.youtube.com/watch?v=ldfJfNhXKhI
+    To Build Exe: https://www.youtube.com/watch?v=dFs4FJ8Mvdc
+    Instruction to use your jagex account : https://github.com/runelite/runelite/wiki/Using-Jagex-Accounts
+    HOW TO SHOWCASE THE BOT - VIDEO IF THE EXE ARE UNWIELDY TO DISTRIBUTE
+
+    fix logging
+    adjust gui
+    clean up code
+    rightclicking on bad verification everytime kinda sucks since the ocr is dogshit
+    -------------
+    finish the shrimp and fisher
+    finish the fly fisher
+    record an hour long video of them
+    then upload them to the website
+    the github will need to be public
+
+
+
+
+
+1) MORE BAN EVASION
    * RANDOM POWER DROPPER 
         - make it seem like it was user was afk before powerdropping mean of 5-10 seconds, handle this in a different function
         - need to make it misclick
@@ -70,14 +89,14 @@ these will be in no particular order
         - right click now implemented if first verification of text fails, might do it too frequently
         - shrimper needs to be updated with right click tech
     
-1) ~~Random stat checker~~
+2) ~~Random stat checker~~
     * BETTER STAT CHECKER
-2) ~~LOGOUT FUNCTION add the logged in checker to the logout function~~
-3) ~~auto sleep for ban evasion~~
-4) script to install all my dependency on new machines
-5) notification ping if bot fails or gets stuck (prob would need to count fishes)
-6) GUI popup for fatal errors if user error inform user
-7) afk logout
+3) ~~LOGOUT FUNCTION add the logged in checker to the logout function~~
+4) ~~auto sleep for ban evasion~~
+5) script to install all my dependency on new machines
+6) notification ping if bot fails or gets stuck (prob would need to count fishes)
+7) GUI popup for fatal errors if user error inform user
+8) afk logout
 
 
 
