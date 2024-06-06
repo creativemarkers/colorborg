@@ -35,6 +35,7 @@ class Inventory:
         sleep(sleeper)
         pyautogui.click()
         logger.info("OPENINVENT: clicked on invent")
+        sleep(recursiveTruncateRandGauss(0.6,0.1,0.8,0.4))
 
     def checkItemInInventSlot(self, x,y,color:tuple):
         return pyautogui.pixelMatchesColor(x,y,color) 
@@ -202,6 +203,7 @@ class Inventory:
                 if invArray[i] >= doNotDrop:
                     x,y = inventSlotCords[invArray[i]]
                     self.dropInventSlot(x,y)
+            sleep(0.8)
         pyautogui.keyUp('shift')
 
     def getFullSlots(self):

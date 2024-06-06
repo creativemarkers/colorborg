@@ -6,7 +6,9 @@ from tkinter import messagebox
 # from tkinter import ttk
 from tkinter.ttk import *
 
-
+"""
+This is the setup GUI
+"""
 class Gui:
 
     startTime = None

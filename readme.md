@@ -35,13 +35,13 @@ these will be in no particular order
 5.5) ~~pathfinding~~
 6) ~~bank~~ - semi done, will need to fully test once a script actually needs to do it (anglerfish)
 7) instructions on how to setup the bot (runelite plugins mostly)
-8) nice looking gui, include pause and play button, as well as stop. 
+8) ~~nice looking gui, include pause and play button, as well as stop.~~
 9) automatic tesseract install 
 10) can take extended break(for ban evasion)
 11) f2p miner
 12) f2p woodcutter
 
-20) real strecth goal: is to incorporate bezier curves for mouse movements
+20) ~~real strecth goal: is to incorporate bezier curves for mouse movements~~
 
 # TO-DO
  
@@ -51,10 +51,10 @@ these will be in no particular order
     Instruction to use your jagex account : https://github.com/runelite/runelite/wiki/Using-Jagex-Accounts
     HOW TO SHOWCASE THE BOT - VIDEO IF THE EXE ARE UNWIELDY TO DISTRIBUTE
 
+    rightclicking on bad verification everytime kinda sucks since the ocr is dogshit
     fix logging
     adjust gui
     clean up code
-    rightclicking on bad verification everytime kinda sucks since the ocr is dogshit
     -------------
     finish the shrimp and fisher
     finish the fly fisher
