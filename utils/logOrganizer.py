@@ -2,6 +2,7 @@ import logging
 import os
 import shutil
 from datetime import datetime
+from utils.fernsUtils import calculateDaysSinceAD1
 
 logger = logging.getLogger(__name__)
 
@@ -12,6 +13,7 @@ class LogOrganizer():
         self.logfolderName = self.name + "-logs"
         self.cwd = os.getcwd()
         self.items = os.listdir(self.cwd)
+        self.todaysDate = datetime.now()
 
     def isLogFile(self, fileName:str)->bool:
         for i, char in enumerate(fileName):
@@ -78,19 +80,12 @@ class LogOrganizer():
     #             shutil.move(item, oldLogsPath)
 
     def setupDirectory(self):
-        """
-        instead of making a logfolder for each minute, make it for the whole day and rename the files according to their start time.
-        """
+
         if self.checkForLogFolder():
-            
-            self.todaysDate = datetime.now()
-            self.todaysLogFolderName = self.todaysDate.strftime("date_%m_%d_%y")
+            self.todaysLogFolderName = self.todaysDate.strftime("date_%m_%d_%Y")
             if not self.checkForTodaysLogFolder(self.todaysLogFolderName):
                 self.createTodaysLogFolder()
             self.todaysLogFolderPath = self.logfolderName + "\\" + self.todaysLogFolderName
-
-            # self.moveOldLogFiles(self.todaysLogFolderPath)
-
         else:
             os.mkdir(self.logfolderName)
 
@@ -100,10 +95,10 @@ class LogOrganizer():
         return self.todaysLogFolderPath
     
     def extractDate(self, folderName):
-        #wanted to write my own function to practice my data structures and algorithms instead of using .split()
-        m = None
-        d = None
-        y = None
+        """
+        using .split() would be more efficient, but i wanted to write my own function for practice
+        """
+        m,d,y = None, None, None
         l = 0
         for i, char in enumerate(folderName):
             if i == len(folderName) - 1:
@@ -120,25 +115,25 @@ class LogOrganizer():
                         l = i+1
         return m,d,y                  
 
-    def deleteLogsAfterSetDays(self, days:int)->None:
-        """
-        get list of folders
-        get date of ea folder
-        get date difference
-        if older then date deletes folder
-        """
-
+    def deleteLogsAfterSetDays(self, maxAgeOfFolder:int)->None:
+      
         logFolders = os.listdir(self.logfolderName)
-        # self.todaysDate
 
         for folder in logFolders:
-            month,day,year = self.extractDate(folder) 
 
-        # print(self.logFolders)
+            m,d,y = self.extractDate(folder)
 
-        pass
-        
+            daysSinceCreation = calculateDaysSinceAD1(date=self.todaysDate.strftime("%Y_%m_%d")) - calculateDaysSinceAD1(y,m,d)
 
+            if daysSinceCreation >= maxAgeOfFolder:
+                try:
+                    logger.info(f"DELETING OLD LOG FOLDER: {folder}")
+                    shutil.rmtree(f"{self.logfolderName}\\{folder}")
+                except FileNotFoundError:
+                    logger.info(f"ERROR DELETING {folder}, file not found, ensure running from correct directory")
+                        
+
+    
 
 def main():
     log = LogOrganizer("test")
@@ -154,11 +149,14 @@ def main():
     # result = log.isLogFile(log)
 
     # log.deleteLogsAfterSetDays(1)
-    m,d,y = log.extractDate("date_06_06_24")
-    print(m)
-    print(d)
-    print(y)
+    log.deleteLogsAfterSetDays(90)
+    # m,d,y = log.extractDate("date_06_06_2024")
+    # print(m)
+    # print(d)
+    # print(y)
     # print(result)
+    # strftime("date_%m_%d_%y")
+    # print(datetime.now().strftime("%Y_%m_%d"))
     
 if __name__ == "__main__":
     main()
