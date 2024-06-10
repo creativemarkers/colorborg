@@ -9,6 +9,49 @@ from pyautogui import ImageNotFoundException
 
 logger = logging.getLogger(__name__)
 
+def getText(left,top,width,height):
+    #example usage: print(self.verifyer.getText(74,5,30,20)), if on vs code should return "edit"
+    logger.info("grabbing text to read")
+    screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
+    text = pytesseract.image_to_string(screenshot)
+    cleanText = text.replace('\n','')
+    return cleanText
+
+
+def verifyText(cleanedText, stringToVerify):
+    logger.info("verifying text")
+    cleanedText = cleanedText.lower()
+    stringToVerify = stringToVerify.lower()
+
+    if cleanedText == stringToVerify:
+        return True
+    
+    logger.debug("grabbed text doesn't match, attempting to clean to further verify")
+    cWords = cleanedText.split()
+    vWords = stringToVerify.split()
+    print(cWords)
+    print(vWords)
+    logger.debug(cWords)
+    logger.debug(vWords)
+    
+
+    needToMatch = len(vWords) // 2
+    matches = 0
+
+    if needToMatch == 0:
+        needToMatch = 1
+    
+    for word in vWords:
+        if word in cWords:
+            matches += 1
+    
+    if matches >= needToMatch:
+        print("split words matches:", matches)
+        return True
+        
+    print("no match")
+    return False
+
 class Verifyer:
 
     totalDistanceFromTarget = None
@@ -21,17 +64,17 @@ class Verifyer:
 
     def getText(self,left,top,width,height):
         #example usage: print(self.verifyer.getText(74,5,30,20)), if on vs code should return "edit"
+        logger.info("grabbing text to read")
         screenshot = ImageGrab.grab(bbox=(left,top,left+width, top+height))
         text = pytesseract.image_to_string(screenshot)
         cleanText = text.replace('\n','')
         return cleanText
     
     def verifyText(self,cleanedText, stringToVerify):
-
+        logger.info("verifying text")
         cleanedText = cleanedText.lower()
         stringToVerify = stringToVerify.lower()
 
-        
         if cleanedText == stringToVerify:
             return True
         
@@ -54,6 +97,9 @@ class Verifyer:
 
         needToMatch = len(vWords) // 2
         matches = 0
+
+        if needToMatch == 0:
+            needToMatch = 1
         
         for word in vWords:
             if word in cWords:

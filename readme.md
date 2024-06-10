@@ -32,7 +32,8 @@ Due to recent changes in RuneLite's plugin hub, which removed the plugin I relie
 1. Add random event handling
 2. Complete chicken killer script
 3. Add instructions for setting up built-in plugins for the random event handler and chicken killer
-4. Create a software diagram
+4. Upload videos of the scripts running
+5. Create a software diagram
 
 ## Random Event NPC Names to highlight
 Below is a list of all the RandomEvent NPCs That will need to be highlighted

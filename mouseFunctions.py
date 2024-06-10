@@ -132,7 +132,6 @@ class Mouse:
     def findImageIteratively(self, imageToFind:str, maxCords:tuple=(687,725), expandAmount:int = 100,startConfidence = .9, floorConfidence = .5):
 
         def expandImageRegion(tLx,tLy,bRx,bRy):
-            
             maxX,maxY = maxCords
 
             if tLx <= 0 and tLy <= 0 and bRx >= maxX and bRy >= maxY:
@@ -168,9 +167,8 @@ class Mouse:
 
         while not maxed:
             #print(f"region attempt #{i}")
-
             curConf = startConfidence
-            k = 0
+            # k = 0
             while curConf >= floorConfidence:
                 #print(f"conf attempt #{k}, current conf: {curConf}, screenShotRegion: {screenShotRegion}")
                 try:
@@ -180,7 +178,7 @@ class Mouse:
                 except ImageNotFoundException:
                     logger.debug(f"could not find image with confidence set at {curConf}, lowering it by .1")
                 curConf -= 0.1
-                k +=1
+                # k +=1
                 
             if expandImageRegion(tLX,tLY,bRX,bRY) == False:
                 logger.debug("whole screen checked couldn't find image raising ImageNotFoundException")
@@ -192,6 +190,7 @@ class Mouse:
                 screenShotRegion = (tLX,tLY,sizeX,sizeY)
                 i += 1
 
+    @measureTime
     def findColorsFast(self, colorToFind:tuple, desiredRegion:tuple):
         #note!!! the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
         #this method searches pixels left to right, bad for human likeness and overall behavior
@@ -227,12 +226,63 @@ class Mouse:
                 break
         return matchingPixel
     
-    def findColorsIteratively(self):
-        # TODO !!!
-        #uses find colors randomly function
-        #useful for searching near player 
-        pass
+    @measureTime
+    def findColorsIteratively(self, colorToFind:tuple, maxCords:tuple=(687,725), expandAmount:int=100):
+        """
+        taking a long time with find colorsRandomly approximately(1-1.5seconds worst case)
+        using fast cuts down time to average around 100ms-200ms
+        """
+        def expandImageRegion(tLx,tLy,bRx,bRy):
+            maxX,maxY = maxCords
 
+            if tLx <= 0 and tLy <= 0 and bRx >= maxX and bRy >= maxY:
+                return False
+            
+            if tLx >= 0:
+                tLx -= expandAmount
+                if tLx < 0:
+                    tLy = 0
+            if tLy >= 0:
+                tLy -= expandAmount
+                if tLy < 0:
+                    tLy = 0
+
+            if bRx < maxX:
+                bRx += expandAmount
+                if bRx > maxX:
+                    bRx = maxX
+            if bRy < maxY:
+                bRy += expandAmount
+                if bRy > maxY:
+                    bRy = maxY
+
+            return tLx,tLy,bRx,bRy
+
+        tLX,tLY = 400,400
+        bRX, bRY = 500,500
+        sizeX = bRX - tLX
+        sizeY = bRY - tLY
+        screenShotRegion = (tLX,tLY,sizeX,sizeY)
+
+        while True:
+            try:
+                matchingPixels = self.findColorsFast(colorToFind,screenShotRegion)
+                y,x = matchingPixels[0]
+                print("from find colors iteratively:", tLX + x, tLY + y)
+                return tLX + x , tLY +y
+            except IndexError:
+                logger.debug("color not found attempting to expand screenshot area")
+
+            try:
+                tLX,tLY,bRX,bRY = expandImageRegion(tLX,tLY,bRX,bRY)
+                sizeX = bRX - tLX
+                sizeY = bRY - tLY
+                screenShotRegion = (tLX,tLY,sizeX,sizeY)
+            except TypeError:
+                # print("findColorsIteratively - color not found")
+                logger.debug("findColorsIteratively - color not found")
+                raise TypeError
+        
     def randomClickDurStdDiv(self):
         return round(recursiveTruncateRandGauss(0.08, 0.01, 0.13, 0.03),4)
     
@@ -365,8 +415,12 @@ def main():
     # rDur = recursiveTruncateRandGauss(0.45,0.1,0.8,0.250)
     # print(rDur)
     rDur = 0.6
-    m.moveMouseToArea(1,1,duration=rDur,areaVariance=3,click=True)
-    m.moveMouseToArea(50,50,bezier=True)
+    # m.moveMouseToArea(1,1,duration=rDur,areaVariance=3,click=True)
+    # m.moveMouseToArea(50,50,bezier=True)
+
+    # result = m.findColorsRandomly((255,255,255),(1050,800,100,100))
+    x,y = m.findColorsIteratively((0,255,255))
+    print(x,y)
 
 if __name__ == "__main__":
     main()

@@ -140,6 +140,8 @@ class Inventory:
         or miss the target completely
         or failed a click
         the speed needs to be faster
+
+        should get the remaining ones backwards
         """
 
         if amountToDrop == 28:
