@@ -25,7 +25,7 @@ class Inventory:
 
     def isInventOpen(self):
         result = pyautogui.pixelMatchesColor(765, 825, (113,38,29))
-        logger.debug(f"ISINVENTOPEN: checking if invent is open: {result}")
+        # logger.debug(f"ISINVENTOPEN: checking if invent is open: {result}")
         return result
 
     def openInvent(self): 
@@ -34,22 +34,22 @@ class Inventory:
         self.mouse.moveMouseToArea(778, 838, 0.5, 15)
         sleep(sleeper)
         pyautogui.click()
-        logger.info("OPENINVENT: clicked on invent")
+        logger.debug("OPENINVENT: clicked on invent")
         sleep(recursiveTruncateRandGauss(0.6,0.1,0.8,0.4))
 
     def checkItemInInventSlot(self, x,y,color:tuple):
         return pyautogui.pixelMatchesColor(x,y,color) 
 
     def checkInventorySlotForSpecificItem(self,originX:int,originY:int,color:tuple,):
-        #NOT USED AT THE MOMEMNT
+        """
+        Deprecated function, not currently in use
+        """
 
         #need to get coordinates of first items color and pixel
         x = originX
         y = originY
         counter = 0
 
-
-        #don't need an array to count
         for i in range(len(self.inventory)):
 
             if self.checkItemInInventSlot(x,y,color) == True:
@@ -70,17 +70,16 @@ class Inventory:
                 #sets x back to first column
                 x = originX
 
-        #print(sum(self.inventory))
-
     def isInventFull(self, slotsToFull:int):
 
         while self.isInventOpen() == False:
-            logger.info("INVENTFULLSTATUS: opening invent")
+            logger.debug("INVENTFULLSTATUS: opening invent")
             self.openInvent()
 
         self.checkIfInventSlotsEmpty()
 
         if sum(self.inventory) >= slotsToFull:
+            logging.info("inventory is full")
             self.inventFull = True
             return True
         else:
@@ -271,7 +270,10 @@ class Inventory:
                 x = originX
 
     def checkIfInventSlotsEmpty(self):
-
+        """
+        TODO:
+        Replace this function with an api call
+        """
         originX = 726
         originY = 575
         x = originX
@@ -296,7 +298,7 @@ class Inventory:
                 y += 36
                 #sets x back to first column
                 x = originX
-        logger.debug(f"items in invent: {sum(self.inventory)}")
+        # logger.debug(f"items in invent: {sum(self.inventory)}")
 
     def popDict(self):
 

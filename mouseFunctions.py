@@ -36,12 +36,15 @@ class Mouse:
             xVaried, yVaried = self.addVariance(x, y, areaVariance)
 
         if not bezier:
-            # print("not using bezier")
-            print("LINEAR MOUSE GOING")
+
+            print("MOVING MOUSE LINEARLY")
+            logger.info("moving mouse linearly")
             self.moveMouse(xVaried, yVaried, duration)
         else:
-            print("BEZIER MOUSE GOING")
+            print("MOVING MOUSE WITH CURVE")
+            logger.info("moving mouse along bezier curve")
             self.bezierMouse.moveMouseWithCubicCurve((xVaried, yVaried))
+            logger.debug("setting pyautogui constants back to original")
             pyautogui.MINIMUM_DURATION = 0.01
             pyautogui.MINIMUM_SLEEP = 0.01
             pyautogui.PAUSE = 0.01
@@ -238,7 +241,7 @@ class Mouse:
         return round(recursiveTruncateRandGauss(0.175,0.015,0.4,0.100),4)
 
     def mouseClick(self, x:int, y:int, but:str = 'left'):
-        logger.debug("CLICKING")
+        # logger.debug("CLICKING")
         # print("CLICKING")
         dur = self.randomClickDurStdDiv()
         pyautogui.click(x,y,duration=dur,button=but)
@@ -249,15 +252,19 @@ class Mouse:
         dur = self.randomClickDurStdDiv()
         print(f"Clicking {clickAmounts} times")
         for i in range(clickAmounts):
-            print("clicking")
+            # print("clicking")
             pyautogui.click(x=x,y=y,duration=self.randomClickDurStdDiv())
             # x,y = self.addVariance(x,y,random.randint(2,3))
             time.sleep(self.randomClickDurStdDiv())
 
     def rotateCameraWithMouse(self, direction, duration=0.4):
-        #directions correspond to how the mouse moves not the camera necessarily
-        #this method could produce index errors be mindful
-
+        """
+        TODO:
+        Update this method to instead use the api to read the pitch and yaw of camera to determine the appropriate angles
+        ----------------------
+        directions correspond to how the mouse moves not the camera necessarily
+        this method could produce index errors be mindful
+        """
         currentX, currentY =  pyautogui.position()
 
         directionsSimpleDict = {

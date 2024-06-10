@@ -315,7 +315,7 @@ class Uni:
         x, y = 730, 163
 
         if pyautogui.pixelMatchesColor(x, y, runningColor) != True:
-            print("UNIVERSALMETHODS:RUNNER: Not running")
+            logger.debug("UNIVERSALMETHODS:RUNNER: Not running")
             runningThreshold = random.randint(50, 80)
 
             currentRunEnergy = api.getRunEnergy()
@@ -323,11 +323,11 @@ class Uni:
             print(currentRunEnergy)
 
             if currentRunEnergy >= runningThreshold:
-                print("SLAYER:RUNNER: Clicking on run icon")
+                logger.debug("CLICKING ON RUN ICON")
                 dur = random.uniform(0.3,0.5)
                 self.mouse.moveMouseToArea(735,165, duration=dur, areaVariance=10,click=True)
         else:
-            print("UNIVERSALMETHODS:RUNNER: Running")
+            logger.debug("UNIVERSALMETHODS:RUNNER: Running")
 
     def simpleStatChecker(self, skillCords:tuple):
         """
@@ -386,11 +386,11 @@ class Uni:
         time.sleep(random.randint(3,5))
 
     def loggedinChecker(self):
-        logger.info("Checking if logged in")
+        logger.debug("Checking if logged in")
         if not pyautogui.pixelMatchesColor(516,881,(51,19,18)):
-            logger.info("Not logged in, returning False")
+            logger.debug("Not logged in, returning False")
             return False
-        logger.info("Logged in, returning True")
+        logger.debug("Logged in, returning True")
         return True
 
     def loginOrchestrator(self):
@@ -407,16 +407,11 @@ class Uni:
     def waitTillIdle(self,api:object):
         time.sleep(0.6)
         moveStatus = api.getMovementStatus()
-        print(moveStatus)
+        # print(moveStatus)
         while moveStatus != "idle":
-            print(moveStatus)
+            # print(moveStatus)
             time.sleep(0.6)
             moveStatus = api.getMovementStatus()
-        
-    """
-    loggedInChecker
-    loginer
-    """
 
 if __name__ == "__main__":
     # 710,837

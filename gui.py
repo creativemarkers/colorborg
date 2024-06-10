@@ -25,15 +25,14 @@ class Gui:
         self.startTime = time.time()
         self.isRunning = True
         self.breaks = False
-        pass
-
+        
     def getDesiredScript(self, scripts:list = [None,"Fisher", "WoodCutter", "Miner"]):
         def onSubmitClick():
             if v.get() == "1":
                 self.breaks = True
 
             self.scriptSelected = selected_option.get()
-            print(self.scriptSelected)
+            # print(self.scriptSelected)
         
 
             root.quit()

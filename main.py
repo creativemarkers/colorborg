@@ -12,6 +12,9 @@ from datetime import datetime
 gui = Gui()
 game = Window()
 
+MAX_LOG_AGE = 90
+#MAX_LOG_AGE Represents the amount of days logs should be kept
+
 def createBot(scriptName:str):
 
     bot = globals().get(scriptName)
@@ -50,13 +53,11 @@ def main():
         todaysLogFilePath = log.getTodaysLogFolderPath()
         logFilePath = todaysLogFilePath + "\\"+ logFileName
         # logging.basicConfig(level=logging.DEBUG, filename= logFileName, filemode="w", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        log.deleteLogsAfterSetDays(MAX_LOG_AGE)
         logging.basicConfig(level=logging.DEBUG, filename= logFilePath, filemode="w", format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-        logging.debug(f"{gui.scriptSelected.upper()} SELECTED")
+        logging.info(f"{gui.scriptSelected.upper()} SELECTED")
         createBot(gui.scriptSelected)
 
-        
-        #fisher = Fisher()
-        #slayer = Slayer()
 
     #end script gracefully since we have two threads now
     except FailSafeException:

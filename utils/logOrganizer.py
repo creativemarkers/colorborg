@@ -116,13 +116,15 @@ class LogOrganizer():
         return m,d,y                  
 
     def deleteLogsAfterSetDays(self, maxAgeOfFolder:int)->None:
-      
+        """
+        TODO:
+        need to add a check for bad folder names
+        """
+
         logFolders = os.listdir(self.logfolderName)
 
         for folder in logFolders:
-
             m,d,y = self.extractDate(folder)
-
             daysSinceCreation = calculateDaysSinceAD1(date=self.todaysDate.strftime("%Y_%m_%d")) - calculateDaysSinceAD1(y,m,d)
 
             if daysSinceCreation >= maxAgeOfFolder:

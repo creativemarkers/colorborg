@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
 import pyautogui
 import random
+import logging
 from utils.fernsUtils import recursiveTruncateRandGauss, measureTime
 
+logger = logging.getLogger(__name__)
 
 class BezierMouse():
     """
@@ -90,27 +92,6 @@ class BezierMouse():
         p1,p2 = self.getCubicControlPoints(p0,osp1,osp2,p3)
         return p1,p2
 
-    def moveMouseWithCubicCurve(self, dest, origin=None):
-        # print("pyautogui constant from bezier")
-        pyautogui.MINIMUM_DURATION = 0.0001
-        pyautogui.MINIMUM_SLEEP = 0.0001
-        pyautogui.PAUSE = 0.000001
-        # print(pyautogui.MINIMUM_DURATION)
-        # print(pyautogui.MINIMUM_SLEEP)
-        # print(pyautogui.PAUSE)
-        if not origin:
-            p0 = pyautogui.position()
-        else:
-            p0 = origin
-        p1,p2 = self.calculateCubicControlPoints(p0,dest)
-        tInc = self.calculateTincrement(p0,dest)
-        cpArr = self.calculateCubicCurve(p0,p1,p2,dest,tInc)
-        pArr = cpArr[:]
-        dist = self.getMaxDistance(p0,dest)
-        dur = self.calculateTravelSpeed(dist)
-        self.moveMouseWithArray(cpArr = cpArr,totalDur = dur)
-
-    #@measureTime
     def calculateCubicCurve(self, p0,p1,p2,p3, tIncrement):
         t = 0
         bArr = []
@@ -142,6 +123,42 @@ class BezierMouse():
             def moveM(x,y,durPerIter):
                 pyautogui.moveTo(x,y,durPerIter)
             moveM(x,y,durPerIter)
+
+        logger.debug("successfully moved mouse along array")
+        
+    def moveMouseWithCubicCurve(self, dest, origin=None):
+        # print("pyautogui constant from bezier")
+        pyautogui.MINIMUM_DURATION = 0.0001
+        pyautogui.MINIMUM_SLEEP = 0.0001
+        pyautogui.PAUSE = 0.000001
+        logger.debug("changed pyautogui constants")
+        # print(pyautogui.MINIMUM_DURATION)
+        # print(pyautogui.MINIMUM_SLEEP)
+        # print(pyautogui.PAUSE)
+        if not origin:
+            logger.debug("no origin position given for the mouse, getting current mouse position")
+            p0 = pyautogui.position()
+        else:
+            logger.debug("origin position was given")
+            p0 = origin
+
+        logger.debug("calculating control points")
+        p1,p2 = self.calculateCubicControlPoints(p0,dest)
+
+        logger.debug("calculating T increment")
+        tInc = self.calculateTincrement(p0,dest)
+
+        logger.debug("culculating cubic curve")
+        cpArr = self.calculateCubicCurve(p0,p1,p2,dest,tInc)
+    
+        logger.debug("getting distance to determine travel time")
+        dist = self.getMaxDistance(p0,dest)
+
+        logger.debug("calculating travel time")
+        dur = self.calculateTravelSpeed(dist)
+
+        logger.debug("moving mouse with the cubic curve array")
+        self.moveMouseWithArray(cpArr = cpArr,totalDur = dur)
 
 def main():
     pass

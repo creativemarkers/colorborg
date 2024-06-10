@@ -1,5 +1,5 @@
 """
-(╭ರ_•́) A Gentle Mans' Utils (╭ರ_•́)
+(╭ರ_•́) A Gentlemens' Utils (╭ರ_•́)
        by Fernando N Sanchez
 """
 
@@ -73,6 +73,7 @@ def calculateDaysSinceAD1(y:int=None,m:int=None,d:int=None,date:str=None)->int:
     for i in range(1,month):
         if i in amountOfDaysinMonth:
             monthsInDays += amountOfDaysinMonth[i]
+
     return yearsInDays + monthsInDays + day
         
 def main():
