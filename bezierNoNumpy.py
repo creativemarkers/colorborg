@@ -47,6 +47,10 @@ class BezierMouse():
         assuming our mouse is set to 1000dpi
         usb polls at 1000hz
         the average human reaction time is 200ms for experienced gamers can be as low as 150ms for visual stimuli
+
+
+        longer distance might be too slow
+
         """
         randPXPerMS = recursiveTruncateRandGauss(2,1,5,1)
         #grabs total distance and divides it be px per microsecond, then converts to milliseconds ex: 100/5 = 2.5/10000= 0.0025 <- final result in microseconds

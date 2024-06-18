@@ -3,6 +3,7 @@ from mouseFunctions import Mouse
 from time import sleep
 from utils.fernsUtils import recursiveTruncateRandGauss
 from verification import getText, verifyText
+from pyautogui import ImageNotFoundException
 logger = logging.getLogger(__name__)
 
 NPC_HIGHLIGHTCOLOR = (0,255,255)
@@ -21,16 +22,36 @@ class RandomEventHandler():
         self.mouse = mouse
 
 
-    def dismissRandomEvent(self,x,y):
-        print("it verified")
-        pass
+    def findDismiss(self):
+        dismissImgPath = "img/randomEventDismiss.png"
+        try:
+            x,y = self.mouse.findImageSimple(dismissImgPath)
+            return x,y
+        except ImageNotFoundException:
+            return 0,0
 
+
+    def dismissRandomEvent(self,x,y):
+        """
+        rightclick
+        find "dismiss"
+        click dismiss
+        """
+        self.mouse.mouseClick(x,y,but="right")
+        x,y = self.findDismiss()
+
+        if x == 0 and y == 0:
+            logger.info("dismiss not found, someone elses randomevent, returning to normal function")
+        else:
+            self.mouse.moveMouseToArea(x,y,areaVariance=5,bezier=True)
+            sleep(round(recursiveTruncateRandGauss(0.6,0.05,0.7,0.5),4))
+            self.mouse.mouseClick(x,y)
+            logger.info("dismissed random event")
 
     def verifyRandomEventNPC(self):
         """
         check against the list of all the random event names, if it's one of them return true
         """
-
         hoverTextRegion = (8,31,200,20)
         l,t,w,h = hoverTextRegion
 
@@ -43,13 +64,14 @@ class RandomEventHandler():
 
     def findRandomEventNPC(self):
         try:
-            print("going in her")
             x,y = self.mouse.findColorsIteratively(NPC_HIGHLIGHTCOLOR)
-            print("from find random event npc:",x,y)
             return x,y
         except TypeError:
             logger.debug("Random Event NPC not found")
             return 0,0
+        
+    def checkWhenLastChecked(self):
+        pass
 
     def randomEventHandler(self):
         """
@@ -61,6 +83,18 @@ class RandomEventHandler():
 
         need to enable "remove others menu option" from random event plugin
         """
+        
+        """
+        maybe better to only check in an area around me like lets say 2 loops in the find image iteratively
+        """
+
+        """
+        if last check was not mine
+        don't check again for 2 mins, if mine does show up, it will look lik
+        if the random event was mine don't check for another 8 mins
+        """
+
+
         x,y = self.findRandomEventNPC()
         print(x,y)
         if x > 1 or y > 1:
@@ -74,12 +108,12 @@ class RandomEventHandler():
             return False
 
 def main():
-    sleep(1)
+    sleep(2)
     m =  Mouse()
     reh = RandomEventHandler(m)
-    x,y = reh.findRandomEventNPC()
-    print(x,y)
-    reh.randomEventHandler()
+    while True:
+        reh.randomEventHandler()
+        sleep(0.6)
     pass
 
 if __name__ == "__main__":
