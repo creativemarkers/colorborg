@@ -1,11 +1,13 @@
 import logging
 from mouseFunctions import Mouse
-from time import sleep
-from utils.fernsUtils import recursiveTruncateRandGauss
+from time import sleep, time
+from utils.fernsUtils import recursiveTruncateRandGauss, getElapsedTime
 from verification import getText, verifyText
 from pyautogui import ImageNotFoundException
 logger = logging.getLogger(__name__)
 
+CHECKTIMER_FALSEPOSITIVE =  180
+CHECKTIMER_POSITIVE = 600
 NPC_HIGHLIGHTCOLOR = (0,255,255)
 RANDOM_EVENT_NPCNAMES = [
     "Bee Keeper", "Capt' Arnav", "Niles", "Miles", "Giles", 
@@ -16,10 +18,14 @@ RANDOM_EVENT_NPCNAMES = [
     "Strange Plant", "Dunce", "Mr. Mordaut"
 ]
 
+
+
 class RandomEventHandler():
 
     def __init__(self, mouse:Mouse):
         self.mouse = mouse
+        self.lastEventWasLocal = None
+        self.lastTimeChecked = time()
 
 
     def findDismiss(self):
@@ -47,6 +53,8 @@ class RandomEventHandler():
             sleep(round(recursiveTruncateRandGauss(0.6,0.05,0.7,0.5),4))
             self.mouse.mouseClick(x,y)
             logger.info("dismissed random event")
+            self.lastEventWasLocal = True
+            self.lastTimeChecked = time()
 
     def verifyRandomEventNPC(self):
         """
@@ -60,6 +68,9 @@ class RandomEventHandler():
         for name in RANDOM_EVENT_NPCNAMES:
             if verifyText(potentialNPCname, name):
                 return True
+            
+        self.lastEventWasLocal = False
+        self.lastTimeChecked = time()
         return False
 
     def findRandomEventNPC(self):
@@ -70,20 +81,24 @@ class RandomEventHandler():
             logger.debug("Random Event NPC not found")
             return 0,0
         
-    def checkWhenLastChecked(self):
-        pass
+    def canCheckForEvent(self)->bool:
+        print(getElapsedTime(self.lastTimeChecked))
+        if self.lastEventWasLocal == None:
+            return True
+        if self.lastEventWasLocal == True and getElapsedTime(self.lastTimeChecked) >= CHECKTIMER_POSITIVE:
+            return True
+        elif self.lastEventWasLocal == False and getElapsedTime(self.lastTimeChecked) >= CHECKTIMER_FALSEPOSITIVE:
+            return True
+        else:
+            return False
 
     def randomEventHandler(self):
         """
-        randomEvents happen about once an hour
-        check if within 15mins of last check
-        check for pixels matching
-        if not continue
         decide if we should act afk or not
 
         need to enable "remove others menu option" from random event plugin
         """
-        
+
         """
         maybe better to only check in an area around me like lets say 2 loops in the find image iteratively
         """
@@ -94,18 +109,22 @@ class RandomEventHandler():
         if the random event was mine don't check for another 8 mins
         """
 
-
-        x,y = self.findRandomEventNPC()
-        print(x,y)
-        if x > 1 or y > 1:
-            x,y=self.mouse.moveMouseToArea(x,y,areaVariance=5,bezier=True)
-            sleep(round(recursiveTruncateRandGauss(0.6,0.05,0.7,0.5),4))
-            if self.verifyRandomEventNPC():
-                self.dismissRandomEvent(x,y)
-                return True
+        if not self.canCheckForEvent():
+            logger.debug("not checking for event too little time has passed")
+            print("not checking for event")
         else:
-            print("random event not found")
-            return False
+            logger.info("checking for random event")
+            x,y = self.findRandomEventNPC()
+            print(x,y)
+            if x > 1 or y > 1:
+                x,y=self.mouse.moveMouseToArea(x,y,areaVariance=5,bezier=True)
+                sleep(round(recursiveTruncateRandGauss(0.6,0.05,0.7,0.5),4))
+                if self.verifyRandomEventNPC():
+                    self.dismissRandomEvent(x,y)
+                    return True
+            else:
+                print("random event not found")
+                return False
 
 def main():
     sleep(2)
@@ -113,7 +132,7 @@ def main():
     reh = RandomEventHandler(m)
     while True:
         reh.randomEventHandler()
-        sleep(0.6)
+        sleep(1)
     pass
 
 if __name__ == "__main__":

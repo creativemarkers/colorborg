@@ -75,7 +75,11 @@ def calculateDaysSinceAD1(y:int=None,m:int=None,d:int=None,date:str=None)->int:
             monthsInDays += amountOfDaysinMonth[i]
 
     return yearsInDays + monthsInDays + day
-        
+
+def getElapsedTime(startTime):
+    currentTime =  time.time()
+    return currentTime - startTime
+
 def main():
     """
            `
@@ -114,10 +118,16 @@ FOR THE MINDFUL TESTERS
     # plt.bar(clicks.keys(),clicks.values(),align="center")
     # plt.show()
 
-    result = calculateDaysSinceAD1("2024_06_07")
+    # result = calculateDaysSinceAD1("2024_06_07")
     
-    print(result)
-    # testRange()
+    # print(result)
+    # # testRange()
+
+    start = time.time()
+    time.sleep(1)
+    res = getElapsedTime(start)
+    print(res)
+
 
 if __name__ == "__main__":
     main()
