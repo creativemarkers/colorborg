@@ -14,6 +14,7 @@ from camera import Camera
 from pyautogui import ImageNotFoundException
 from universalMethods import Uni
 from runeliteAPI import RuneLiteApi
+from randomEventHandler import RandomEventHandler
 
 pyautogui.MINIMUM_DURATION = 0.05
 
@@ -35,6 +36,7 @@ class Fisher:
     running = True
     uni = Uni()
     skillFishIconCords = (853,632)
+    randomEventHandler = RandomEventHandler(mouse)
 
     api = RuneLiteApi()
 
@@ -258,6 +260,7 @@ class ShrimpFisher(Fisher):
                   
                 while self.shouldFishingLoopRun():
                     self.verifyGUIRunning()
+                    self.randomEventHandler.randomEventHandler()
                     self.fishWithImg(self.shrimpSpotImg, self.fishingSpotVerificationString, self.verificationStringRegion, self.smallNetFishingAnimationID)
                     self.infoGUI.scriptStatus = "Fishing"
                     # self.uni.moveMouseOffScreen()
@@ -392,11 +395,15 @@ class FlyFisher(Fisher):
 
             updateGuiStatus("Checking Run Status")
 
+
             self.uni.runner(self.api)
 
             updateGuiStatus("Checking Inventory")
 
             while self.shouldCoreLoopRun():
+
+                self.randomEventHandler.randomEventHandler()
+
                 try:
                     self.fishWithImg(self.flyFishingSpotImg, self.ffRightClickImg, self.flyfishingSpotVerificationString, self.stringVerificationRegion, self.ffAnimationID)
                 except TypeError:

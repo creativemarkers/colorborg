@@ -27,7 +27,6 @@ class RandomEventHandler():
         self.lastEventWasLocal = None
         self.lastTimeChecked = time()
 
-
     def findDismiss(self):
         dismissImgPath = "img/randomEventDismiss.png"
         try:
@@ -35,7 +34,6 @@ class RandomEventHandler():
             return x,y
         except ImageNotFoundException:
             return 0,0
-
 
     def dismissRandomEvent(self,x,y):
         """
@@ -48,6 +46,8 @@ class RandomEventHandler():
 
         if x == 0 and y == 0:
             logger.info("dismiss not found, someone elses randomevent, returning to normal function")
+            self.lastEventWasLocal = False
+            self.lastTimeChecked = time()
         else:
             self.mouse.moveMouseToArea(x,y,areaVariance=5,bezier=True)
             sleep(round(recursiveTruncateRandGauss(0.6,0.05,0.7,0.5),4))
@@ -110,7 +110,7 @@ class RandomEventHandler():
         """
 
         if not self.canCheckForEvent():
-            logger.debug("not checking for event too little time has passed")
+            logger.debug("not checking for radnom event too little time has passed since last check")
             print("not checking for event")
         else:
             logger.info("checking for random event")

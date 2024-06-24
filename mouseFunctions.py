@@ -190,7 +190,7 @@ class Mouse:
                 screenShotRegion = (tLX,tLY,sizeX,sizeY)
                 i += 1
 
-    @measureTime
+    # @measureTime
     def findColorsFast(self, colorToFind:tuple, desiredRegion:tuple):
         #note!!! the elements in matching pixels are reversed so instead of getting x,y it gives us y,x
         #this method searches pixels left to right, bad for human likeness and overall behavior
@@ -226,7 +226,7 @@ class Mouse:
                 break
         return matchingPixel
     
-    @measureTime
+    # @measureTime
     def findColorsIteratively(self, colorToFind:tuple, maxCords:tuple=(687,725), expandAmount:int=100):
         """
         taking a long time with find colorsRandomly approximately(1-1.5seconds worst case)
